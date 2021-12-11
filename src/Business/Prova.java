@@ -70,4 +70,5 @@ public class Prova {
     public void setQuartil(String quartil) {
         this.quartil = quartil;
     }
+
 }
