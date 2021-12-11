@@ -1,10 +1,6 @@
 package Persistance;
 
 import Business.Edicio;
-import Business.Jugador;
-
-import java.beans.PersistenceDelegate;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -31,22 +27,21 @@ public class DAOEdicio {
     }
 
 
-    public ArrayList<Edicio> leerEdiciones(){
+    public ArrayList<Edicio> leerEdiciones() {
         ArrayList<Edicio> ediciones = new ArrayList<>();
         try {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
-            for (String line:fileContent) {
+            for (String line : fileContent) {
                 String[] tmp = line.split(",");
-                //esto esta mal PUTAS COMAS DE MIERDA
                 String[] jugadores = tmp[3].replace("]", "").replace("[", "").split(";");
                 String[] pruebas = tmp[4].replace("]", "").replace("[", "").split(";");
-                ediciones.add(new Edicio(Integer.valueOf(tmp[0]), Integer.valueOf(tmp[1]), Integer.valueOf(tmp[2]), daojugador.getJugadoresPorID(jugadores), daoProva.getPruebasPorIDs(pruebas), Integer.valueOf(tmp[5])));
+                ediciones.add(new Edicio(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2]), daojugador.getJugadoresPorID(jugadores), daoProva.getPruebasPorIDs(pruebas), Integer.parseInt(tmp[5])));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return ediciones;
-
+    }
 
     public void guardarEdiciones(ArrayList<String> ediciones){
         for (String e:ediciones) {
@@ -57,6 +52,4 @@ public class DAOEdicio {
             }
         }
     }
-
-
 }

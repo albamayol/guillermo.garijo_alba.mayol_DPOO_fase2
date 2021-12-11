@@ -1,7 +1,5 @@
 package Persistance;
 
-import Business.Edicio;
-import Business.Jugador;
 import Business.Prova;
 
 import java.io.IOException;
@@ -41,7 +39,7 @@ public class DAOProva {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
-                pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.valueOf(tmp[3]), Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5]), Boolean.valueOf(tmp[6])));
+                pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), Boolean.parseBoolean(tmp[6])));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,7 +54,7 @@ public class DAOProva {
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
                 for (String s: a) {
-                    if(a.equals(tmp[0])){
+                    if(s.equals(tmp[0])){
                         pruebas.add(new Prova());
                     }
                 }

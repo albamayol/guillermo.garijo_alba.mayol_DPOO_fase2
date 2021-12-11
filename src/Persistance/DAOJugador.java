@@ -1,6 +1,5 @@
 package Persistance;
 
-import Business.Edicio;
 import Business.Jugador;
 
 import java.io.IOException;
@@ -55,7 +54,7 @@ public class DAOJugador {
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
                 for (String s: a) {
-                    if(a.equals(tmp[0])){
+                    if(s.equals(tmp[0])){
                         jugadores.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
                     }
                 }

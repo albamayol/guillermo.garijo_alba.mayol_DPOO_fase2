@@ -1,13 +1,8 @@
 package Business;
 
 import Persistance.DAOEdicio;
-import Persistance.DAOJugador;
-import Persistance.DAOProva;
-
-import java.lang.reflect.Array;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 
 public class EdicionsManager {

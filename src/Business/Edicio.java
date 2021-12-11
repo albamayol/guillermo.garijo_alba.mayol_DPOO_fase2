@@ -10,7 +10,6 @@ public class Edicio implements Cloneable {
     private ArrayList<Prova> proves;
     private int ultimaProva;
 
-
     public Edicio(int any, int numInicialJugadors, int numProves, ArrayList<Jugador> jugadors, ArrayList<Prova> proves) {
         this.any = any;
         this.numInicialJugadors = numInicialJugadors;
@@ -47,16 +46,16 @@ public class Edicio implements Cloneable {
     }
 
     public String edicionToCSV(){
-        String tmp =  this.any + "," + this.numInicialJugadors + "," + this.numProves + ",[";
+        StringBuilder tmp = new StringBuilder(this.any + "," + this.numInicialJugadors + "," + this.numProves + ",[");
         for (Prova p: proves) {
-            tmp+= p.getNomProva()+";";
+            tmp.append(p.getNomProva()).append(";");
         }
-        tmp+="],[";
+        tmp.append("],[");
         for (Jugador j: jugadors) {
-            tmp+=String.valueOf(j.getId()) + ";";
+            tmp.append((j.getId())).append(";");
         }
-        tmp+="]" + String.valueOf(this.ultimaProva);
-        return tmp;
+        tmp.append("]").append((this.ultimaProva));
+        return tmp.toString();
     }
 
 }
