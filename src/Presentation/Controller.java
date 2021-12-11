@@ -1,16 +1,25 @@
 package Presentation;
 
+import Business.EdicionsManager;
+import Business.JugadorManager;
+import Business.Prova;
 import Business.ProvesManager;
 
 import java.util.ArrayList;
 
 public class Controller {
     private UIManager ui;
+
+    private EdicionsManager em;
+
     private ProvesManager pmanager;
 
     public Controller(){
         this.ui = new UIManager();
-        this.pmanager = new ProvesManager();
+
+        this.pmanager=new ProvesManager();
+        this.em=new EdicionsManager();
+
     }
 
     public void run() {
@@ -21,7 +30,11 @@ public class Controller {
                 while (!exit) {
                     switch (ui.menuCompositor()) {
                         case 1:
+
+                            //ProvesManager pmanager = new ProvesManager();
+
                             ArrayList<String> nomsProves = new ArrayList<>();
+
                             while (!exit) {
                                 switch (ui.menuProves()) {
                                     case 'a':

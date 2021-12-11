@@ -5,6 +5,20 @@ public class Jugador {
     private int PI;
     private int id;
 
+    public Jugador(String nom, int PI, int id) {
+        this.nom = nom;
+        this.PI = PI;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String toCSV(){
+        return "" + this.id + "," + this.nom + "," + this.PI;
+    }
+
     public void incrementaPI() {
         this.PI++;
     }

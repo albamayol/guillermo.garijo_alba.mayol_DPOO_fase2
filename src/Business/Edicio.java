@@ -46,4 +46,17 @@ public class Edicio implements Cloneable {
         return new Edicio(this.any, this.numInicialJugadors, this.numProves, (ArrayList<Jugador>) this.jugadors.clone(), (ArrayList<Prova>) this.proves.clone(), 0);
     }
 
+    public String edicionToCSV(){
+        String tmp =  this.any + "," + this.numInicialJugadors + "," + this.numProves + ",[";
+        for (Prova p: proves) {
+            tmp+= p.getNomProva()+";";
+        }
+        tmp+="],[";
+        for (Jugador j: jugadors) {
+            tmp+=String.valueOf(j.getId()) + ";";
+        }
+        tmp+="]" + String.valueOf(this.ultimaProva);
+        return tmp;
+    }
+
 }

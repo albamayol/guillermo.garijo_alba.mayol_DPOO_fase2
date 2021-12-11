@@ -21,6 +21,21 @@ public class Prova {
         this.tipus = "";
     }
 
+    public Prova(String nomProva, String nomRevista, String quartil, int probabilitatAccepta, int probabilitatRevisions, int probabilitatRebutja, boolean us) {
+        this.nomProva = nomProva;
+        this.nomRevista = nomRevista;
+        this.quartil = quartil;
+        this.probabilitatAccepta = probabilitatAccepta;
+        this.probabilitatRevisions = probabilitatRevisions;
+        this.probabilitatRebutja = probabilitatRebutja;
+        this.us = us;
+    }
+
+    public String pruebaToCSV(){
+        return "" + this.nomProva + "," + this.nomRevista +"," + this.quartil +"," + this.probabilitatAccepta +"," + this.probabilitatRebutja +"," +
+                this.probabilitatRevisions +"," + this.us;
+    }
+
     public int getProbabilitatAccepta() {
         return probabilitatAccepta;
     }
