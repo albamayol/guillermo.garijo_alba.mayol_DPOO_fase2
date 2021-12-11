@@ -16,4 +16,8 @@ public class Jugador {
     public int getPI() {
         return PI;
     }
+
+    public boolean esJugador(String name){
+        return this.nom.equals(name);
+    }
 }
