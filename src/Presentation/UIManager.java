@@ -1,5 +1,7 @@
 package Presentation;
 
+import Business.Prova;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -149,6 +151,7 @@ public class UIManager {
                 num = scanner.nextInt();
                 scanner.nextLine();
             } catch (InputMismatchException e) {
+                scanner.nextLine();
                 System.out.println("ERROR. Input Missmatch Exception\n");
                 continue;
             }
@@ -157,11 +160,11 @@ public class UIManager {
         return num;
     }
 
-    public int menuLlistaProves(ArrayList<String> proves) {
-        System.out.println("Here are the current trials, do you want to see more details or go back?\n");
+    public int menuLlistaProves(ArrayList<String> proves, String message) {
+        System.out.println(message);
         for (int i = 0; i < proves.size(); i++) {
             System.out.println("\t");
-            System.out.println(i + 1 + ") " + proves.get(i) + "\n");
+            System.out.println(i + 1 + ") " + proves.get(i));
         }
         System.out.println("\t");
         System.out.println(proves.size() + 1 + ") Back\n");
@@ -169,15 +172,38 @@ public class UIManager {
         int num;
         while (true) {
             num = uiManager.askForInt("Enter an option: ");
-            if (num > proves.size() || num < 1) {
+            if (num > proves.size() + 1 || num <= 0) {
                 uiManager.showMessage("ERROR. " + num + " is not an option. Try again.\n");
             } else {
                 break;
             }
         }
-
         return num;
     }
 
+    public void llistaProva(ArrayList<Prova> proves, int i) {
+        if (i < proves.size()) {
+            System.out.println("Trial: " + proves.get(i).getNomProva() + " (" + proves.get(i).getTipus() + ")");
+            System.out.println("Journal: " + proves.get(i).getNomRevista() + " (" + proves.get(i).getQuartil() + ")");
+            System.out.println("Chances: " + proves.get(i).getProbabilitatAccepta() + "% acceptance, " + proves.get(i).getProbabilitatRevisions() + "% revision, " + proves.get(i).getProbabilitatRebutja() + "% rejection");
+        }
+    }
+
+    public int trialNameConfirmation(ArrayList<Prova> proves, int i) {
+        UIManager uiManager = new UIManager();
+        if (i <= proves.size()) {
+            String name = uiManager.askForString("Enter the trial's name for confirmation: ");
+            if (proves.get(i-1).getNomProva().equals(name)) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        if (i == proves.size() + 1) {
+            return 2;
+        }
+        return 0;
+    }
 
 }

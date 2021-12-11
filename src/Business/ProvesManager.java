@@ -19,6 +19,7 @@ public class ProvesManager {
         return daoProva;
     }
 
+
     //metodo para guardar pruebas al csv
     public void guardarPruebas(){
         ArrayList<String> pruebas=new ArrayList<>();
@@ -28,7 +29,8 @@ public class ProvesManager {
         daoProva.guardarPruebas(pruebas);
     }
 
-    public boolean creaProva(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
+    public boolean creaProva(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb, String tipus) {
+
         boolean error = false;
         boolean repetit = false;
         Prova prova = new Prova();
@@ -50,6 +52,7 @@ public class ProvesManager {
                         prova.setProbabilitatRevisions(revisionProb);
                         if ((rejectionProb >= 0 && rejectionProb <= 100) && (acceptanceProb + revisionProb + rejectionProb == 100)) {
                             prova.setProbabilitatRebutja(rejectionProb);
+                            prova.setTipus(tipus);
                             //una vegada es comproven tots el paràmetres i són correctes, afegim la prova al array
                             proves.add(prova);
                         } else {
@@ -71,4 +74,9 @@ public class ProvesManager {
     public ArrayList<Prova> llistaProves() {
         return proves;
     }
+
+    public void eliminaProva(int i) {
+        proves.remove(i);
+    }
+
 }

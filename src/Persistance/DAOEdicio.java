@@ -30,6 +30,7 @@ public class DAOEdicio {
         }
     }
 
+
     public ArrayList<Edicio> leerEdiciones(){
         ArrayList<Edicio> ediciones = new ArrayList<>();
         try {
@@ -45,7 +46,7 @@ public class DAOEdicio {
             e.printStackTrace();
         }
         return ediciones;
-    }
+
 
     public void guardarEdiciones(ArrayList<String> ediciones){
         for (String e:ediciones) {
