@@ -1,14 +1,33 @@
 package Business;
 
+import Persistance.DAOProva;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProvesManager {
     private ArrayList<Prova> proves;
 
+    private DAOProva daoProva;
+
     public ProvesManager() {
         this.proves = new ArrayList<>();
+        this.daoProva=new DAOProva("añadir path");
     }
+
+    public DAOProva getDaoProva() {
+        return daoProva;
+    }
+
+    //metodo para guardar pruebas al csv
+    public void guardarPruebas(){
+        ArrayList<String> pruebas=new ArrayList<>();
+        for (Prova p:proves) {
+            pruebas.add(p.pruebaToCSV());
+        }
+        daoProva.guardarPruebas(pruebas);
+    }
+
     public boolean creaProva(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
         boolean error = false;
         boolean repetit = false;

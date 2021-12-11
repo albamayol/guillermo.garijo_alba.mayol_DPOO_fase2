@@ -1,5 +1,9 @@
 package Business;
 
+import Persistance.DAOEdicio;
+import Persistance.DAOJugador;
+import Persistance.DAOProva;
+
 import java.lang.reflect.Array;
 import java.time.Year;
 import java.util.ArrayList;
@@ -11,10 +15,25 @@ public class EdicionsManager {
     private ArrayList<Edicio> ediciones;
     private int currentYear;
     private JugadorManager jm;
+    private ProvesManager pm;
+    private DAOEdicio daoEdicio;
 
     public EdicionsManager() {
-        this.ediciones = new ArrayList<>();
+        this.jm= new JugadorManager();
+        this.pm=new ProvesManager();
+        this.ediciones = daoEdicio.leerEdiciones();
         this.currentYear= Year.now().getValue();
+        this.daoEdicio=new DAOEdicio(jm.getDaoJugador(), pm.getDaoProva(), "AÑADIR EL PATH");
+    }
+
+    //metodo para guardar las ediciones antes de cerrar el programa
+    public void edicionesToCSV(){
+        ArrayList<String> aGuardar = new ArrayList<>();
+        for (Edicio e:ediciones) {
+            aGuardar.add(e.edicionToCSV());
+        }
+        daoEdicio.guardarEdiciones(aGuardar);
+        jm.guardarJugadores();
     }
 
 
