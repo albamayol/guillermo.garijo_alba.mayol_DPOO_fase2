@@ -31,9 +31,9 @@ public class DAOEdicio {
         }
     }
 
-    public ArrayList<Edicio> leerEdiciones(){
+    /*public  ArrayList<Edicio> leerEdiciones(){
 
-    }
+    }*/
 
     public void guardarEdiciones(ArrayList<Edicio> ediciones){
 

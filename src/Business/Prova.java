@@ -8,6 +8,7 @@ public class Prova {
     private int probabilitatRevisions;
     private int probabilitatRebutja;
     private boolean us;
+    private String tipus;
 
     public Prova(){
         this.nomProva = "";
@@ -17,6 +18,7 @@ public class Prova {
         this.probabilitatRevisions = 0;
         this.probabilitatRebutja = 0;
         this.us = false;
+        this.tipus = "";
     }
 
     public int getProbabilitatAccepta() {
@@ -41,6 +43,10 @@ public class Prova {
 
     public String getQuartil() {
         return quartil;
+    }
+
+    public String getTipus() {
+        return tipus;
     }
 
     public void setUs(boolean us) {
@@ -71,4 +77,7 @@ public class Prova {
         this.quartil = quartil;
     }
 
+    public void setTipus(String tipus) {
+        this.tipus = tipus;
+    }
 }
