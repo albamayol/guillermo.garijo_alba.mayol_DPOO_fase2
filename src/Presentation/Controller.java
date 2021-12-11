@@ -1,36 +1,53 @@
 package Presentation;
 
-import Business.CompositorManager;
+import Business.ProvesManager;
+
+import java.util.ArrayList;
 
 public class Controller {
+    private UIManager ui;
 
-    public static void run() {
+    public Controller(){
+        this.ui = new UIManager();
+    }
 
-        switch (UIManager.menuPrincipal()) {
+    public void run() {
+
+        switch (ui.menuPrincipal()) {
             case 'A':
                 boolean exit = false;
                 while (!exit) {
-                    switch (UIManager.menuCompositor()) {
+                    switch (ui.menuCompositor()) {
                         case 1:
+                            ProvesManager pmanager = new ProvesManager();
                             while (!exit) {
-                                switch (UIManager.menuProves()) {
+                                switch (ui.menuProves()) {
                                     case 'a':
-                                        if (UIManager.chooseTrial() == 1) {
+                                        if (ui.chooseTrial() == 1) {
                                             System.out.println("hola\n");
-                                            /*String = */ UIManager.askForString("Enter the trial's name: ");
-                                            /*String = */ UIManager.askForString("Enter the journal's name: ");
-                                            /*String = */ UIManager.askForString("Enter the journal's quartile: ");
-                                            /*int = */ UIManager.askForInt("Enter the acceptance probability: ");
-                                            /*int = */ UIManager.askForInt("Enter the revision probability: ");
-                                            /*int = */ UIManager.askForInt("Enter the rejection probability: ");
-
+                                            while(true) {
+                                                boolean error = pmanager.creaProva(ui.askForString("Enter the trial's name: "), ui.askForString("Enter the journal's name: "), ui.askForString("Enter the journal's quartile: "), ui.askForInt("Enter the acceptance probability: "), ui.askForInt("Enter the revision probability: "), ui.askForInt("Enter the rejection probability: "));
+                                                if (error) {
+                                                    ui.showMessage("ERROR. data entered not correct. Try again.\n");
+                                                    continue;
+                                                }
+                                                break;
+                                            }
+                                            ui.showMessage("The trial was created successfully!\n");
+                                        }
+                                        break;
+                                    case 'b':
+                                        ArrayList<String> nomsProves = new ArrayList<>();
+                                        for (int i = 0; i < pmanager.llistaProves().size(); i++) {
+                                            nomsProves.add(pmanager.llistaProves().get(i).getNomProva());
+                                        }
+                                        if (nomsProves.isEmpty()) {
+                                            ui.showMessage("ERROR. There are no Trials created.\n");
+                                        } else {
+                                            ui.menuLlistaProves(nomsProves);
                                         }
                                         //temporal:
                                         //exit = true;
-                                        break;
-                                    case 'b':
-                                        //temporal:
-                                        exit = true;
                                         break;
                                     case 'c':
                                         //temporal:
@@ -49,7 +66,7 @@ public class Controller {
                             exit = true;
                             break;
                         case 3:
-                            UIManager.shutDownMsg();
+                            ui.shutDownMsg();
                             exit = true;
                             break;
                     }

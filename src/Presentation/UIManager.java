@@ -1,11 +1,15 @@
 package Presentation;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UIManager {
 
-    public static char menuPrincipal() {
+    public UIManager() {
+    }
+
+    public char menuPrincipal() {
         System.out.println("""
                 ____ _            ____       _       _
                /__  \\ |__   ___  /__  \\_ __ (_) __ _| |___
@@ -34,11 +38,11 @@ public class UIManager {
         return opt;
     }
 
-    public static char stringOfOneToChar(String string) {
+    public char stringOfOneToChar(String string) {
         return string.charAt(0);
     }
 
-    public static int menuCompositor() {
+    public int menuCompositor() {
         System.out.println("Entering management mode...\n");
         System.out.println("\t1) Manage Trials\n\t2) Manage Editions\n\n\t3) Exit\n");
         Scanner scanner = new Scanner(System.in);
@@ -64,7 +68,7 @@ public class UIManager {
         return op;
     }
 
-    public static char menuProves() {
+    public char menuProves() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\ta) Create Trial\n\tb) List Trials\n\tc) Delete Trial\n\n\td) Back\n");
 
@@ -85,7 +89,7 @@ public class UIManager {
         return op;
     }
 
-    public static int chooseTrial() {
+    public int chooseTrial() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t--- Trial types ---\n");
         System.out.println("\t1) Paper publication\n");
@@ -112,11 +116,15 @@ public class UIManager {
 
     }
 
-    public static void shutDownMsg() {
+    public void shutDownMsg() {
         System.out.println("Shutting down...");
     }
 
-    public static String askForString(String message) {
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    public String askForString(String message) {
         Scanner sc = new Scanner(System.in);
         String s;
         while (true) {
@@ -132,7 +140,7 @@ public class UIManager {
         return s;
     }
 
-    public static int askForInt(String message) {
+    public int askForInt(String message) {
         Scanner scanner = new Scanner(System.in);
         int num;
         while (true) {
@@ -146,6 +154,28 @@ public class UIManager {
             }
             break;
         }
+        return num;
+    }
+
+    public int menuLlistaProves(ArrayList<String> proves) {
+        System.out.println("Here are the current trials, do you want to see more details or go back?\n");
+        for (int i = 0; i < proves.size(); i++) {
+            System.out.println("\t");
+            System.out.println(i + 1 + ") " + proves.get(i) + "\n");
+        }
+        System.out.println("\t");
+        System.out.println(proves.size() + 1 + ") Back\n");
+        UIManager uiManager = new UIManager();
+        int num;
+        while (true) {
+            num = uiManager.askForInt("Enter an option: ");
+            if (num > proves.size() || num < 1) {
+                uiManager.showMessage("ERROR. " + num + " is not an option. Try again.\n");
+            } else {
+                break;
+            }
+        }
+
         return num;
     }
 

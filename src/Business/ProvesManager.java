@@ -6,6 +6,9 @@ import java.util.Objects;
 public class ProvesManager {
     private ArrayList<Prova> proves;
 
+    public ProvesManager() {
+        this.proves = new ArrayList<>();
+    }
     public boolean creaProva(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
         boolean error = false;
         boolean repetit = false;
@@ -46,7 +49,7 @@ public class ProvesManager {
         return error;
     }
 
-    public void llistaProves() {
-
+    public ArrayList<Prova> llistaProves() {
+        return proves;
     }
 }
