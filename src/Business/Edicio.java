@@ -42,9 +42,8 @@ public class Edicio {
         for (Jugador j:jugadors) {
             resultados.add(proves.get(ultimaProva).ejecutarPrueba());
         }
-
         for (ArrayList<Integer> rj:resultados) {
-            c=0;
+
             for (Integer valor : rj) {
                 if (valor.intValue() == 1) {
                     switch (proves.get(ultimaProva).getQuartil()){
@@ -77,8 +76,8 @@ public class Edicio {
                             break;
                     }
                 }
-                c++;
             }
+            c++;
         }
         for(int i=0;i<jugadors.size();i++){
             if(jugadors.get(i).pisCero()){

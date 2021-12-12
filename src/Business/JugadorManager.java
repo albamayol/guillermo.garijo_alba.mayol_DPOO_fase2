@@ -14,9 +14,9 @@ public class JugadorManager {
         jugadores= daoJugador.leerJugadores();
     }
 
-    public void guardarJugadores(){
+    public void guardarJugadores(ArrayList<Jugador> a){
         ArrayList<String> jugadoresCSV =new ArrayList<>();
-        for (Jugador j:jugadores) {
+        for (Jugador j:a) {
             jugadoresCSV.add(j.toCSV());
         }
         daoJugador.guardarJugadores(jugadoresCSV);

@@ -34,7 +34,7 @@ public class DAOJugador {
         }
         for (String e:jugadores) {
             try {
-                Files.writeString(path, e, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.writeString(path, e + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
