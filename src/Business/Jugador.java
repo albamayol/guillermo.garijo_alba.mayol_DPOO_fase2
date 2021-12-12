@@ -4,11 +4,17 @@ public class Jugador {
     private String nom;
     private int PI;
     private int id;
+    private static int ids=0;
 
     public Jugador(String nom, int PI, int id) {
         this.nom = nom;
         this.PI = PI;
         this.id = id;
+    }
+
+    public static Jugador crearJugador(String name, int PI){
+        ids++;
+        return new Jugador(name, PI, ids);
     }
 
     public int getId() {

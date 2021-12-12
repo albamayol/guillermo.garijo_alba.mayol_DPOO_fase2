@@ -43,6 +43,7 @@ public class Prova {
             //se acepta
             if(num<=probabilitatAccepta){
                 resultados.add(1);
+                roa=true;
             }
             //se revisa
             if(num>probabilitatAccepta && num<=(probabilitatRevisions+probabilitatAccepta)){
@@ -51,6 +52,7 @@ public class Prova {
             //se rechaza
             if(num>(probabilitatRevisions+probabilitatAccepta) && num<=((probabilitatRevisions+probabilitatAccepta + probabilitatRebutja))){
                 resultados.add(2);
+                roa=true;
             }
         }
         return resultados;
