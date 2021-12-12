@@ -105,7 +105,7 @@ public class EdicionsManager {
     public void añadirJugador(String name){
         for (Edicio e:ediciones) {
             if(e.esEdicion(currentYear)){
-                e.addJugador(Jugador.crearJugador(name, 0));
+                e.addJugador(Jugador.crearJugador(name, 10));
             }
         }
     }

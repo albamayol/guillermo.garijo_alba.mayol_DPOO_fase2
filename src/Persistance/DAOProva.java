@@ -66,6 +66,7 @@ public class DAOProva {
                     for (String s: a) {
                         if(s.equals(tmp[0])){
                             pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5]), Boolean.valueOf(tmp[6])));
+                            break;
                         }
                     }
                 }

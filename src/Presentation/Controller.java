@@ -221,7 +221,7 @@ public class Controller {
                             int j = 1;
                             for (int i = 0; i < edicio.getProves().size(); i++) {
                                 ui.showMessage("Trial #" + j + " - " + edicio.getProves().get(i).getNomProva());
-                                ArrayList<ArrayList<Integer>> arrayExecucio = edicio.ejecutarPrueba();
+                                ArrayList<ArrayList<Integer>> arrayExecucio = em.ejecutarPrueba();
                                 ui.executa(arrayExecucio, edicio);
                                 j++;
 

@@ -40,10 +40,11 @@ public class Edicio {
         int c=0;
         ArrayList<ArrayList<Integer>> resultados = new ArrayList<>();
         for (Jugador j:jugadors) {
-            resultados.add(proves.get(ultimaProva+1).ejecutarPrueba());
-            ultimaProva++;
+            resultados.add(proves.get(ultimaProva).ejecutarPrueba());
         }
+
         for (ArrayList<Integer> rj:resultados) {
+            c=0;
             for (Integer valor : rj) {
                 if (valor.intValue() == 1) {
                     switch (proves.get(ultimaProva).getQuartil()){
@@ -75,8 +76,6 @@ public class Edicio {
                             jugadors.get(c).modificaPI(-2);
                             break;
                     }
-                } else {
-                    System.err.println("algo ha ido mal ejecutando prueba");
                 }
                 c++;
             }
@@ -87,6 +86,7 @@ public class Edicio {
                 resultados.get(i).add(4);
             }
         }
+        ultimaProva++;
         return resultados;
     }
 
