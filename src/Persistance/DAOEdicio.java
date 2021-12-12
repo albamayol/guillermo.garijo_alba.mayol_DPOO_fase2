@@ -35,8 +35,8 @@ public class DAOEdicio {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line : fileContent) {
                 String[] tmp = line.split(",");
-                String[] jugadores = tmp[3].replace("]", "").replace("[", "").split(";");
-                String[] pruebas = tmp[4].replace("]", "").replace("[", "").split(";");
+                String[] jugadores = tmp[4].replace("]", "").replace("[", "").split(";");
+                String[] pruebas = tmp[3].replace("]", "").replace("[", "").split(";");
                 ediciones.add(new Edicio(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2]), daojugador.getJugadoresPorID(jugadores), daoProva.getPruebasPorIDs(pruebas), Integer.parseInt(tmp[5])));
             }
         } catch (IOException e) {

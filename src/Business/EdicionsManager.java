@@ -32,6 +32,14 @@ public class EdicionsManager {
         return null;
     }
 
+    public ArrayList<Integer> añsProves(){
+        ArrayList<Integer> r = new ArrayList<>();
+        for (Edicio e:ediciones) {
+            r.add(e.getAny());
+        }
+        return r;
+    }
+
     //retorna true cuando el equipo se queda sin jugadores
     public boolean equipoEliminado(){
         for (Edicio e:ediciones) {
