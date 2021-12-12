@@ -16,9 +16,9 @@ public class EdicionsManager {
     public EdicionsManager() {
         this.jm= new JugadorManager();
         this.pm=new ProvesManager();
+        this.daoEdicio=new DAOEdicio(jm.getDaoJugador(), pm.getDaoProva(), "AÑADIR EL PATH");
         this.ediciones = daoEdicio.leerEdiciones();
         this.currentYear= Year.now().getValue();
-        this.daoEdicio=new DAOEdicio(jm.getDaoJugador(), pm.getDaoProva(), "AÑADIR EL PATH");
     }
 
     //metodo para guardar las ediciones antes de cerrar el programa
@@ -71,19 +71,25 @@ public class EdicionsManager {
         }
     }
 
-    public void eliminaEdicion(int año){
+    public boolean eliminaEdicion(int año){
         for(int i=0;i<ediciones.size();i++){
             if(ediciones.get(i).esEdicion(año)){
                 ediciones.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void duplicaEdicion(int año, int añoNuevo, int numJugadores){
+        for(int i=0;i<ediciones.size();i++){
+            if(ediciones.get(i).esEdicion(año)){
+                ediciones.add(ediciones.get(i).clone(añoNuevo, numJugadores));
             }
         }
     }
 
-    public void duplicaEdicion(int año){
-        for(int i=0;i<ediciones.size();i++){
-            if(ediciones.get(i).esEdicion(año)){
-                ediciones.add(ediciones.get(i).clone());
-            }
-        }
+    public Edicio retornaLastEdicion() {
+        return ediciones.get(ediciones.size()-1);
     }
 }

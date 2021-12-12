@@ -2,7 +2,7 @@ package Business;
 
 import java.util.ArrayList;
 
-public class Edicio implements Cloneable {
+public class Edicio {
     private int any;
     private int numInicialJugadors;
     private int numProves;
@@ -40,9 +40,8 @@ public class Edicio implements Cloneable {
         jugadors.add(j);
     }
 
-    @Override
-    public Edicio clone(){
-        return new Edicio(this.any, this.numInicialJugadors, this.numProves, (ArrayList<Jugador>) this.jugadors.clone(), (ArrayList<Prova>) this.proves.clone(), 0);
+    public Edicio clone(int año, int numJug){
+        return new Edicio(año, numJug, this.numProves, (ArrayList<Jugador>) this.jugadors.clone(), (ArrayList<Prova>) this.proves.clone(), 0);
     }
 
     public String edicionToCSV(){
@@ -58,4 +57,19 @@ public class Edicio implements Cloneable {
         return tmp.toString();
     }
 
+    public int getNumProves() {
+        return numProves;
+    }
+
+    public int getAny() {
+        return any;
+    }
+
+    public int getNumInicialJugadors() {
+        return numInicialJugadors;
+    }
+
+    public ArrayList<Prova> getProves() {
+        return proves;
+    }
 }
