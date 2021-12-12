@@ -34,4 +34,8 @@ public class Jugador {
     public boolean esJugador(String name){
         return this.nom.equals(name);
     }
+
+    public String getNom() {
+        return nom;
+    }
 }

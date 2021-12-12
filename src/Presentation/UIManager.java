@@ -269,4 +269,28 @@ public class UIManager {
             System.out.println(i + "- " + edicio.getProves().get(i-1).getNomProva() + " (" + edicio.getProves().get(i-1).getTipus() + ")");
         }
     }
+
+    public void executa(ArrayList<ArrayList<Integer>> arrayExecucio, Edicio edicio) {
+        for (int i = 0; i < arrayExecucio.size(); i++) {
+            System.out.println((edicio.getJugadors().get(i).getNom() + " is submitting... "));
+            for (int j = 0; j < arrayExecucio.get(i).size(); j++) {
+                switch (arrayExecucio.get(i).get(j)) {
+                    case 1:
+                        System.out.println("Accepted! ");
+                        break;
+                    case 2:
+                        System.out.println("Rejected. ");
+                        break;
+                    case 3:
+                        System.out.println("Revisions... ");
+                        break;
+                    case 4:
+                        System.out.println("- Disqualified!");
+                        break;
+                }
+            }
+            System.out.println("PI count: " + edicio.getJugadors().get(i).getPI());
+        }
+
+    }
 }

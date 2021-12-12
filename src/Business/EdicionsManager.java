@@ -22,7 +22,7 @@ public class EdicionsManager {
         this.currentYear= Year.now().getValue();
     }
 
-    //1 aceptado, 2 rechazado, 3 revisndo, 4 descalificado
+    //1 aceptado, 2 rechazado, 3 revisando, 4 descalificado
     public ArrayList<ArrayList<Integer>> ejecutarPrueba(){
         for (Edicio e:ediciones) {
             if(e.esEdicion(currentYear)){
@@ -81,6 +81,15 @@ public class EdicionsManager {
         return false;
     }
 
+    public Edicio retornEdicioSegonsAny(int any) {
+        for (Edicio e : ediciones) {
+            if (e.getAny() == any) {
+                return e;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Edicio> llistaEdicions(){
         return ediciones;
     }
@@ -111,6 +120,10 @@ public class EdicionsManager {
 
             }
         }
+    }
+
+    public int getCurrentYear() {
+        return currentYear;
     }
 
     public Edicio retornaLastEdicion() {

@@ -1,8 +1,6 @@
 package Business;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 
 public class Edicio {
 
@@ -51,23 +49,31 @@ public class Edicio {
                     switch (proves.get(ultimaProva).getQuartil()){
                         case "Q1":
                             jugadors.get(c).modificaPI(4);
+                            break;
                         case "Q2":
                             jugadors.get(c).modificaPI(3);
+                            break;
                         case "Q3":
                             jugadors.get(c).modificaPI(2);
+                            break;
                         case "Q4":
                             jugadors.get(c).modificaPI(1);
+                            break;
                     }
                 } else if (valor.intValue() == 2) {
                     switch (proves.get(ultimaProva).getQuartil()){
                         case "Q1":
                             jugadors.get(c).modificaPI(-5);
+                            break;
                         case "Q2":
                             jugadors.get(c).modificaPI(-4);
+                            break;
                         case "Q3":
                             jugadors.get(c).modificaPI(-3);
+                            break;
                         case "Q4":
                             jugadors.get(c).modificaPI(-2);
+                            break;
                     }
                 } else {
                     System.err.println("algo ha ido mal ejecutando prueba");
@@ -127,5 +133,9 @@ public class Edicio {
 
     public ArrayList<Prova> getProves() {
         return proves;
+    }
+
+    public ArrayList<Jugador> getJugadors() {
+        return jugadors;
     }
 }
