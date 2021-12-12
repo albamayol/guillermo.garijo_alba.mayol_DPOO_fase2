@@ -19,16 +19,16 @@ public class Jugador {
         return "" + this.id + "," + this.nom + "," + this.PI;
     }
 
-    public void incrementaPI() {
-        this.PI++;
-    }
-
-    public void disminueixPI() {
-        this.PI--;
+    public void modificaPI(int mod){
+        PI+=mod;
     }
 
     public int getPI() {
         return PI;
+    }
+
+    public boolean pisCero(){
+        return this.PI<=0;
     }
 
     public boolean esJugador(String name){

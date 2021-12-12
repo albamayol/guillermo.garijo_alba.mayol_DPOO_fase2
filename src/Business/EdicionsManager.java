@@ -16,9 +16,29 @@ public class EdicionsManager {
     public EdicionsManager() {
         this.jm= new JugadorManager();
         this.pm=new ProvesManager();
+        this.daoEdicio=new DAOEdicio(jm.getDaoJugador(), pm.getDaoProva(), "edicion.csv");
         this.ediciones = daoEdicio.leerEdiciones();
         this.currentYear= Year.now().getValue();
-        this.daoEdicio=new DAOEdicio(jm.getDaoJugador(), pm.getDaoProva(), "AÑADIR EL PATH");
+    }
+
+    //1 aceptado, 2 rechazado, 3 revisndo, 4 descalificado
+    public ArrayList<ArrayList<Integer>> ejecutarPrueba(){
+        for (Edicio e:ediciones) {
+            if(e.esEdicion(currentYear)){
+                return e.ejecutarPrueba();
+            }
+        }
+        return null;
+    }
+
+    //retorna true cuando el equipo se queda sin jugadores
+    public boolean equipoEliminado(){
+        for (Edicio e:ediciones) {
+            if(e.esEdicion(currentYear) && e.todosLosJugadoresEliminados()){
+                return true;
+            }
+        }
+        return false;
     }
 
     //metodo para guardar las ediciones antes de cerrar el programa
@@ -79,10 +99,10 @@ public class EdicionsManager {
         }
     }
 
-    public void duplicaEdicion(int año){
+    public void duplicaEdicion(int año, int añoNuevo, int numJug){
         for(int i=0;i<ediciones.size();i++){
             if(ediciones.get(i).esEdicion(año)){
-                ediciones.add(ediciones.get(i).clone());
+                ediciones.add(ediciones.get(i).clone(añoNuevo, numJug));
             }
         }
     }

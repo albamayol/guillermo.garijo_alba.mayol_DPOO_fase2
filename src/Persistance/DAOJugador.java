@@ -2,6 +2,7 @@ package Persistance;
 
 import Business.Jugador;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -24,9 +25,16 @@ public class DAOJugador {
     }
 
     public void guardarJugadores(ArrayList<String> jugadores){
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(path);
+            writer.write("");
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (String e:jugadores) {
             try {
-                Files.writeString(path, e, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+                Files.writeString(path, e, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

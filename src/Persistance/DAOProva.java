@@ -2,6 +2,7 @@ package Persistance;
 
 import Business.Prova;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -24,13 +25,21 @@ public class DAOProva {
     }
 
     public void guardarPruebas(ArrayList<String> a){
-        for (String e:a) {
-            try {
-                Files.writeString(path, e, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+        try{
+            BufferedWriter writer = Files.newBufferedWriter(path);
+            writer.write("");
+            writer.flush();
+            for (String e:a) {
+                try {
+                    Files.writeString(path, e + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
+        }catch (Exception e){
+            System.err.println("caca");
         }
+
     }
 
     public ArrayList<Prova> leerProva(){
