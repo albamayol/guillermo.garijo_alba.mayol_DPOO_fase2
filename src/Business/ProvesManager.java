@@ -20,7 +20,6 @@ public class ProvesManager {
         return daoProva;
     }
 
-
     //metodo para guardar pruebas al csv
     public void guardarPruebas(){
         ArrayList<String> pruebas=new ArrayList<>();

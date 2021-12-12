@@ -17,7 +17,10 @@ public class Controller {
     }
 
     public void run() {
-        ArrayList<String> nomsProves = pmanager.nomsProves();
+
+        ArrayList<String> nomsProves = new ArrayList<>();
+        ArrayList<Integer> anysEdicions = new ArrayList<>();
+
         switch (ui.menuPrincipal()) {
             case 'A':
                 boolean exit = false;
@@ -77,8 +80,117 @@ public class Controller {
                             exit = false;
                             break;
                         case 2:
-                            //temporal:
-                            exit = true;
+                            while (!exit) {
+                                switch (ui.menuGestioEdicio()) {
+                                    case 'a':
+                                        while (true) {
+                                            if (em.creaEdicioBuida(ui.askForInt("Enter the edition's year: "), ui.askForInt("Enter the initial number of players: "), ui.askForInt("Enter the number of trials: "))) {
+                                                if (!nomsProves.isEmpty()) {
+                                                    ui.showMessage("\t--- Trials ---");
+                                                    ui.mostraProves(nomsProves);
+                                                    for (int i = 1; i <= em.retornaLastEdicion().getNumProves(); i++) {
+                                                        int num = ui.askForInt("Pick a trial (" + i + "/" + em.retornaLastEdicion().getNumProves() + "): ");
+                                                        if (num > pmanager.llistaProves().size() || num <= 0) {
+                                                            ui.showMessage("ERROR. That trial does not exist.");
+                                                            i--;
+                                                        } else {
+                                                            em.añadePruebaAEdicion(pmanager.llistaProves().get(num - 1), em.retornaLastEdicion().getAny());
+                                                        }
+                                                    }
+                                                    ui.showMessage("The edition was created successfully!");
+                                                    for (int j = 0; j < em.llistaEdicions().size(); j++) {
+                                                        anysEdicions.add(em.llistaEdicions().get(j).getAny());
+                                                    }
+                                                } else {
+                                                    ui.showMessage("ERROR. There are no Trials to add.");
+                                                }
+                                            } else {
+                                                ui.showMessage("ERROR. Data entered not correct. Try again.");
+                                                continue;
+                                            }
+                                            break;
+                                        }
+                                        break;
+                                    case 'b':
+                                        if(anysEdicions.isEmpty()) {
+                                            ui.showMessage("ERROR. There are not Editions yet created.");
+                                        } else {
+                                            while (true) {
+                                                int num = ui.menuLlistaEdicions(anysEdicions, "Here are the current editions, do you want to see more details or go back?");
+                                                if (num == anysEdicions.size() + 1) {   //cas Back
+                                                    break;
+                                                } else {
+                                                    ui.mostraDetallsEdicio(em.llistaEdicions().get(num - 1));
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case 'c':
+                                        if (anysEdicions.isEmpty()){
+                                            ui.showMessage("ERROR. There are not Editions yet created.");
+                                        } else {
+                                            while (true) {
+                                                int num = ui.menuLlistaEdicions(anysEdicions, "Which edition do you want to clone?");
+                                                if (num == anysEdicions.size() + 1) {   //cas Back
+                                                    break;
+                                                } else {
+                                                    int any = em.llistaEdicions().get(num - 1).getAny();
+                                                    int anyNou;
+                                                    int numJugNou;
+                                                    while (true) {
+                                                        anyNou = ui.askForInt("Enter the new edition's year: ");
+                                                        if (anyNou <= any){
+                                                            ui.showMessage("ERROR. New year is not correct.");
+                                                        } else {
+                                                            while (true) {
+                                                                numJugNou = ui.askForInt("Enter the new edition's initial number of players: ");
+                                                                if (numJugNou < 1 || numJugNou > 5) {
+                                                                    ui.showMessage("ERROR. Number of players incorrect.");
+                                                                } else {
+                                                                    ui.showMessage("The edition was cloned successfully!");
+                                                                    em.duplicaEdicion(any, anyNou, numJugNou);
+                                                                    anysEdicions.add(anyNou);
+                                                                    break;
+                                                                }
+                                                            }
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case 'd':
+                                        if (anysEdicions.isEmpty()) {
+                                            ui.showMessage("ERROR. There are not Editions yet created.");
+                                        } else {
+                                            while (true) {
+                                                int num = ui.menuLlistaEdicions(anysEdicions, "Which edition do you want to delete?");
+                                                if (num == anysEdicions.size() + 1) {   //cas Back
+                                                    break;
+                                                } else {
+                                                    int numConfirmation = ui.askForInt("Enter the edition's year for confirmation: ");
+                                                    if (em.eliminaEdicion(numConfirmation)) {
+                                                        ui.showMessage("The edition was successfully deleted.");
+                                                        for (int i = 0; i < anysEdicions.size(); i++) {
+                                                            if (numConfirmation == anysEdicions.get(i)) {
+                                                                anysEdicions.remove(i);
+                                                            }
+                                                        }
+                                                        break;
+                                                    } else {
+                                                        ui.showMessage("ERROR. The edition year to delete is not correct.");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        break;
+                                    case 'e':
+                                        exit = true;
+                                        break;
+                                }
+                            }
+                            exit = false;
                             break;
                         case 3:
                             ui.shutDownMsg();

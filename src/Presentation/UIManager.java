@@ -1,5 +1,6 @@
 package Presentation;
 
+import Business.Edicio;
 import Business.Prova;
 
 import java.util.ArrayList;
@@ -161,14 +162,13 @@ public class UIManager {
     }
 
     public int menuLlistaProves(ArrayList<String> proves, String message) {
+        UIManager uiManager = new UIManager();
+
         System.out.println(message);
-        for (int i = 0; i < proves.size(); i++) {
-            System.out.println("\t");
-            System.out.println(i + 1 + ") " + proves.get(i));
-        }
+        uiManager.mostraProves(proves);
+
         System.out.println("\t");
         System.out.println(proves.size() + 1 + ") Back\n");
-        UIManager uiManager = new UIManager();
         int num;
         while (true) {
             num = uiManager.askForInt("Enter an option: ");
@@ -179,6 +179,13 @@ public class UIManager {
             }
         }
         return num;
+    }
+
+    public void mostraProves(ArrayList<String> proves) {
+        for (int i = 0; i < proves.size(); i++) {
+            System.out.println("\t");
+            System.out.println(i + 1 + ") " + proves.get(i) + "\n");
+        }
     }
 
     public void llistaProva(ArrayList<Prova> proves, int i) {
@@ -206,4 +213,60 @@ public class UIManager {
         return 0;
     }
 
+    public char menuGestioEdicio() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\ta) Create Edition\n\tb) List Editions\n\tc) Duplicate Edition\n\td) Delete Edition\n\n\te) Back\n");
+
+        char op = '\0';
+        while (true) {
+            System.out.println("Enter an option: ");
+            try {
+                op = stringOfOneToChar(scanner.nextLine());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e') {
+                System.out.println("ERROR. " + op + " is not an option. Try again\n");
+                continue;
+            }
+            break;
+        }
+        return op;
+    }
+
+    public void mostraEdicions(ArrayList<Integer> edicions) {
+        for (int i = 0; i < edicions.size(); i++) {
+            System.out.println("\t");
+            System.out.println(i + 1 + ") The Trials " + edicions.get(i) + "\n");
+        }
+    }
+
+    public int menuLlistaEdicions(ArrayList<Integer> edicions, String message) {
+        UIManager uiManager = new UIManager();
+
+        System.out.println(message);
+        uiManager.mostraEdicions(edicions);
+
+        System.out.println("\t");
+        System.out.println(edicions.size() + 1 + ") Back\n");
+        int num;
+        while (true) {
+            num = uiManager.askForInt("Enter an option: ");
+            if (num > edicions.size() + 1 || num <= 0) {
+                uiManager.showMessage("ERROR. " + num + " is not an option. Try again.\n");
+            } else {
+                break;
+            }
+        }
+        return num;
+    }
+
+    public void mostraDetallsEdicio(Edicio edicio) {
+        System.out.println("Year: " + edicio.getAny());
+        System.out.println("Players: " + edicio.getNumInicialJugadors());
+        System.out.println("Trials: ");
+        for (int i = 1; i <= edicio.getNumProves(); i++)  {
+            System.out.println(i + "- " + edicio.getProves().get(i-1).getNomProva() + " (" + edicio.getProves().get(i-1).getTipus() + ")");
+        }
+    }
 }

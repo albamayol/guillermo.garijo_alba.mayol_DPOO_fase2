@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-public class Edicio{
+public class Edicio {
+
     private int any;
     private int numInicialJugadors;
     private int numProves;
@@ -112,4 +113,19 @@ public class Edicio{
         return tmp.toString();
     }
 
+    public int getNumProves() {
+        return numProves;
+    }
+
+    public int getAny() {
+        return any;
+    }
+
+    public int getNumInicialJugadors() {
+        return numInicialJugadors;
+    }
+
+    public ArrayList<Prova> getProves() {
+        return proves;
+    }
 }
