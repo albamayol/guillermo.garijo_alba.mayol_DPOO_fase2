@@ -1,5 +1,8 @@
 package Business;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Prova {
     private String nomProva;
     private String nomRevista;
@@ -29,6 +32,28 @@ public class Prova {
         this.probabilitatRevisions = probabilitatRevisions;
         this.probabilitatRebutja = probabilitatRebutja;
         this.us = us;
+    }
+
+    public ArrayList<Integer> ejecutarPrueba(){
+        boolean roa=false;
+        Random r = new Random();
+        ArrayList<Integer> resultados = new ArrayList<>();
+        while (!roa){
+            int num=r.nextInt(100);
+            //se acepta
+            if(num<=probabilitatAccepta){
+                resultados.add(1);
+            }
+            //se revisa
+            if(num>probabilitatAccepta && num<=(probabilitatRevisions+probabilitatAccepta)){
+                resultados.add(3);
+            }
+            //se rechaza
+            if(num>(probabilitatRevisions+probabilitatAccepta) && num<=((probabilitatRevisions+probabilitatAccepta + probabilitatRebutja))){
+                resultados.add(2);
+            }
+        }
+        return resultados;
     }
 
     public String pruebaToCSV(){
@@ -66,6 +91,10 @@ public class Prova {
 
     public void setUs(boolean us) {
         this.us = us;
+    }
+
+    public boolean isUs() {
+        return us;
     }
 
     public void setNomProva(String nomProva) {

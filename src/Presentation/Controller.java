@@ -17,8 +17,10 @@ public class Controller {
     }
 
     public void run() {
+
         ArrayList<String> nomsProves = new ArrayList<>();
         ArrayList<Integer> anysEdicions = new ArrayList<>();
+
         switch (ui.menuPrincipal()) {
             case 'A':
                 boolean exit = false;
@@ -44,6 +46,7 @@ public class Controller {
                                         }
                                         break;
                                     case 'b':
+                                        nomsProves= pmanager.nomsProves();
                                         if (nomsProves.isEmpty()) {
                                             ui.showMessage("ERROR. There are no Trials created.\n");
                                         } else {
@@ -191,6 +194,8 @@ public class Controller {
                             break;
                         case 3:
                             ui.shutDownMsg();
+                            pmanager.guardarPruebas();
+                            em.edicionesToCSV();
                             exit = true;
                             break;
                     }

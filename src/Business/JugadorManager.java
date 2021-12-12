@@ -10,7 +10,7 @@ public class JugadorManager {
     private DAOJugador daoJugador;
 
     public JugadorManager() {
-        this.daoJugador = new DAOJugador("AÑADIR EL PATH");
+        this.daoJugador = new DAOJugador("jugador.csv");
         jugadores= daoJugador.leerJugadores();
     }
 

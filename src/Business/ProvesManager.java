@@ -11,8 +11,9 @@ public class ProvesManager {
     private DAOProva daoProva;
 
     public ProvesManager() {
-        this.proves = new ArrayList<>();
-        this.daoProva=new DAOProva("añadir path");
+        this.daoProva=new DAOProva("prueba.csv");
+        this.proves=daoProva.leerProva();
+        System.out.println();
     }
 
     public DAOProva getDaoProva() {
@@ -75,7 +76,17 @@ public class ProvesManager {
     }
 
     public void eliminaProva(int i) {
-        proves.remove(i);
+        if(!proves.get(i).isUs()){
+            proves.remove(i);
+        }
+    }
+
+    public ArrayList<String> nomsProves(){
+        ArrayList<String> r=new ArrayList<>();
+        for (Prova p:proves) {
+            r.add(p.getNomProva());
+        }
+        return r;
     }
 
 }
