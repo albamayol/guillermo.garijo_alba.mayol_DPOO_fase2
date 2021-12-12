@@ -54,7 +54,6 @@ public class EdicionsManager {
     //metodo para guardar las ediciones antes de cerrar el programa
     public void edicionesToCSV(){
         ArrayList<String> aGuardar = new ArrayList<>();
-        ArrayList<String> jugadoresAGuardar;
         for (Edicio e:ediciones) {
             aGuardar.add(e.edicionToCSV());
             jm.guardarJugadores(e.getJugadors());

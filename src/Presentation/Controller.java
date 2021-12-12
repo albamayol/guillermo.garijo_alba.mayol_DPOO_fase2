@@ -222,7 +222,7 @@ public class Controller {
                                 String continueExecute;
                                 int j = em.retornaNumLastProva();
                                 if (j < edicio.getProves().size()) {
-                                    for (int i = 0; i < edicio.getProves().size(); i++) {
+                                    for (int i = j; i < edicio.getProves().size(); i++) {
                                         ui.showMessage("Trial #" + j + " - " + edicio.getProves().get(i).getNomProva());
                                         ArrayList<ArrayList<Integer>> arrayExecucio = em.ejecutarPrueba();
                                         ui.executa(arrayExecucio, edicio);
@@ -244,7 +244,14 @@ public class Controller {
                                         }
                                     }
                                 } else {
-                                    ui.showMessage("THE TRIALS " + em.getCurrentYear() + " HAVE ENDED - ");
+                                    String ganador;
+                                    if(em.equipoEliminado()){
+                                        ganador="PLAYERS LOST";
+                                    }else{
+                                        ganador="PLAYERS WON";
+                                    }
+                                    ui.showMessage("THE TRIALS " + em.getCurrentYear() + " HAVE ENDED - " + ganador);
+
                                 }
                             }
                             break;
