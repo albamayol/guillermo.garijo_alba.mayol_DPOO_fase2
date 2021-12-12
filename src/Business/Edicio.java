@@ -138,4 +138,8 @@ public class Edicio {
     public ArrayList<Jugador> getJugadors() {
         return jugadors;
     }
+
+    public int getUltimaProva() {
+        return ultimaProva;
+    }
 }

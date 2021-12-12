@@ -32,7 +32,7 @@ public class EdicionsManager {
         return null;
     }
 
-    public ArrayList<Integer> añsProves(){
+    public ArrayList<Integer> anysEdicions(){
         ArrayList<Integer> r = new ArrayList<>();
         for (Edicio e:ediciones) {
             r.add(e.getAny());
@@ -139,5 +139,9 @@ public class EdicionsManager {
 
     public Edicio retornaLastEdicion() {
         return ediciones.get(ediciones.size()-1);
+    }
+
+    public int retornaNumLastProva() {
+        return retornEdicioSegonsAny(currentYear).getUltimaProva();
     }
 }

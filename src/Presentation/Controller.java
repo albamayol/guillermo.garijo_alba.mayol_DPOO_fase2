@@ -20,7 +20,7 @@ public class Controller {
     public void run() {
 
         ArrayList<String> nomsProves = pmanager.nomsProves();
-        ArrayList<Integer> anysEdicions = em.añsProves();
+        ArrayList<Integer> anysEdicions = em.anysEdicions();
 
         switch (ui.menuPrincipal()) {
             case 'A':
@@ -213,31 +213,38 @@ public class Controller {
                             break;
                         } else {
                             Edicio edicio = em.retornEdicioSegonsAny(em.getCurrentYear());
-                            for (int i = 1; i <= edicio.getNumInicialJugadors(); i++) {
-                                em.añadirJugador(ui.askForString("Enter the player's name (" + i + "/" + edicio.getNumInicialJugadors() + "): "));
-                            }
+                            if (edicio.getJugadors().isEmpty()) {
+                                for (int i = 1; i <= edicio.getNumInicialJugadors(); i++) {
+                                    em.añadirJugador(ui.askForString("Enter the player's name (" + i + "/" + edicio.getNumInicialJugadors() + "): "));
+                                }
+                            } else {
 
-                            String continueExecute;
-                            int j = 1;
-                            for (int i = 0; i < edicio.getProves().size(); i++) {
-                                ui.showMessage("Trial #" + j + " - " + edicio.getProves().get(i).getNomProva());
-                                ArrayList<ArrayList<Integer>> arrayExecucio = em.ejecutarPrueba();
-                                ui.executa(arrayExecucio, edicio);
-                                j++;
+                                String continueExecute;
+                                int j = em.retornaNumLastProva();
+                                if (j < edicio.getProves().size()) {
+                                    for (int i = 0; i < edicio.getProves().size(); i++) {
+                                        ui.showMessage("Trial #" + j + " - " + edicio.getProves().get(i).getNomProva());
+                                        ArrayList<ArrayList<Integer>> arrayExecucio = em.ejecutarPrueba();
+                                        ui.executa(arrayExecucio, edicio);
+                                        j = em.retornaNumLastProva();
 
-                                while (true) {
-                                    continueExecute = ui.askForString("Continue the execution? [yes/no]: ");
-                                    if (continueExecute.equals("no")) {
-                                        ui.shutDownMsg();
-                                        i = edicio.getProves().size();
-                                        break;
-                                    } else {
-                                        if (continueExecute.equals("yes")) {
-                                            break;
-                                        } else {
-                                            ui.showMessage("ERROR. Not an option. Try again.");
+                                        while (true) {
+                                            continueExecute = ui.askForString("Continue the execution? [yes/no]: ");
+                                            if (continueExecute.equals("no")) {
+                                                ui.shutDownMsg();
+                                                i = edicio.getProves().size();
+                                                break;
+                                            } else {
+                                                if (continueExecute.equals("yes")) {
+                                                    break;
+                                                } else {
+                                                    ui.showMessage("ERROR. Not an option. Try again.");
+                                                }
+                                            }
                                         }
                                     }
+                                } else {
+                                    ui.showMessage("THE TRIALS " + em.getCurrentYear() + " HAVE ENDED - ");
                                 }
                             }
                             break;
