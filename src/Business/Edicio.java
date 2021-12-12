@@ -84,6 +84,7 @@ public class Edicio {
         for(int i=0;i<jugadors.size();i++){
             if(jugadors.get(i).pisCero()){
                 jugadors.remove(i);
+                resultados.get(i).add(4);
             }
         }
         return resultados;
@@ -115,7 +116,7 @@ public class Edicio {
         for (Jugador j: jugadors) {
             tmp.append((j.getId())).append(";");
         }
-        tmp.append("]").append((this.ultimaProva));
+        tmp.append("],").append((this.ultimaProva));
         return tmp.toString();
     }
 
