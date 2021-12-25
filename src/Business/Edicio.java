@@ -1,89 +1,85 @@
 package Business;
 
+import Persistance.DAOProva;
+
 import java.util.ArrayList;
 
 public class Edicio {
 
     private int any;
-    private int numInicialJugadors;
+    private int numJugadors;
     private int numProves;
-    private ArrayList<Jugador> jugadors;
-    private ArrayList<Prova> proves;
+    private ProvesManager pm;
+    private JugadorManager jm;
     private int ultimaProva;
 
-    public Edicio(int any, int numInicialJugadors, int numProves, ArrayList<Jugador> jugadors, ArrayList<Prova> proves) {
+    //constructor general para nueva
+    public Edicio(int any, int numInicialJugadors, int numProves) {
         this.any = any;
-        this.numInicialJugadors = numInicialJugadors;
+        this.numJugadors = numInicialJugadors;
         this.numProves = numProves;
-        this.jugadors = jugadors;
-        this.proves = proves;
-        this.ultimaProva = 0;
-    }
+        this.pm=new ProvesManager(new ArrayList<>());
+        this.jm=new JugadorManager(new ArrayList<>());
+        this.ultimaProva=0;
+    }//contructor para leer del csv
     public Edicio(int any, int numInicialJugadors, int numProves, ArrayList<Jugador> jugadors, ArrayList<Prova> proves, int ultimaProva) {
         this.any = any;
-        this.numInicialJugadors = numInicialJugadors;
+        this.numJugadors = numInicialJugadors;
         this.numProves = numProves;
-        this.jugadors = jugadors;
-        this.proves = proves;
+        this.jm=new JugadorManager(jugadors);
+        this.pm=new ProvesManager(proves);
         this.ultimaProva = ultimaProva;
     }
+    //constructor para copiar
+    public Edicio(int any, int numJugadors, int numProves, ProvesManager pm, JugadorManager jm) {
+        this.any = any;
+        this.numJugadors = numJugadors;
+        this.numProves = numProves;
+        this.pm = pm;
+        this.jm = jm;
+        this.ultimaProva=0;
+    }
 
-    //retorna true si aun quedan jugadores
-    public boolean todosLosJugadoresEliminados(){
-        if(jugadors.size()==0){
-            return true;
-        }
-        return false;
+
+    public Edicio copiaEdicio(int any, int numJug){
+        return new Edicio(any, numJug, this.numProves, pm.copia(), new JugadorManager(new ArrayList<>()));
+    }
+    public boolean acabada(){
+        return ultimaProva==numProves;
+    }
+    public boolean hayJugadores(){
+        return jm.hayJugadores();
+
     }
 
     public ArrayList<ArrayList<Integer>> ejecutarPrueba(){
         int c=0;
         ArrayList<ArrayList<Integer>> resultados = new ArrayList<>();
+        ArrayList<Jugador> jugadors=jm.getJugadors();
+        Prova pActual = pm.getProva(ultimaProva);
         for (Jugador j:jugadors) {
-            resultados.add(proves.get(ultimaProva).ejecutarPrueba());
+            resultados.add(pActual.ejecutarPrueba());
         }
         for (ArrayList<Integer> rj:resultados) {
 
             for (Integer valor : rj) {
-                if (valor.intValue() == 1) {
-                    switch (proves.get(ultimaProva).getQuartil()){
-                        case "Q1":
-                            jugadors.get(c).modificaPI(4);
-                            break;
-                        case "Q2":
-                            jugadors.get(c).modificaPI(3);
-                            break;
-                        case "Q3":
-                            jugadors.get(c).modificaPI(2);
-                            break;
-                        case "Q4":
-                            jugadors.get(c).modificaPI(1);
-                            break;
+                if (valor == 1) {
+                    switch (pActual.getQuartil()) {
+                        case "Q1" -> jugadors.get(c).modificaPI(4);
+                        case "Q2" -> jugadors.get(c).modificaPI(3);
+                        case "Q3" -> jugadors.get(c).modificaPI(2);
+                        case "Q4" -> jugadors.get(c).modificaPI(1);
                     }
-                } else if (valor.intValue() == 2) {
-                    switch (proves.get(ultimaProva).getQuartil()){
-                        case "Q1":
-                            jugadors.get(c).modificaPI(-5);
-                            break;
-                        case "Q2":
-                            jugadors.get(c).modificaPI(-4);
-                            break;
-                        case "Q3":
-                            jugadors.get(c).modificaPI(-3);
-                            break;
-                        case "Q4":
-                            jugadors.get(c).modificaPI(-2);
-                            break;
+                } else if (valor == 2) {
+                    switch (pActual.getQuartil()) {
+                        case "Q1" -> jugadors.get(c).modificaPI(-5);
+                        case "Q2" -> jugadors.get(c).modificaPI(-4);
+                        case "Q3" -> jugadors.get(c).modificaPI(-3);
+                        case "Q4" -> jugadors.get(c).modificaPI(-2);
                     }
                 }
             }
             c++;
-        }
-        for(int i=0;i<jugadors.size();i++){
-            if(jugadors.get(i).pisCero()){
-                jugadors.remove(i);
-                resultados.get(i).add(4);
-            }
         }
         ultimaProva++;
         return resultados;
@@ -92,22 +88,18 @@ public class Edicio {
     public boolean esEdicion(int año){
         return this.any==año;
     }
-
-
     public void addProba(Prova p){
-        proves.add(p);
+        pm.addProva(p);
+
+    }
+    public void addJugador(String name){
+        jm.addJugador(name);
     }
 
-    public void addJugador(Jugador j){
-        jugadors.add(j);
-    }
-
-    public Edicio clone(int año, int numJug){
-        return new Edicio(año, numJug, this.numProves, (ArrayList<Jugador>) this.jugadors.clone(), (ArrayList<Prova>) this.proves.clone(), 0);
-    }
-
-    public String edicionToCSV(){
-        StringBuilder tmp = new StringBuilder(this.any + "," + this.numInicialJugadors + "," + this.numProves + ",[");
+    /*
+    //no borrar---------------------
+    public String guardarEdicion(){
+        StringBuilder tmp = new StringBuilder(this.any + "," + this.numJugadors + "," + this.numProves + ",[");
         for (Prova p: proves) {
             tmp.append(p.getNomProva()).append(";");
         }
@@ -115,31 +107,43 @@ public class Edicio {
         for (Jugador j: jugadors) {
             tmp.append((j.getId())).append(";");
         }
-        tmp.append("],").append((this.ultimaProva));
+        tmp.append("],").append((this.ultimaProva)).append("\n");
         return tmp.toString();
     }
+    //------------------------
+
+     */
 
     public int getNumProves() {
         return numProves;
     }
-
     public int getAny() {
         return any;
     }
-
-    public int getNumInicialJugadors() {
-        return numInicialJugadors;
+    public int getNumJugadors() {
+        return numJugadors;
     }
-
     public ArrayList<Prova> getProves() {
-        return proves;
+        return pm.getProves();
     }
-
     public ArrayList<Jugador> getJugadors() {
-        return jugadors;
+        return jm.getJugadors();
     }
-
     public int getUltimaProva() {
         return ultimaProva;
+    }
+    public String getNomProvaActual() {
+        return pm.getNomProvaActual(ultimaProva);
+    }
+    public String getNomProva(int i) {
+        return pm.getNomProva(i);
+    }
+    public String getTipusProva(int i) {
+        return pm.getTipusProva(i);
+    }
+
+    public void eliminados() {
+        jm.eliminados();
+        numJugadors=jm.getNumJugadors();
     }
 }

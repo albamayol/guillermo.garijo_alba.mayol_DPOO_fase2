@@ -1,6 +1,7 @@
 package Persistance;
 
 import Business.Jugador;
+import Business.Prova;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class DAOJugador {
         }
     }
 
-    public void guardarJugadores(ArrayList<String> jugadores){
+    public ArrayList<String> guardarJugadores(ArrayList<Jugador> jugadores){
         try {
             BufferedWriter writer = Files.newBufferedWriter(path);
             writer.write("");
@@ -32,13 +33,17 @@ public class DAOJugador {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (String e:jugadores) {
+        ArrayList<String> keys = new ArrayList<>();
+        for (Jugador j:jugadores) {
+            keys.add(String.valueOf(j.getId()));
+            String line = j.getId() + "," + j.getNom() + "," + j.getPI() + "\n";
             try {
-                Files.writeString(path, e + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.writeString(path, line, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
+        return keys;
     }
 
     public ArrayList<Jugador> leerJugadores(){
@@ -58,16 +63,17 @@ public class DAOJugador {
     public ArrayList<Jugador> getJugadoresPorID(String[] a){
         ArrayList<Jugador> jugadores = new ArrayList<>();
         try {
-            ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
-            for (String line:fileContent) {
-                String[] tmp = line.split(",");
-                for (String s: a) {
-                    if(s.equals(tmp[0])){
+            for (String s:a) {
+                ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
+                for(String l:fileContent){
+                    String[] tmp = l.split(",");
+                    if(tmp[0].equals(s)){
                         jugadores.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
+                        break;
                     }
                 }
-
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

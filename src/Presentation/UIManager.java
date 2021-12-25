@@ -1,6 +1,7 @@
 package Presentation;
 
 import Business.Edicio;
+import Business.Jugador;
 import Business.Prova;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class UIManager {
         //inicialitzem el char
         char opt = '\0';
         while (true) {
-            System.out.println("Enter a role: ");
+            System.out.print("Enter a role: ");
             try {
                 opt = stringOfOneToChar(scanner.nextLine());
             } catch (Exception e) {
@@ -51,7 +52,8 @@ public class UIManager {
         Scanner scanner = new Scanner(System.in);
         int op;
         do {
-            System.out.println("Enter an option: ");
+            System.out.print("Enter an option: ");
+
             try {
                 op = scanner.nextInt();
                 //clean buffer: \n
@@ -77,7 +79,7 @@ public class UIManager {
 
         char op = '\0';
         while (true) {
-            System.out.println("Enter an option: ");
+            System.out.print("Enter an option: ");
             try {
                 op = stringOfOneToChar(scanner.nextLine());
             } catch (Exception e) {
@@ -98,7 +100,7 @@ public class UIManager {
         System.out.println("\t1) Paper publication\n");
         int op;
         do {
-            System.out.println("Enter the trial's type: ");
+            System.out.print("Enter the trial's type: ");
             try {
                 op = scanner.nextInt();
                 //clean buffer: \n
@@ -131,7 +133,7 @@ public class UIManager {
         Scanner sc = new Scanner(System.in);
         String s;
         while (true) {
-            System.out.println(message);
+            System.out.print(message);
             try {
                 s = sc.nextLine();
             } catch (NullPointerException e) {
@@ -147,7 +149,7 @@ public class UIManager {
         Scanner scanner = new Scanner(System.in);
         int num;
         while (true) {
-            System.out.println(message);
+            System.out.print(message);
             try {
                 num = scanner.nextInt();
                 scanner.nextLine();
@@ -162,18 +164,15 @@ public class UIManager {
     }
 
     public int menuLlistaProves(ArrayList<String> proves, String message) {
-        UIManager uiManager = new UIManager();
-
         System.out.println(message);
-        uiManager.mostraProves(proves);
-
-        System.out.println("\t");
-        System.out.println(proves.size() + 1 + ") Back\n");
+        mostraProves(proves);
+        System.out.println("");
+        System.out.println( "\t" + (proves.size() + 1) + ") Back\n");
         int num;
         while (true) {
-            num = uiManager.askForInt("Enter an option: ");
+            num = askForInt("Enter an option: ");
             if (num > proves.size() + 1 || num <= 0) {
-                uiManager.showMessage("ERROR. " + num + " is not an option. Try again.\n");
+                showMessage("ERROR. " + num + " is not an option. Try again.\n");
             } else {
                 break;
             }
@@ -183,31 +182,28 @@ public class UIManager {
 
     public void mostraProves(ArrayList<String> proves) {
         for (int i = 0; i < proves.size(); i++) {
-            System.out.println("\t");
-            System.out.println(i + 1 + ") " + proves.get(i) + "\n");
+            System.out.print("\t"+ (i + 1) + ") " + proves.get(i) + "\n");
         }
     }
 
     public void llistaProva(ArrayList<Prova> proves, int i) {
         if (i < proves.size()) {
-            System.out.println("Trial: " + proves.get(i).getNomProva() + " (" + proves.get(i).getTipus() + ")");
+            System.out.println("\nTrial: " + proves.get(i).getNomProva() + " (" + proves.get(i).getTipus() + ")");
             System.out.println("Journal: " + proves.get(i).getNomRevista() + " (" + proves.get(i).getQuartil() + ")");
-            System.out.println("Chances: " + proves.get(i).getProbabilitatAccepta() + "% acceptance, " + proves.get(i).getProbabilitatRevisions() + "% revision, " + proves.get(i).getProbabilitatRebutja() + "% rejection");
+            System.out.println("Chances: " + proves.get(i).getProbabilitatAccepta() + "% acceptance, " + proves.get(i).getProbabilitatRevisions() + "% revision, " + proves.get(i).getProbabilitatRebutja() + "% rejection\n");
         }
     }
 
-    public int trialNameConfirmation(ArrayList<Prova> proves, int i) {
-        UIManager uiManager = new UIManager();
-        if (i <= proves.size()) {
-            String name = uiManager.askForString("Enter the trial's name for confirmation: ");
-            if (proves.get(i-1).getNomProva().equals(name)) {
+    public int trialNameConfirmation(ArrayList<String> names, int i) {
+        if (i <= names.size()) {
+            String name = askForString("\nEnter the trial's name for confirmation: ");
+            if (names.get(i-1).equals(name)) {
                 return 1;
-            }
-            else {
+            } else {
                 return 0;
             }
         }
-        if (i == proves.size() + 1) {
+        if (i == names.size() + 1) {
             return 2;
         }
         return 0;
@@ -215,11 +211,11 @@ public class UIManager {
 
     public char menuGestioEdicio() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\ta) Create Edition\n\tb) List Editions\n\tc) Duplicate Edition\n\td) Delete Edition\n\n\te) Back\n");
+        System.out.println("\n\ta) Create Edition\n\tb) List Editions\n\tc) Duplicate Edition\n\td) Delete Edition\n\n\te) Back\n");
 
         char op = '\0';
         while (true) {
-            System.out.println("Enter an option: ");
+            System.out.print("Enter an option: ");
             try {
                 op = stringOfOneToChar(scanner.nextLine());
             } catch (Exception e) {
@@ -229,6 +225,7 @@ public class UIManager {
                 System.out.println("ERROR. " + op + " is not an option. Try again\n");
                 continue;
             }
+            System.out.println("");
             break;
         }
         return op;
@@ -236,24 +233,21 @@ public class UIManager {
 
     public void mostraEdicions(ArrayList<Integer> edicions) {
         for (int i = 0; i < edicions.size(); i++) {
-            System.out.println("\t");
-            System.out.println(i + 1 + ") The Trials " + edicions.get(i) + "\n");
+            System.out.println("\t"+ (i + 1) + ") The Trials " + edicions.get(i));
         }
     }
 
     public int menuLlistaEdicions(ArrayList<Integer> edicions, String message) {
-        UIManager uiManager = new UIManager();
 
         System.out.println(message);
-        uiManager.mostraEdicions(edicions);
-
-        System.out.println("\t");
-        System.out.println(edicions.size() + 1 + ") Back\n");
+        mostraEdicions(edicions);
+        System.out.println("");
+        System.out.println("\t"+ (edicions.size() + 1) + ") Back\n");
         int num;
         while (true) {
-            num = uiManager.askForInt("Enter an option: ");
+            num = askForInt("Enter an option: ");
             if (num > edicions.size() + 1 || num <= 0) {
-                uiManager.showMessage("ERROR. " + num + " is not an option. Try again.\n");
+                showMessage("ERROR. " + num + " is not an option. Try again.\n");
             } else {
                 break;
             }
@@ -262,34 +256,35 @@ public class UIManager {
     }
 
     public void mostraDetallsEdicio(Edicio edicio) {
-        System.out.println("Year: " + edicio.getAny());
-        System.out.println("Players: " + edicio.getNumInicialJugadors());
+        System.out.println("\nYear: " + edicio.getAny());
+        System.out.println("Players: " + edicio.getNumJugadors());
         System.out.println("Trials: ");
         for (int i = 1; i <= edicio.getNumProves(); i++)  {
-            System.out.println(i + "- " + edicio.getProves().get(i-1).getNomProva() + " (" + edicio.getProves().get(i-1).getTipus() + ")");
+            System.out.println("\t" + i + "- " + edicio.getNomProva(i-1) + " (" + edicio.getTipusProva(i-1) + ")");
         }
     }
 
-    public void executa(ArrayList<ArrayList<Integer>> arrayExecucio, Edicio edicio) {
+    public void executa(ArrayList<ArrayList<Integer>> arrayExecucio, ArrayList<Jugador> jugadors) {
         for (int i = 0; i < arrayExecucio.size(); i++) {
-            System.out.println((edicio.getJugadors().get(i).getNom() + " is submitting... "));
+            System.out.print("\t" + (jugadors.get(i).getNom() + " is submitting... "));
             for (int j = 0; j < arrayExecucio.get(i).size(); j++) {
                 switch (arrayExecucio.get(i).get(j)) {
                     case 1:
-                        System.out.println("Accepted! ");
+                        System.out.print("Accepted! ");
                         break;
                     case 2:
-                        System.out.println("Rejected. ");
+                        System.out.print("Rejected. ");
                         break;
                     case 3:
-                        System.out.println("Revisions... ");
-                        break;
-                    case 4:
-                        System.out.println("- Disqualified!");
+                        System.out.print("Revisions... ");
                         break;
                 }
             }
-            System.out.println("PI count: " + edicio.getJugadors().get(i).getPI());
+            System.out.print("PI count: " + jugadors.get(i).getPI());
+            if(jugadors.get(i).getPI()<=0){
+                System.out.print(" - Disqualified!");
+            }
+            System.out.println("");
         }
 
     }

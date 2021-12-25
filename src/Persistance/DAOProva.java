@@ -19,25 +19,26 @@ public class DAOProva {
                 Files.createFile(p);
             }
             this.path=p;
-        }catch (InvalidPathException | IOException e){
-            System.err.println("ERROR leyendo o escribiendo");
+        }catch (InvalidPathException | IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void guardarPruebas(ArrayList<String> a){
+    public void guardarPruebas(ArrayList<Prova> proves){
         try{
             BufferedWriter writer = Files.newBufferedWriter(path);
             writer.write("");
             writer.flush();
-            for (String e:a) {
+            for (Prova p:proves) {
+                String linea = p.getNomProva() + "," + p.getNomRevista()+ "," + p.getQuartil()+ "," + p.getProbabilitatAccepta()+ "," + p.getProbabilitatRevisions()+ "," + p.getProbabilitatRebutja()+ ","+ p.getTipus() + "," + p.isUs() + "\n";
                 try {
-                    Files.writeString(path, e + "\n", StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                    Files.writeString(path, linea, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
-        }catch (Exception e){
-            System.err.println("caca");
+        }catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -48,7 +49,7 @@ public class DAOProva {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
-                pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), Boolean.parseBoolean(tmp[6])));
+                pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,15 +60,13 @@ public class DAOProva {
     public ArrayList<Prova> getPruebasPorIDs(String[] a){
         ArrayList<Prova> pruebas = new ArrayList<>();
         try {
-            ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
-            for (String k:a) {
-                for (String line:fileContent) {
-                    String[] tmp = line.split(",");
-                    for (String s: a) {
-                        if(s.equals(tmp[0])){
-                            pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.valueOf(tmp[4]), Integer.valueOf(tmp[5]), Boolean.valueOf(tmp[6])));
-                            break;
-                        }
+            for (String s:a) {
+                ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
+                for(String l:fileContent){
+                    String[] tmp = l.split(",");
+                    if(tmp[0].equals(s)){
+                        pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
+                        break;
                     }
                 }
             }

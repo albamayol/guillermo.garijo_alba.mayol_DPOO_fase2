@@ -1,6 +1,7 @@
 package Persistance;
 
 import Business.Edicio;
+import Business.Prova;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,8 +24,8 @@ public class DAOEdicio {
                 Files.createFile(p);
             }
             this.path=p;
-        }catch (InvalidPathException | IOException e){
-            System.err.println("ERROR leyendo o escribiendo");
+        }catch (InvalidPathException | IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,7 +46,7 @@ public class DAOEdicio {
         return ediciones;
     }
 
-    public void guardarEdiciones(ArrayList<String> ediciones){
+    public void guardarEdiciones(ArrayList<Edicio> ediciones){
         try {
             BufferedWriter writer = Files.newBufferedWriter(path);
             writer.write("");
@@ -53,9 +54,18 @@ public class DAOEdicio {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (String e:ediciones) {
+        for (Edicio e:ediciones) {
+            StringBuilder linea = new StringBuilder(e.getAny() + "," + e.getNumJugadors() + "," + e.getNumProves() + ",[");
+            for (Prova p:e.getProves()) {
+                linea.append(p.getNomProva()).append(";");
+            }
+            linea.append("],[");
+            for (String s :daojugador.guardarJugadores(e.getJugadors())) {
+                linea.append(s).append(";");
+            }
+            linea.append("],").append(e.getUltimaProva()).append("\n");
             try {
-                Files.writeString(path, e, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.writeString(path, linea.toString(), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

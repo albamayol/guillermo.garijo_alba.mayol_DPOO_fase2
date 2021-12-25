@@ -20,27 +20,18 @@ public class Jugador {
     public int getId() {
         return id;
     }
-
-    public String toCSV(){
-        return "" + this.id + "," + this.nom + "," + this.PI;
-    }
-
     public void modificaPI(int mod){
         PI+=mod;
     }
-
     public int getPI() {
         return PI;
     }
-
     public boolean pisCero(){
         return this.PI<=0;
     }
-
     public boolean esJugador(String name){
         return this.nom.equals(name);
     }
-
     public String getNom() {
         return nom;
     }

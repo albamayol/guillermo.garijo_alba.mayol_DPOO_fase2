@@ -7,33 +7,30 @@ import java.util.ArrayList;
 public class JugadorManager {
 
     private ArrayList<Jugador> jugadores;
-    private DAOJugador daoJugador;
 
-    public JugadorManager() {
-        this.daoJugador = new DAOJugador("jugador.csv");
-        jugadores= daoJugador.leerJugadores();
+
+    public JugadorManager(ArrayList<Jugador> jugadors) {
+        this.jugadores=jugadors;
+    }
+    public boolean hayJugadores() {
+        return !jugadores.isEmpty();
+    }
+    public void addJugador(String name) {
+        jugadores.add(Jugador.crearJugador(name, 5));
+    }
+    public ArrayList<Jugador> getJugadors() {
+        return jugadores;
     }
 
-    public void guardarJugadores(ArrayList<Jugador> a){
-        ArrayList<String> jugadoresCSV =new ArrayList<>();
-        for (Jugador j:a) {
-            jugadoresCSV.add(j.toCSV());
-        }
-        daoJugador.guardarJugadores(jugadoresCSV);
-    }
-
-    public DAOJugador getDaoJugador() {
-        return daoJugador;
-    }
-
-    public Jugador getJugador(String name) {
-        for (Jugador j:jugadores) {
-            if(j.esJugador(name)){
-                return j;
+    public void eliminados() {
+        for(int i=0;i<jugadores.size();i++){
+            if(jugadores.get(i).pisCero()){
+                jugadores.remove(i);
             }
         }
-        return null;
     }
 
-
+    public int getNumJugadors() {
+        return jugadores.size();
+    }
 }
