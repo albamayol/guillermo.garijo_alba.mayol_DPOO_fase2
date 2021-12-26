@@ -53,9 +53,14 @@ public class ProvesManager {
         daoProva.guardarPruebas(proves);
     }
 
-    public void creaProva(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb, String tipus) {
-        proves.add(new Prova(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb, tipus, false));
+    public void creaPaperPubli(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
+        proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb, "Paper Publication", false));
     }
+    public void creaMaster(String trialName, String masterName, int numCred, int probAprova){
+        proves.add(new EstudiMaster(trialName, "Estudi Master", masterName, numCred, probAprova));
+    }
+
+
 
     public ArrayList<Prova> llistaProves() {
         return proves;
@@ -98,5 +103,13 @@ public class ProvesManager {
     }
     public String getTipusProva(int i) {
         return proves.get(i).getTipus();
+    }
+
+    public void creaTesis(String trialName, String field, int diff) {
+        proves.add(new TesiDoctoral(trialName, "Tesis Doctoral", field, diff));
+    }
+
+    public void creaPressupost(String trialName, String entity, int budget) {
+        proves.add(new SolicitudPressupost(trialName, "Solicitud Pressupost", entity, budget));
     }
 }

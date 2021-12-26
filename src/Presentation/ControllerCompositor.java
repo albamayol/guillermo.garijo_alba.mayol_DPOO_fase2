@@ -2,6 +2,7 @@ package Presentation;
 
 import Business.Edicio;
 import Business.EdicionsManager;
+import Business.Master;
 import Business.ProvesManager;
 
 public class ControllerCompositor {
@@ -17,7 +18,7 @@ public class ControllerCompositor {
         this.exit=false;
     }
 
-    private void crearProva(){
+    private void creaPaperPublication(){
         //boolean error = true;
         //while(error){
             //error=false;
@@ -51,10 +52,61 @@ public class ControllerCompositor {
                 ui.showMessage("ERROR. Rejection probability is not valid or Revision probability + acceptance probability + rejection probability do not sum 100. Try again.\n");
                 return;
             }
-            pmanager.creaProva(trialName, journalName, quartil, probAcceptance, probRevision, probRejection, "Paper Publication");
+            pmanager.creaPaperPubli(trialName, journalName, quartil, probAcceptance, probRevision, probRejection);
             ui.showMessage("\nThe trial was created successfully!\n");
             //return false;
         //}
+    }
+    private void creaMasterStudies(){
+        String trialName = ui.askForString("Enter the trial's name: ");
+        if(pmanager.existeixProva(trialName)){
+            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            return;
+        }
+        String masterName=ui.askForString("Enter the master's name: ");
+        if(masterName.isEmpty()){
+            ui.showMessage("ERROR. Master's name can not be empty. Try again.\n");
+            return;
+        }
+        int numCredits = ui.askForInt("Enter the master's ECTS number: ");
+        if(numCredits<60 || numCredits>120){
+            ui.showMessage("ERROR. Number of credits incorrect. [60-120]");
+        }
+        int probCredit=ui.askForInt("Enter the credit pass probability: ");
+        if(probCredit<0 || probCredit>100){
+            ui.showMessage("ERROR. Probability incorrect. [0-100]");
+        }
+        pmanager.creaMaster(trialName, masterName, numCredits, probCredit);
+        ui.showMessage("\nThe trial was created successfully!\n");
+
+    }
+    private void creaTesis(){
+        String trialName = ui.askForString("Enter the trial's name: ");
+        if(pmanager.existeixProva(trialName)){
+            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            return;
+        }
+        String field=ui.askForString("Enter the master's name: ");
+        int diff = ui.askForInt("Enter the master's ECTS number: ");
+        if(diff<0 || diff>10){
+            ui.showMessage("ERROR. Probability incorrect. [1-10]");
+        }
+        pmanager.creaTesis(trialName, field, diff);
+        ui.showMessage("\nThe trial was created successfully!\n");
+    }
+    private void creaBudgetReq(){
+        String trialName = ui.askForString("Enter the trial's name: ");
+        if(pmanager.existeixProva(trialName)){
+            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            return;
+        }
+        String entity=ui.askForString("Enter the entity name: ");
+        int budget = ui.askForInt("Enter the master's ECTS number: ");
+        if(budget<1000 || budget>2000000000){
+            ui.showMessage("ERROR. Probability incorrect. [1-10]");
+        }
+        pmanager.creaPressupost(trialName, entity, budget);
+        ui.showMessage("\nThe trial was created successfully!\n");
     }
 
     private void eliminaProva(){
@@ -151,10 +203,21 @@ public class ControllerCompositor {
                     while (!exit) {
                         switch (ui.menuProves()) {
                             case 'a':
-                                if (ui.chooseTrial() == 1) {
-                                    crearProva();
+                                switch (ui.chooseTrial()){
+                                    case 1:
+                                        creaPaperPublication();
+                                        break;
+                                    case 2:
+                                        creaMasterStudies();
+                                        break;
+                                    case 3:
+                                        creaTesis();
+                                        break;
+                                    case 4:
+                                        creaBudgetReq();
+                                        break;
                                 }
-                                break;
+
                             case 'b':
                                 if (pmanager.noHayPruebas()) {
                                     ui.showMessage("ERROR. There are no Trials created.\n");

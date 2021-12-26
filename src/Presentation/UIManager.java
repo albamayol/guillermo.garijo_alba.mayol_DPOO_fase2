@@ -3,6 +3,7 @@ package Presentation;
 import Business.Edicio;
 import Business.Jugador;
 import Business.Prova;
+import Business.ResultadoPrueba;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -98,6 +99,9 @@ public class UIManager {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t--- Trial types ---\n");
         System.out.println("\t1) Paper publication\n");
+        System.out.println("\t2) Master studies\n");
+        System.out.println("\t3) Doctoral thersis defense\n");
+        System.out.println("\t4) Budget request\n");
         int op;
         do {
             System.out.print("Enter the trial's type: ");
@@ -105,7 +109,7 @@ public class UIManager {
                 op = scanner.nextInt();
                 //clean buffer: \n
                 scanner.nextLine();
-                if(op != 1) {   //al només haver-hi una única opció de prova, aquesta serà la condició(temporal)
+                if(op != 1 && op != 2 && op != 3 && op != 4) {   //al només haver-hi una única opció de prova, aquesta serà la condició(temporal)
                     System.out.println("ERROR. not an option. Try again\n");
                     continue;
                 }
@@ -264,7 +268,10 @@ public class UIManager {
         }
     }
 
-    public void executa(ArrayList<ArrayList<Integer>> arrayExecucio, ArrayList<Jugador> jugadors) {
+    public void executa(ArrayList<ResultadoPrueba> arrayExecucio, ArrayList<Jugador> jugadors) {
+
+
+
         for (int i = 0; i < arrayExecucio.size(); i++) {
             System.out.print("\t" + (jugadors.get(i).getNom() + " is submitting... "));
             for (int j = 0; j < arrayExecucio.get(i).size(); j++) {

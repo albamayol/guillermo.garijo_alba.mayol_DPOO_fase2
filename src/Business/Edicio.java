@@ -52,11 +52,38 @@ public class Edicio {
 
     }
 
-    public ArrayList<ArrayList<Integer>> ejecutarPrueba(){
+    public ArrayList<ResultadoPrueba> ejecutarPrueba(){
         int c=0;
-        ArrayList<ArrayList<Integer>> resultados = new ArrayList<>();
-        ArrayList<Jugador> jugadors=jm.getJugadors();
+        ArrayList<ResultadoPrueba> resultados = new ArrayList<>();
+        //ArrayList<Jugador> jugadors=jm.getJugadors();
         Prova pActual = pm.getProva(ultimaProva);
+        switch (pActual.tipus){
+            case "Publicacio":
+            case "Master":
+                for(int i=0;i<this.numJugadors;i++){
+                    resultados.add(pActual.ejecutarPrueba());
+                }
+                break;
+            case "Tesis":
+                for (int i = 0; i < numJugadors; i++) {
+                    ResultadoPrueba r = pActual.ejecutarPrueba();
+                    r.setPasa(r.getExpresio()<jm.getPIJugador(i));
+                    resultados.add(pActual.ejecutarPrueba());
+                }
+                break;
+            case "Presupost":
+                int sumPI=0;
+                for (int i = 0; i < numJugadors; i++) {
+                    sumPI+=getPIJugador(i);
+                }
+                ResultadoPrueba r= pActual.ejecutarPrueba();
+                r.pasa=sumPI>r.getLog();
+                resultados.add(r);
+                break;
+
+        }
+
+
         for (Jugador j:jugadors) {
             resultados.add(pActual.ejecutarPrueba());
         }
