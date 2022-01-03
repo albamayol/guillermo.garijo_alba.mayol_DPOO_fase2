@@ -192,9 +192,32 @@ public class UIManager {
 
     public void llistaProva(ArrayList<Prova> proves, int i) {
         if (i < proves.size()) {
-            System.out.println("\nTrial: " + proves.get(i).getNomProva() + " (" + proves.get(i).getTipus() + ")");
-            System.out.println("Journal: " + proves.get(i).getNomRevista() + " (" + proves.get(i).getQuartil() + ")");
-            System.out.println("Chances: " + proves.get(i).getProbabilitatAccepta() + "% acceptance, " + proves.get(i).getProbabilitatRevisions() + "% revision, " + proves.get(i).getProbabilitatRebutja() + "% rejection\n");
+            Prova p = proves.get(i);
+
+            switch (p.getTipus()){
+                case "Publicacio":
+                    System.out.println("\nTrial: " + p.getNomProva() + " (Paper publication)");
+                    System.out.println("Journal: " + p.getNomRevista() + " (" + p.getQuartil() + ")");
+                    System.out.println("Chances: " + p.getProbabilitatAccepta() + "% acceptance, " + p.getProbabilitatRevisions() + "% revision, " + p.getProbabilitatRebutja() + "% rejection\n");
+                    break;
+                case "Tesis":
+
+                    System.out.println("\nTrial: " + p.getNomProva() + " (Doctorial thesis defense)");
+                    System.out.println("Field: " + p.getCampEstudis());
+                    System.out.println("Difficulty: " + p.getDifficulty());
+                    break;
+                case "Master":
+                    System.out.println("\nTrial: " + p.getNomProva() + " (Master studies)");
+                    System.out.println("Master: " + p.getNomMaster());
+                    System.out.println("ECTS: " + p.getCredits() + " with a " + p.getProbabilitatMaster() + " chance to pass each one");
+                    break;
+                case "Presupost":
+                    System.out.println("\nTrial: " + p.getNomProva() + " (Budget request)");
+                    System.out.println("Entity: " + p.getEntity());
+                    System.out.println("Budget: " + p.getBudget() + "€");
+                    break;
+            }
+
         }
     }
 
@@ -270,29 +293,63 @@ public class UIManager {
 
     public void executa(ArrayList<ResultadoPrueba> arrayExecucio, ArrayList<Jugador> jugadors) {
 
+        if(arrayExecucio.size()==1){
+            //presupost
+            showMessage("The research group got the budget!");
+            for (Jugador j:jugadors) {
+                showMessage(j.getNom() + " " + j.getTipus());
+                showMessage("PI count: " + j.getPI());
+            }
 
+        }else{
+            //los otros
+            String tipo = arrayExecucio.get(0).getTipus();
+            for (int i = 0; i < jugadors.size(); i++) {
+                Jugador j = jugadors.get(i);
+                ResultadoPrueba rp = arrayExecucio.get(i);
+                switch (tipo){
+                    case "Publicacio":
+                        ArrayList<Integer> resultats = rp.getResultats();
+                        System.out.print("\t" + (j.getNom() + " is submitting... "));
+                        for (int k = 0; k < resultats.size(); k++) {
+                            switch (resultats.get(k)) {
+                                case 1:
+                                    System.out.print("Accepted! ");
+                                    break;
+                                case 2:
+                                    System.out.print("Rejected. ");
+                                    break;
+                                case 3:
+                                    System.out.print("Revisions... ");
+                                    break;
+                            }
+                        }
+                        break;
 
-        for (int i = 0; i < arrayExecucio.size(); i++) {
-            System.out.print("\t" + (jugadors.get(i).getNom() + " is submitting... "));
-            for (int j = 0; j < arrayExecucio.get(i).size(); j++) {
-                switch (arrayExecucio.get(i).get(j)) {
-                    case 1:
-                        System.out.print("Accepted! ");
+                    case "Tesis":
+                        if(rp.getPasa()){
+                            showMessage("\t"+ (j.getNom() + " was successfull. Congrats!"));
+
+                        }else {
+                            showMessage("\t"+ (j.getNom() + " was successfull. Congrats!"));
+                        }
+                        showMessage(" PI count: " + j.getPI());
                         break;
-                    case 2:
-                        System.out.print("Rejected. ");
-                        break;
-                    case 3:
-                        System.out.print("Revisions... ");
+                    case "Master":
+                        System.out.print("\t" + (j.getNom() + " passed " + rp.getAprobados() + "/" + rp.getTotales() + " ECTS."));
+                        if(rp.getPasa()){
+                            showMessage("Congrats!");
+                        }else{
+                            showMessage("Sorry ...");
+                        }
+                        showMessage("PI count: " + j.getPI());
                         break;
                 }
+                if(jugadors.get(i).getPI()<=0){
+                    System.out.print(" - Disqualified!");
+                }
             }
-            System.out.print("PI count: " + jugadors.get(i).getPI());
-            if(jugadors.get(i).getPI()<=0){
-                System.out.print(" - Disqualified!");
-            }
-            System.out.println("");
-        }
 
+        }
     }
 }

@@ -16,4 +16,14 @@ public class SolicitudPressupost extends Prova{
     public ResultadoPrueba ejecutarPrueba() {
         return new ResultadoSolicitutPresupost(Math.log(quantitat)/Math.log(2));
     }
+
+    @Override
+    public String getBudget() {
+        return String.valueOf(quantitat);
+    }
+
+    @Override
+    public String getEntity() {
+        return nomEntitat;
+    }
 }

@@ -11,4 +11,13 @@ public class ResultadoMaster extends ResultadoPrueba{
         pasa=aprobados>suspendidos;
     }
 
+    @Override
+    public String getAprobados(){
+        return String.valueOf(aprobados);
+    }
+    @Override
+    public  String getTotales(){
+        return String.valueOf(aprobados+suspendidos);
+    }
+
 }

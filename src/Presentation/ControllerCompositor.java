@@ -71,10 +71,12 @@ public class ControllerCompositor {
         int numCredits = ui.askForInt("Enter the master's ECTS number: ");
         if(numCredits<60 || numCredits>120){
             ui.showMessage("ERROR. Number of credits incorrect. [60-120]");
+            return;
         }
         int probCredit=ui.askForInt("Enter the credit pass probability: ");
         if(probCredit<0 || probCredit>100){
             ui.showMessage("ERROR. Probability incorrect. [0-100]");
+            return;
         }
         pmanager.creaMaster(trialName, masterName, numCredits, probCredit);
         ui.showMessage("\nThe trial was created successfully!\n");
@@ -90,6 +92,7 @@ public class ControllerCompositor {
         int diff = ui.askForInt("Enter the master's ECTS number: ");
         if(diff<0 || diff>10){
             ui.showMessage("ERROR. Probability incorrect. [1-10]");
+            return;
         }
         pmanager.creaTesis(trialName, field, diff);
         ui.showMessage("\nThe trial was created successfully!\n");
@@ -104,6 +107,7 @@ public class ControllerCompositor {
         int budget = ui.askForInt("Enter the master's ECTS number: ");
         if(budget<1000 || budget>2000000000){
             ui.showMessage("ERROR. Probability incorrect. [1-10]");
+            return;
         }
         pmanager.creaPressupost(trialName, entity, budget);
         ui.showMessage("\nThe trial was created successfully!\n");

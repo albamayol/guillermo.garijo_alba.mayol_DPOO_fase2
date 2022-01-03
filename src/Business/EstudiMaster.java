@@ -37,4 +37,18 @@ public class EstudiMaster extends Prova{
         }
         return new ResultadoMaster(aprobados, suspendidos);
     }
+
+    @Override
+    public String getProbabilitatMaster(){
+        return String.valueOf(probAprovaCredit);
+    }
+    @Override
+    public String getNomMaster(){
+        return nomMaster;
+    }
+
+    @Override
+    public String getCredits() {
+        return String.valueOf(numCredits);
+    }
 }

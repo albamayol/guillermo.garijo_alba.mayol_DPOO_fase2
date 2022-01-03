@@ -20,4 +20,13 @@ public class TesiDoctoral extends Prova{
         }
         return new ResultadoTesis(Math.sqrt(sum));
     }
+
+    @Override
+    public String getDifficulty(){
+        return String.valueOf(dificultat);
+    }
+    @Override
+    public String getCampEstudis(){
+        return campEstudis;
+    }
 }

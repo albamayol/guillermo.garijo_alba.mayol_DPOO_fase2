@@ -62,6 +62,8 @@ public class Edicio {
             case "Master":
                 for(int i=0;i<this.numJugadors;i++){
                     resultados.add(pActual.ejecutarPrueba());
+                    jm.actualizaPI(i, resultados.get(i));
+                    resultados.get(i).setPasa(jm.getPIJugador(i)<1);
                 }
                 break;
             case "Tesis":
@@ -69,20 +71,24 @@ public class Edicio {
                     ResultadoPrueba r = pActual.ejecutarPrueba();
                     r.setPasa(r.getExpresio()<jm.getPIJugador(i));
                     resultados.add(pActual.ejecutarPrueba());
+                    jm.actualizaPI(i, resultados.get(i));
                 }
                 break;
             case "Presupost":
                 int sumPI=0;
                 for (int i = 0; i < numJugadors; i++) {
-                    sumPI+=getPIJugador(i);
+                    sumPI+=jm.getPIJugador(i);
                 }
                 ResultadoPrueba r= pActual.ejecutarPrueba();
                 r.pasa=sumPI>r.getLog();
                 resultados.add(r);
+                for (int i = 0; i < numJugadors; i++) {
+                    jm.actualizaPI(i, r);
+                }
                 break;
 
         }
-
+        /*
 
         for (Jugador j:jugadors) {
             resultados.add(pActual.ejecutarPrueba());
@@ -109,6 +115,8 @@ public class Edicio {
             c++;
         }
         ultimaProva++;
+
+         */
         return resultados;
     }
 

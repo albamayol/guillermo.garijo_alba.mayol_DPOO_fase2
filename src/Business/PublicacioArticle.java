@@ -42,19 +42,19 @@ public class PublicacioArticle extends Prova{
                 roa=true;
             }
         }
-        return new ResultadoPublicacion(resultados);
+        return new ResultadoPublicacion(resultados, this.quartil);
     }
 
-    public int getProbabilitatAccepta() {
-        return probabilitatAccepta;
+    public String getProbabilitatAccepta() {
+        return String.valueOf(probabilitatAccepta);
     }
 
-    public int getProbabilitatRebutja() {
-        return probabilitatRebutja;
+    public String getProbabilitatRebutja() {
+        return String.valueOf(probabilitatRebutja);
     }
 
-    public int getProbabilitatRevisions() {
-        return probabilitatRevisions;
+    public String getProbabilitatRevisions() {
+        return String.valueOf(probabilitatRevisions);
     }
 
 

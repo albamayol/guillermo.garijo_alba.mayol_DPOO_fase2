@@ -49,7 +49,7 @@ public class DAOProva {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
-                pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
+                //pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class DAOProva {
                 for(String l:fileContent){
                     String[] tmp = l.split(",");
                     if(tmp[0].equals(s)){
-                        pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
+                        //pruebas.add(new Prova(tmp[0], tmp[1], tmp[2], Integer.parseInt(tmp[3]), Integer.parseInt(tmp[4]), Integer.parseInt(tmp[5]), tmp[6], Boolean.parseBoolean(tmp[7])));
                         break;
                     }
                 }

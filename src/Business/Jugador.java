@@ -35,4 +35,13 @@ public class Jugador {
     public String getNom() {
         return nom;
     }
+    public String getTipus(){return null;}
+
+    public boolean esMaster() {
+        return false;
+    }
+
+    public boolean esEnginyer() {
+        return false;
+    }
 }

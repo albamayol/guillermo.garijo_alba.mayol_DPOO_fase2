@@ -28,4 +28,51 @@ public abstract class Prova {
     }
     public abstract ResultadoPrueba ejecutarPrueba();
 
+    public String getNomRevista(){
+        return null;
+    }
+
+    public String getQuartil(){
+        return null;
+    }
+
+    public String getProbabilitatAccepta(){
+        return null;
+    }
+
+    public String getProbabilitatRevisions(){
+        return null;
+    }
+
+    public String getProbabilitatRebutja(){
+        return null;
+    }
+
+    public String getDifficulty(){
+        return null;
+    }
+
+    public String getCredits(){
+        return null;
+    }
+
+    public String getProbabilitatMaster(){
+        return null;
+    }
+
+    public String getEntity(){
+        return null;
+    }
+
+    public String getBudget(){
+        return null;
+    }
+
+    public String getNomMaster(){
+        return null;
+    }
+
+    public  String getCampEstudis(){
+        return null;
+    }
 }

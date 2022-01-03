@@ -7,4 +7,8 @@ public class ResultadoSolicitutPresupost extends ResultadoPrueba{
         super("Presupost");
         this.log=log;
     }
+    @Override
+    public double getLog(){
+        return log;
+    }
 }

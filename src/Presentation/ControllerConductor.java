@@ -57,6 +57,8 @@ public class ControllerConductor {
             ui.showMessage("Trial #" + (provaActual + 1) + " - " + edActual.getNomProvaActual());
             ui.executa(edActual.ejecutarPrueba(), edActual.getJugadors());
             edActual.eliminados();
+            //meter un bucle para informar si alguien a subido de "lvl"
+
             exit = continuaExecucio();
 
         }

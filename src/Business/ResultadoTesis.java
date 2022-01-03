@@ -12,4 +12,8 @@ public class ResultadoTesis extends ResultadoPrueba{
         pasa=PI>expresio;
         return this;
     }
+    @Override
+    public double getExpresio(){
+        return expresio;
+    }
 }
