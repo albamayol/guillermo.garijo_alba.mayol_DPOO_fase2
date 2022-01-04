@@ -53,6 +53,7 @@ public class PublicacioArticle extends Prova{
         return String.valueOf(probabilitatRebutja);
     }
 
+
     public String getProbabilitatRevisions() {
         return String.valueOf(probabilitatRevisions);
     }

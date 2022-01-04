@@ -1,24 +1,23 @@
 package Business;
 
 import Persistance.DAOProva;
+import Persistance.DAOProvaCSV;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Objects;
 
 public class ProvesManager {
     private ArrayList<Prova> proves;
     private DAOProva daoProva;
 
     public ProvesManager(DAOProva daoProva) {
-        this.daoProva=daoProva;
-        this.proves=daoProva.leerProva();
+        this.daoProva = daoProva;
+        this.proves= daoProva.llegeixProves();
     }
 
     public ProvesManager(ArrayList<Prova> proves) {
         this.proves = proves;
-        daoProva=null;
+        daoProva =null;
     }
 
     public void setToUse(int i){
@@ -50,14 +49,14 @@ public class ProvesManager {
 
     //metodo para guardar pruebas al csv
     public void guardarPruebas(){
-        daoProva.guardarPruebas(proves);
+        daoProva.guardaProves(proves);
     }
 
     public void creaPaperPubli(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
-        proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb, "Paper Publication", false));
+        proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb, "Publication", false));
     }
     public void creaMaster(String trialName, String masterName, int numCred, int probAprova){
-        proves.add(new EstudiMaster(trialName, "Estudi Master", masterName, numCred, probAprova));
+        proves.add(new EstudiMaster(trialName, "Master", masterName, numCred, probAprova));
     }
 
 
@@ -106,10 +105,10 @@ public class ProvesManager {
     }
 
     public void creaTesis(String trialName, String field, int diff) {
-        proves.add(new TesiDoctoral(trialName, "Tesis Doctoral", field, diff));
+        proves.add(new TesiDoctoral(trialName, "Tesis", field, diff));
     }
 
     public void creaPressupost(String trialName, String entity, int budget) {
-        proves.add(new SolicitudPressupost(trialName, "Solicitud Pressupost", entity, budget));
+        proves.add(new SolicitudPressupost(trialName, "Pressupost", entity, budget));
     }
 }

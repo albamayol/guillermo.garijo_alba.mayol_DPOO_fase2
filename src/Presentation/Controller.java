@@ -1,10 +1,7 @@
 package Presentation;
 
 import Business.*;
-import Persistance.DAOJugador;
-import Persistance.DAOProva;
-
-import java.util.ArrayList;
+import Persistance.*;
 
 public class Controller {
     private UIManager ui;
@@ -13,15 +10,34 @@ public class Controller {
 
     public Controller() {
         this.ui = new UIManager();
-        DAOJugador daoJugador = new DAOJugador("jugador.csv");
-        DAOProva daoProva = new DAOProva("prueba.csv");
-        EdicionsManager em= new EdicionsManager(daoProva, daoJugador);
-        ProvesManager pm = new ProvesManager(daoProva);
+        /*
+        DAOJugadorCSV daoJugadorCSV = new DAOJugadorCSV("jugador.csv");
+        DAOProvaCSV daoProvaCSV = new DAOProvaCSV("prueba.csv");
+        EdicionsManager em= new EdicionsManager(daoProvaCSV, daoJugadorCSV);
+        ProvesManager pm = new ProvesManager(daoProvaCSV);
         this.cConductor= new ControllerConductor(em, ui);
         this.cCompositor=new ControllerCompositor(em, ui, pm);
+
+         */
     }
 
     public void run() {
+        switch (ui.menuPersistencia()){
+            case "I":
+                //csv
+                break;
+            case "II":
+                //json
+                DAOEdicioJSON daoEdicioJSON = new DAOEdicioJSON("edicion.json");
+                DAOProvaJSON daoProvaJSON=new DAOProvaJSON("prova.json");
+                EdicionsManager em = new EdicionsManager(daoEdicioJSON);
+                ProvesManager pm = new ProvesManager(daoProvaJSON);
+                this.cCompositor=new ControllerCompositor(em, ui, pm);
+                this.cConductor=new ControllerConductor(em, ui);
+                break;
+        }
+
+
         switch (ui.menuPrincipal()) {
             case 'A':
                 cCompositor.run();

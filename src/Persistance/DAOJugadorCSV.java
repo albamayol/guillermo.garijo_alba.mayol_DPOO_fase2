@@ -9,11 +9,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 
-public class DAOJugador {
+public class DAOJugadorCSV {
 
     private Path path;
 
-    public DAOJugador(String path) {
+    public DAOJugadorCSV(String path) {
         try{
             Path p = Paths.get(path);
             if(!Files.exists(p)){

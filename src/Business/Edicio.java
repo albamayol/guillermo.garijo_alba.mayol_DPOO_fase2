@@ -1,8 +1,7 @@
 package Business;
 
-import Persistance.DAOProva;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Edicio {
 
@@ -180,5 +179,9 @@ public class Edicio {
     public void eliminados() {
         jm.eliminados();
         numJugadors=jm.getNumJugadors();
+    }
+
+    public Iterator<Jugador> subirLvl() {
+        return jm.subirLvl();
     }
 }

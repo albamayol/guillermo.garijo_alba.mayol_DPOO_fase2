@@ -14,6 +14,23 @@ public class UIManager {
     public UIManager() {
     }
 
+    public String  menuPersistencia(){
+        showMessage("The IEEE needs to know where your allegiance lies.");
+        showMessage("\tI) People's Front of Engineering (CSV)");
+        showMessage("\tII) Engineering People's Front (JSON)");
+        boolean error=true;
+        String opcion="";
+        while (error){
+            opcion = askForString("Pick a faction: ");
+            if(!(opcion.equals("I") || opcion.equals("II"))){
+                showMessage("Incorrect option!");
+            }else {
+                error=false;
+            }
+        }
+        return opcion;
+    }
+
     public char menuPrincipal() {
         System.out.println("""
                 ____ _            ____       _       _
@@ -76,7 +93,7 @@ public class UIManager {
 
     public char menuProves() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\ta) Create Trial\n\tb) List Trials\n\tc) Delete Trial\n\n\td) Back\n");
+        System.out.println("\n\ta) Create Trial\n\tb) List Trials\n\tc) Delete Trial\n\n\td) Back\n");
 
         char op = '\0';
         while (true) {
@@ -97,10 +114,10 @@ public class UIManager {
 
     public int chooseTrial() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\t--- Trial types ---\n");
-        System.out.println("\t1) Paper publication\n");
-        System.out.println("\t2) Master studies\n");
-        System.out.println("\t3) Doctoral thersis defense\n");
+        System.out.println("\n\t--- Trial types ---\n");
+        System.out.println("\t1) Paper publication");
+        System.out.println("\t2) Master studies");
+        System.out.println("\t3) Doctoral thersis defense");
         System.out.println("\t4) Budget request\n");
         int op;
         do {
@@ -194,28 +211,27 @@ public class UIManager {
         if (i < proves.size()) {
             Prova p = proves.get(i);
 
-            switch (p.getTipus()){
-                case "Publicacio":
+            switch (p.getTipus()) {
+                case "Publicacio" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Paper publication)");
                     System.out.println("Journal: " + p.getNomRevista() + " (" + p.getQuartil() + ")");
                     System.out.println("Chances: " + p.getProbabilitatAccepta() + "% acceptance, " + p.getProbabilitatRevisions() + "% revision, " + p.getProbabilitatRebutja() + "% rejection\n");
-                    break;
-                case "Tesis":
-
+                }
+                case "Tesis" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Doctorial thesis defense)");
                     System.out.println("Field: " + p.getCampEstudis());
                     System.out.println("Difficulty: " + p.getDifficulty());
-                    break;
-                case "Master":
+                }
+                case "Master" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Master studies)");
                     System.out.println("Master: " + p.getNomMaster());
                     System.out.println("ECTS: " + p.getCredits() + " with a " + p.getProbabilitatMaster() + " chance to pass each one");
-                    break;
-                case "Presupost":
+                }
+                case "Presupost" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Budget request)");
                     System.out.println("Entity: " + p.getEntity());
                     System.out.println("Budget: " + p.getBudget() + "€");
-                    break;
+                }
             }
 
         }

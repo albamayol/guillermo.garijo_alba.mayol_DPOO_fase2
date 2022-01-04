@@ -1,8 +1,7 @@
 package Business;
 
-import Persistance.DAOJugador;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class JugadorManager {
 
@@ -73,5 +72,24 @@ public class JugadorManager {
 
     public int getPIJugador(int i) {
         return jugadores.get(i).getPI();
+    }
+
+    public Iterator<Jugador> subirLvl() {
+        ArrayList<Jugador> r=new ArrayList<>();
+        for (Jugador j:jugadores) {
+            if(j.getPI()>=10){
+                if(j.esMaster()){
+                    Jugador n = new Doctor(j.getNom(), 5, j.getId());
+                    jugadores.add(n);
+                    r.add(n);
+                }else if(j.esEnginyer()){
+                    Jugador n = new Master(j.getNom(), 5, j.getId());
+                    jugadores.add(n);
+                    r.add(n);
+                }
+                jugadores.remove(j);
+            }
+        }
+        return r.iterator();
     }
 }

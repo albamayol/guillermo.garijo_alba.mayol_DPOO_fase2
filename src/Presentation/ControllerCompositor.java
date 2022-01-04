@@ -22,7 +22,7 @@ public class ControllerCompositor {
         //boolean error = true;
         //while(error){
             //error=false;
-            String trialName = ui.askForString("Enter the trial's name: ");
+            String trialName = ui.askForString("\nEnter the trial's name: ");
             if(pmanager.existeixProva(trialName)){
                 ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
                 return;
@@ -58,7 +58,7 @@ public class ControllerCompositor {
         //}
     }
     private void creaMasterStudies(){
-        String trialName = ui.askForString("Enter the trial's name: ");
+        String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
             ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
             return;
@@ -83,30 +83,30 @@ public class ControllerCompositor {
 
     }
     private void creaTesis(){
-        String trialName = ui.askForString("Enter the trial's name: ");
+        String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
             ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
             return;
         }
-        String field=ui.askForString("Enter the master's name: ");
-        int diff = ui.askForInt("Enter the master's ECTS number: ");
+        String field=ui.askForString("Enter the Thesis field of study: ");
+        int diff = ui.askForInt("Enter the defense difficulty: ");
         if(diff<0 || diff>10){
-            ui.showMessage("ERROR. Probability incorrect. [1-10]");
+            ui.showMessage("ERROR. Difficulty incorrect. [1-10]");
             return;
         }
         pmanager.creaTesis(trialName, field, diff);
         ui.showMessage("\nThe trial was created successfully!\n");
     }
     private void creaBudgetReq(){
-        String trialName = ui.askForString("Enter the trial's name: ");
+        String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
             ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
             return;
         }
         String entity=ui.askForString("Enter the entity name: ");
-        int budget = ui.askForInt("Enter the master's ECTS number: ");
+        int budget = ui.askForInt("Enter the budget amount: ");
         if(budget<1000 || budget>2000000000){
-            ui.showMessage("ERROR. Probability incorrect. [1-10]");
+            ui.showMessage("ERROR. Probability incorrect. [10000-2000000000]");
             return;
         }
         pmanager.creaPressupost(trialName, entity, budget);
@@ -221,6 +221,7 @@ public class ControllerCompositor {
                                         creaBudgetReq();
                                         break;
                                 }
+                                break;
 
                             case 'b':
                                 if (pmanager.noHayPruebas()) {

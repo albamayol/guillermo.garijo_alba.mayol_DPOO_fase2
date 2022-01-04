@@ -2,6 +2,10 @@ package Presentation;
 
 import Business.Edicio;
 import Business.EdicionsManager;
+import Business.Jugador;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ControllerConductor {
     private UIManager ui;
@@ -58,7 +62,11 @@ public class ControllerConductor {
             ui.executa(edActual.ejecutarPrueba(), edActual.getJugadors());
             edActual.eliminados();
             //meter un bucle para informar si alguien a subido de "lvl"
-
+            Iterator<Jugador> subidos = edActual.subirLvl();
+            while (subidos.hasNext()){
+                Jugador tmp = subidos.next();
+                ui.showMessage(tmp.getNom() + " is now a " + tmp.getTipus() + "(with 5 PI).");
+            }
             exit = continuaExecucio();
 
         }

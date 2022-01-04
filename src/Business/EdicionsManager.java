@@ -1,8 +1,6 @@
 package Business;
 
-import Persistance.DAOEdicio;
-import Persistance.DAOJugador;
-import Persistance.DAOProva;
+import Persistance.*;
 
 import java.time.Year;
 import java.util.ArrayList;
@@ -13,10 +11,18 @@ public class EdicionsManager {
     private int currentYear;
     private DAOEdicio daoEdicio;
 
+    /*
     public EdicionsManager(DAOProva daoProva, DAOJugador daoJugador) {
-        this.daoEdicio=new DAOEdicio(daoJugador, daoProva, "edicion.csv");
+        this.daoEdicio =new DAOEdicioCSV(daoJugador, daoProva, "edicion.csv");
         this.ediciones = daoEdicio.leerEdiciones();
         this.currentYear= Year.now().getValue();
+    }
+
+     */
+
+    public EdicionsManager( DAOEdicio daoEdicio) {
+        this.daoEdicio = daoEdicio;
+        ediciones=daoEdicio.llegeixEdicions();
     }
 
     public boolean comprovaJugadors(int num){
@@ -47,7 +53,7 @@ public class EdicionsManager {
     }
 
     public void guardarEdiciones(){
-        daoEdicio.guardarEdiciones(ediciones);
+        daoEdicio.guardaEdicions(ediciones);
     }
 
     public boolean existeEdicion(int año){
