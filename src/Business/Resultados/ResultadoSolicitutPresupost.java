@@ -1,4 +1,4 @@
-package Business;
+package Business.Resultados;
 
 public class ResultadoSolicitutPresupost extends ResultadoPrueba{
     private double log;

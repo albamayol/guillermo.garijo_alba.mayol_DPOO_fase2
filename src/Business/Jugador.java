@@ -1,20 +1,29 @@
 package Business;
 
-public class Jugador {
+public abstract class Jugador {
     private String nom;
     private int PI;
     private int id;
     private static int ids=0;
+    protected String tipusJugador;
 
-    public Jugador(String nom, int PI, int id) {
+    public Jugador(String nom, int PI, int id, String tipus) {
         this.nom = nom;
         this.PI = PI;
         this.id = id;
+        this.tipusJugador=tipus;
     }
 
-    public static Jugador crearJugador(String name, int PI){
+    public static Jugador crearJugador(String name, int PI, String tipus){
         ids++;
-        return new Jugador(name, PI, ids);
+        if(tipus.equals("Master")){
+            return new Master(name, PI, ids);
+        }else if(tipus.equals("Doctor")){
+            return new Doctor(name, PI, ids);
+        }else if(tipus.equals("Enginyer")){
+            return new Enginyer(name, PI, ids);
+        }
+        return null;
     }
 
     public int getId() {
@@ -35,13 +44,9 @@ public class Jugador {
     public String getNom() {
         return nom;
     }
-    public String getTipus(){return null;}
+    public String getTipus(){return tipusJugador;}
 
-    public boolean esMaster() {
-        return false;
-    }
+    public abstract boolean esMaster();
 
-    public boolean esEnginyer() {
-        return false;
-    }
+    public abstract boolean esEnginyer();
 }

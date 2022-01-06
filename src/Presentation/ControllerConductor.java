@@ -44,6 +44,7 @@ public class ControllerConductor {
                 edActual.addJugador(ui.askForString("Enter the player's name (" + i + "/" + edActual.getNumJugadors() + "): "));
             }
         }
+
         while (!exit) {
             if (edActual.acabada()) {
                 String ganador;

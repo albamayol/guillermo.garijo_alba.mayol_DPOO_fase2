@@ -1,5 +1,8 @@
 package Business;
 
+import Business.Proves.Prova;
+import Business.Resultados.ResultadoPrueba;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -56,13 +59,12 @@ public class Edicio {
         ArrayList<ResultadoPrueba> resultados = new ArrayList<>();
         //ArrayList<Jugador> jugadors=jm.getJugadors();
         Prova pActual = pm.getProva(ultimaProva);
-        switch (pActual.tipus){
-            case "Publicacio":
+        switch (pActual.getTipus()){
+            case "Publication":
             case "Master":
                 for(int i=0;i<this.numJugadors;i++){
                     resultados.add(pActual.ejecutarPrueba());
                     jm.actualizaPI(i, resultados.get(i));
-                    resultados.get(i).setPasa(jm.getPIJugador(i)<1);
                 }
                 break;
             case "Tesis":
@@ -70,16 +72,16 @@ public class Edicio {
                     ResultadoPrueba r = pActual.ejecutarPrueba();
                     r.setPasa(r.getExpresio()<jm.getPIJugador(i));
                     resultados.add(pActual.ejecutarPrueba());
-                    jm.actualizaPI(i, resultados.get(i));
+                    jm.actualizaPI(i, r);
                 }
                 break;
-            case "Presupost":
+            case "Pressupost":
                 int sumPI=0;
                 for (int i = 0; i < numJugadors; i++) {
                     sumPI+=jm.getPIJugador(i);
                 }
                 ResultadoPrueba r= pActual.ejecutarPrueba();
-                r.pasa=sumPI>r.getLog();
+                r.setPasa(sumPI>r.getLog());
                 resultados.add(r);
                 for (int i = 0; i < numJugadors; i++) {
                     jm.actualizaPI(i, r);
@@ -113,9 +115,9 @@ public class Edicio {
             }
             c++;
         }
-        ultimaProva++;
 
          */
+        ultimaProva++;
         return resultados;
     }
 
@@ -124,7 +126,6 @@ public class Edicio {
     }
     public void addProba(Prova p){
         pm.addProva(p);
-
     }
     public void addJugador(String name){
         jm.addJugador(name);

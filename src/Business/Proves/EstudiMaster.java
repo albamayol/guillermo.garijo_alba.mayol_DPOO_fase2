@@ -1,7 +1,8 @@
-package Business;
+package Business.Proves;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import Business.Resultados.ResultadoMaster;
+import Business.Resultados.ResultadoPrueba;
+
 import java.util.Random;
 
 public class EstudiMaster extends Prova{
@@ -50,5 +51,9 @@ public class EstudiMaster extends Prova{
     @Override
     public String getCredits() {
         return String.valueOf(numCredits);
+    }
+    @Override
+    public String getTipus(){
+        return "Master";
     }
 }

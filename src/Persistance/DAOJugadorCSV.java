@@ -1,7 +1,6 @@
 package Persistance;
 
 import Business.Jugador;
-import Business.Prova;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -52,7 +51,7 @@ public class DAOJugadorCSV {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line:fileContent) {
                 String[] tmp = line.split(",");
-                    lectura.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
+                    //lectura.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +67,7 @@ public class DAOJugadorCSV {
                 for(String l:fileContent){
                     String[] tmp = l.split(",");
                     if(tmp[0].equals(s)){
-                        jugadores.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
+                        //jugadores.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
                         break;
                     }
                 }

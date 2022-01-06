@@ -1,5 +1,7 @@
 package Business;
 
+import Business.Resultados.ResultadoPrueba;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,7 +17,7 @@ public class JugadorManager {
         return !jugadores.isEmpty();
     }
     public void addJugador(String name) {
-        jugadores.add(Jugador.crearJugador(name, 5));
+        jugadores.add(Jugador.crearJugador(name, 5, "Enginyer"));
     }
     public ArrayList<Jugador> getJugadors() {
         return jugadores;
@@ -35,11 +37,11 @@ public class JugadorManager {
 
     public void actualizaPI(int i, ResultadoPrueba resultadoPrueba) {
         Jugador j = jugadores.get(i);
-        switch (resultadoPrueba.tipus){
+        switch (resultadoPrueba.getTipus()){
             case "Publicacio":
 
             case "Master":
-                if(resultadoPrueba.pasa){
+                if(resultadoPrueba.getPasa()){
                     if(j.esEnginyer()){
                         j.modificaPI(10-j.getPI());
                     }else{
@@ -50,7 +52,7 @@ public class JugadorManager {
                 }
                 break;
             case "Tesis":
-                if(resultadoPrueba.pasa){
+                if(resultadoPrueba.getPasa()){
                     if(j.esMaster()){
                         j.modificaPI(10-j.getPI());
                     }else{
@@ -62,7 +64,7 @@ public class JugadorManager {
                 break;
 
             case "Presupost":
-                if(resultadoPrueba.pasa){
+                if(resultadoPrueba.getPasa()){
                     j.modificaPI(j.getPI()/2);
                 }else {
                     j.modificaPI(-2);
@@ -76,20 +78,22 @@ public class JugadorManager {
 
     public Iterator<Jugador> subirLvl() {
         ArrayList<Jugador> r=new ArrayList<>();
-        for (Jugador j:jugadores) {
+        for (int i=0;i<jugadores.size();i++) {
+            Jugador j = jugadores.get(i);
             if(j.getPI()>=10){
                 if(j.esMaster()){
                     Jugador n = new Doctor(j.getNom(), 5, j.getId());
-                    jugadores.add(n);
+                    //jugadores.add(n);
                     r.add(n);
                 }else if(j.esEnginyer()){
                     Jugador n = new Master(j.getNom(), 5, j.getId());
-                    jugadores.add(n);
+                    //jugadores.add(n);
                     r.add(n);
                 }
-                jugadores.remove(j);
+                jugadores.remove(i);
             }
         }
+        jugadores.addAll(r);
         return r.iterator();
     }
 }

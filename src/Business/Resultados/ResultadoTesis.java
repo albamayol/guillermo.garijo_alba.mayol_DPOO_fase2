@@ -1,4 +1,4 @@
-package Business;
+package Business.Resultados;
 
 public class ResultadoTesis extends ResultadoPrueba{
     private double expresio;

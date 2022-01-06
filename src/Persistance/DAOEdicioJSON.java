@@ -1,8 +1,11 @@
 package Persistance;
 
-import Business.Edicio;
+import Business.*;
+import Business.Proves.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,14 +14,21 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public class DAOEdicioJSON implements DAOEdicio{
     private Gson gson;
     private Path path;
 
     public DAOEdicioJSON(String path) {
-        this.gson = new Gson();
+        RuntimeTypeAdapterFactory<Prova> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
+                .of(Prova.class, "tipus")
+                .registerSubtype(EstudiMaster.class, "Master")
+                .registerSubtype(PublicacioArticle.class, "Publication")
+                .registerSubtype(SolicitudPressupost.class, "Pressupost")
+                .registerSubtype(TesiDoctoral.class, "Tesis");
+        gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
         try{
             Path p = Paths.get(path);
             if(!Files.exists(p)){
@@ -32,6 +42,7 @@ public class DAOEdicioJSON implements DAOEdicio{
 
     @Override
     public void guardaEdicions(ArrayList<Edicio> ediciones) {
+        Gson gson = new Gson();
         try {
             BufferedWriter writer = Files.newBufferedWriter(path);
             writer.write("");
@@ -51,8 +62,17 @@ public class DAOEdicioJSON implements DAOEdicio{
     public ArrayList<Edicio> llegeixEdicions() {
         try {
             BufferedReader reader = Files.newBufferedReader(path);
-            Type collectionType = new TypeToken<Collection<Edicio>>(){}.getType();
-            return gson.fromJson(reader.readLine(), collectionType);
+            Type listType = new TypeToken<List<Edicio>>(){}.getType();
+            ArrayList<Edicio> fromJson = gson.fromJson(reader.readLine(), listType);
+            if(fromJson==null){
+                return new ArrayList<>();
+            }
+            for (Edicio e:fromJson) {
+                for (Prova p: e.getProves()) {
+                    p.setTipus(p.getTipus());
+                }
+            }
+            return fromJson;
         } catch (IOException e) {
             e.printStackTrace();
         }

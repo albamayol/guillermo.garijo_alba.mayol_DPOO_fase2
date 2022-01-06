@@ -1,7 +1,6 @@
-package Business;
+package Business.Proves;
 
-import java.util.ArrayList;
-import java.util.Random;
+import Business.Resultados.ResultadoPrueba;
 
 public abstract class Prova {
     protected String nomProva;
@@ -11,7 +10,7 @@ public abstract class Prova {
     public Prova(String nomProva, String tipus) {
         this.nomProva=nomProva;
         this.us=false;
-        this.tipus=tipus;
+        this.tipus =tipus;
     }
 
     public void usada(){
@@ -20,8 +19,9 @@ public abstract class Prova {
     public boolean isUs() {
         return us;
     }
-    public String getTipus() {
-        return tipus;
+    public abstract String getTipus();
+    public void setTipus(String tipus){
+        this.tipus=tipus;
     }
     public String getNomProva() {
         return nomProva;

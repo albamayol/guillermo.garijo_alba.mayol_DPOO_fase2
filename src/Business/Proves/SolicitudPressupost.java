@@ -1,6 +1,7 @@
-package Business;
+package Business.Proves;
 
-import java.util.ArrayList;
+import Business.Resultados.ResultadoPrueba;
+import Business.Resultados.ResultadoSolicitutPresupost;
 
 public class SolicitudPressupost extends Prova{
     private String nomEntitat;
@@ -25,5 +26,9 @@ public class SolicitudPressupost extends Prova{
     @Override
     public String getEntity() {
         return nomEntitat;
+    }
+    @Override
+    public String getTipus(){
+        return "Pressupost";
     }
 }

@@ -1,4 +1,7 @@
-package Business;
+package Business.Proves;
+
+import Business.Resultados.ResultadoPrueba;
+import Business.Resultados.ResultadoPublicacion;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -67,6 +70,10 @@ public class PublicacioArticle extends Prova{
         return quartil;
     }
 
+    @Override
+    public String getTipus(){
+        return "Publication";
+    }
 
 
 

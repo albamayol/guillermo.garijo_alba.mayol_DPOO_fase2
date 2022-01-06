@@ -1,6 +1,7 @@
-package Business;
+package Business.Proves;
 
-import java.util.ArrayList;
+import Business.Resultados.ResultadoPrueba;
+import Business.Resultados.ResultadoTesis;
 
 public class TesiDoctoral extends Prova{
     private String campEstudis;
@@ -28,5 +29,10 @@ public class TesiDoctoral extends Prova{
     @Override
     public String getCampEstudis(){
         return campEstudis;
+    }
+
+    @Override
+    public String getTipus(){
+        return "Tesis";
     }
 }

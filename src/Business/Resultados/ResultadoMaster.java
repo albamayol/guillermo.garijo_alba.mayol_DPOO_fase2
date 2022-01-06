@@ -1,4 +1,4 @@
-package Business;
+package Business.Resultados;
 
 public class ResultadoMaster extends ResultadoPrueba{
     private int aprobados;

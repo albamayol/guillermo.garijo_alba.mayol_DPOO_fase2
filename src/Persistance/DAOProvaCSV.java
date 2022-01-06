@@ -1,6 +1,6 @@
 package Persistance;
 
-import Business.Prova;
+import Business.Proves.Prova;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

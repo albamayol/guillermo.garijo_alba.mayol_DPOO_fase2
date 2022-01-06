@@ -23,6 +23,7 @@ public class EdicionsManager {
     public EdicionsManager( DAOEdicio daoEdicio) {
         this.daoEdicio = daoEdicio;
         ediciones=daoEdicio.llegeixEdicions();
+        this.currentYear= Year.now().getValue();
     }
 
     public boolean comprovaJugadors(int num){

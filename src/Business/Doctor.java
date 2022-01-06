@@ -1,15 +1,18 @@
 package Business;
 
 public class Doctor extends Jugador {
-    private String tipus;
 
     public Doctor(String nom, int PI, int id) {
-        super(nom, PI, id);
-        tipus="Doctor";
+        super(nom, PI, id, "Doctor");
     }
 
     @Override
-    public String getTipus(){
-        return tipus;
+    public boolean esMaster() {
+        return false;
+    }
+
+    @Override
+    public boolean esEnginyer() {
+        return false;
     }
 }

@@ -2,8 +2,8 @@ package Presentation;
 
 import Business.Edicio;
 import Business.Jugador;
-import Business.Prova;
-import Business.ResultadoPrueba;
+import Business.Proves.Prova;
+import Business.Resultados.ResultadoPrueba;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -319,14 +319,14 @@ public class UIManager {
 
         }else{
             //los otros
-            String tipo = arrayExecucio.get(0).getTipus();
             for (int i = 0; i < jugadors.size(); i++) {
+                String tipo = arrayExecucio.get(i).getTipus();
                 Jugador j = jugadors.get(i);
                 ResultadoPrueba rp = arrayExecucio.get(i);
                 switch (tipo){
                     case "Publicacio":
                         ArrayList<Integer> resultats = rp.getResultats();
-                        System.out.print("\t" + (j.getNom() + " is submitting... "));
+                        System.out.print("\n\t" + (j.getNom() + " is submitting... "));
                         for (int k = 0; k < resultats.size(); k++) {
                             switch (resultats.get(k)) {
                                 case 1:
@@ -347,9 +347,8 @@ public class UIManager {
                             showMessage("\t"+ (j.getNom() + " was successfull. Congrats!"));
 
                         }else {
-                            showMessage("\t"+ (j.getNom() + " was successfull. Congrats!"));
+                            showMessage("\t"+ (j.getNom() + "   failed. Sorry ..."));
                         }
-                        showMessage(" PI count: " + j.getPI());
                         break;
                     case "Master":
                         System.out.print("\t" + (j.getNom() + " passed " + rp.getAprobados() + "/" + rp.getTotales() + " ECTS."));
@@ -358,9 +357,9 @@ public class UIManager {
                         }else{
                             showMessage("Sorry ...");
                         }
-                        showMessage("PI count: " + j.getPI());
                         break;
                 }
+                System.out.println(" PI count: " + j.getPI());
                 if(jugadors.get(i).getPI()<=0){
                     System.out.print(" - Disqualified!");
                 }

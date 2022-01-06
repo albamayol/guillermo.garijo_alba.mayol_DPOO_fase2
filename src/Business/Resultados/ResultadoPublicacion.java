@@ -1,4 +1,4 @@
-package Business;
+package Business.Resultados;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ public class ResultadoPublicacion extends ResultadoPrueba{
         super("Publicacio");
         this.resultados=r;
         quartil=s;
+        if(r.get(r.size()-1)==1){
+            this.pasa=true;
+        }
     }
 
     @Override

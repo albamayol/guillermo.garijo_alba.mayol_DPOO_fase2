@@ -1,17 +1,16 @@
 package Business;
 
 public class Master extends Jugador {
-    private String tipus;
     public Master(String nom, int PI, int id) {
-        super(nom, PI, id);
-        tipus="Master";
-    }
-    @Override
-    public String getTipus(){
-        return tipus;
+        super(nom, PI, id, "Master");
     }
     @Override
     public boolean esMaster(){
         return true;
+    }
+
+    @Override
+    public boolean esEnginyer() {
+        return false;
     }
 }

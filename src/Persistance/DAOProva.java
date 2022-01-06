@@ -1,6 +1,6 @@
 package Persistance;
 
-import Business.Prova;
+import Business.Proves.Prova;
 
 import java.util.ArrayList;
 
