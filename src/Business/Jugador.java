@@ -49,4 +49,12 @@ public abstract class Jugador {
     public abstract boolean esMaster();
 
     public abstract boolean esEnginyer();
+
+    public abstract boolean esDoctor();
+
+    public abstract String getTipusJugador();
+
+    public void setTipusJugdaor(String tipusJugador){
+        this.tipusJugador=tipusJugador;
+    }
 }

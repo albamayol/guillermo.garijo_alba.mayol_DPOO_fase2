@@ -15,4 +15,14 @@ public class Doctor extends Jugador {
     public boolean esEnginyer() {
         return false;
     }
+
+    @Override
+    public boolean esDoctor() {
+        return true;
+    }
+
+    @Override
+    public String getTipusJugador() {
+        return "Doctor";
+    }
 }

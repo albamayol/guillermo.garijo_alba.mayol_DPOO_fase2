@@ -14,4 +14,14 @@ public class Enginyer extends Jugador{
     public boolean esEnginyer(){
         return true;
     }
+
+    @Override
+    public boolean esDoctor() {
+        return false;
+    }
+
+    @Override
+    public String getTipusJugador() {
+        return "Enginyer";
+    }
 }

@@ -54,6 +54,6 @@ public class EstudiMaster extends Prova{
     }
     @Override
     public String getTipus(){
-        return "Master";
+        return "EstudiMaster";
     }
 }

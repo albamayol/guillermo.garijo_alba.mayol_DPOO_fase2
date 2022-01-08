@@ -24,11 +24,21 @@ public class DAOEdicioJSON implements DAOEdicio{
     public DAOEdicioJSON(String path) {
         RuntimeTypeAdapterFactory<Prova> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(Prova.class, "tipus")
-                .registerSubtype(EstudiMaster.class, "Master")
+                .registerSubtype(EstudiMaster.class, "EstudiMaster")
                 .registerSubtype(PublicacioArticle.class, "Publication")
                 .registerSubtype(SolicitudPressupost.class, "Pressupost")
                 .registerSubtype(TesiDoctoral.class, "Tesis");
-        gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
+        RuntimeTypeAdapterFactory<Jugador> runtimeTypeAdapterFactory1 = RuntimeTypeAdapterFactory
+                .of(Jugador.class, "tipusJugador")
+                .registerSubtype(Enginyer.class, "Enginyer")
+                .registerSubtype(Master.class, "Master")
+                .registerSubtype(Doctor.class, "Doctor");
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapterFactory(runtimeTypeAdapterFactory);
+        builder.registerTypeAdapterFactory(runtimeTypeAdapterFactory1);
+
+        gson = builder.create();
         try{
             Path p = Paths.get(path);
             if(!Files.exists(p)){
@@ -71,7 +81,11 @@ public class DAOEdicioJSON implements DAOEdicio{
                 for (Prova p: e.getProves()) {
                     p.setTipus(p.getTipus());
                 }
+                for (Jugador j: e.getJugadors()) {
+                    j.setTipusJugdaor(j.getTipusJugador());
+                }
             }
+
             return fromJson;
         } catch (IOException e) {
             e.printStackTrace();

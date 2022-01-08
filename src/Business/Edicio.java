@@ -61,7 +61,7 @@ public class Edicio {
         Prova pActual = pm.getProva(ultimaProva);
         switch (pActual.getTipus()){
             case "Publication":
-            case "Master":
+            case "EstudiMaster":
                 for(int i=0;i<this.numJugadors;i++){
                     resultados.add(pActual.ejecutarPrueba());
                     jm.actualizaPI(i, resultados.get(i));

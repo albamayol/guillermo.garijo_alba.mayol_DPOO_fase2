@@ -13,4 +13,14 @@ public class Master extends Jugador {
     public boolean esEnginyer() {
         return false;
     }
+
+    @Override
+    public boolean esDoctor() {
+        return false;
+    }
+
+    @Override
+    public String getTipusJugador() {
+        return "Master";
+    }
 }

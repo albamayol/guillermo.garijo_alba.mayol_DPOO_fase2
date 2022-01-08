@@ -56,7 +56,7 @@ public class ProvesManager {
         proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb, "Publication", false));
     }
     public void creaMaster(String trialName, String masterName, int numCred, int probAprova){
-        proves.add(new EstudiMaster(trialName, "Master", masterName, numCred, probAprova));
+        proves.add(new EstudiMaster(trialName, "EstudiMaster", masterName, numCred, probAprova));
     }
 
 

@@ -222,7 +222,7 @@ public class UIManager {
                     System.out.println("Field: " + p.getCampEstudis());
                     System.out.println("Difficulty: " + p.getDifficulty());
                 }
-                case "Master" -> {
+                case "EstudiMaster" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Master studies)");
                     System.out.println("Master: " + p.getNomMaster());
                     System.out.println("ECTS: " + p.getCredits() + " with a " + p.getProbabilitatMaster() + " chance to pass each one");
@@ -350,7 +350,7 @@ public class UIManager {
                             showMessage("\t"+ (j.getNom() + "   failed. Sorry ..."));
                         }
                         break;
-                    case "Master":
+                    case "EstudiMaster":
                         System.out.print("\t" + (j.getNom() + " passed " + rp.getAprobados() + "/" + rp.getTotales() + " ECTS."));
                         if(rp.getPasa()){
                             showMessage("Congrats!");

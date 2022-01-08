@@ -27,6 +27,7 @@ public class JugadorManager {
         for(int i=0;i<jugadores.size();i++){
             if(jugadores.get(i).pisCero()){
                 jugadores.remove(i);
+                i--;
             }
         }
     }
@@ -45,10 +46,19 @@ public class JugadorManager {
                     if(j.esEnginyer()){
                         j.modificaPI(10-j.getPI());
                     }else{
-                        j.modificaPI(3);
+                        if(j.esDoctor()){
+                            j.modificaPI(6);
+                        }else {
+                            j.modificaPI(3);
+                        }
                     }
                 }else {
-                    j.modificaPI(-3);
+                    if(j.esMaster()||j.esDoctor()){
+                        j.modificaPI(-1);
+                    }else {
+                        j.modificaPI(-3);
+                    }
+
                 }
                 break;
             case "Tesis":
@@ -56,18 +66,35 @@ public class JugadorManager {
                     if(j.esMaster()){
                         j.modificaPI(10-j.getPI());
                     }else{
-                        j.modificaPI(5);
+                        if(j.esDoctor()){
+                            j.modificaPI(10);
+                        }else {
+                            j.modificaPI(5);
+                        }
                     }
                 }else {
-                    j.modificaPI(-5);
+                    if(j.esMaster()||j.esDoctor()){
+                        j.modificaPI(-2);
+                    }else {
+                        j.modificaPI(-5);
+                    }
+
                 }
                 break;
 
             case "Presupost":
                 if(resultadoPrueba.getPasa()){
-                    j.modificaPI(j.getPI()/2);
+                    if(j.esDoctor()){
+                        j.modificaPI((j.getPI()/2)*2);
+                    }else {
+                        j.modificaPI(j.getPI()/2);
+                    }
                 }else {
-                    j.modificaPI(-2);
+                    if(j.esDoctor()||j.esMaster()){
+                        j.modificaPI(-1);
+                    }else{
+                        j.modificaPI(-2);
+                    }
                 }
         }
     }
@@ -91,6 +118,7 @@ public class JugadorManager {
                     r.add(n);
                 }
                 jugadores.remove(i);
+                i--;
             }
         }
         jugadores.addAll(r);

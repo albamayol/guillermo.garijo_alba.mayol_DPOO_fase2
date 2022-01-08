@@ -25,7 +25,7 @@ public class DAOProvaJSON implements DAOProva{
     public DAOProvaJSON(String path) {
         RuntimeTypeAdapterFactory<Prova> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(Prova.class, "tipus")
-                .registerSubtype(EstudiMaster.class, "Master")
+                .registerSubtype(EstudiMaster.class, "EstudiMaster")
                 .registerSubtype(PublicacioArticle.class, "Publication")
                 .registerSubtype(SolicitudPressupost.class, "Pressupost")
                 .registerSubtype(TesiDoctoral.class, "Tesis");
