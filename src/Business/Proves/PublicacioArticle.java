@@ -23,6 +23,24 @@ public class PublicacioArticle extends Prova{
         this.probabilitatRebutja = probabilitatRebutja;
     }
 
+    public PublicacioArticle(String nomProva, String tipus, String nomRevista, String quartil, int probabilitatAccepta, int probabilitatRevisions, int probabilitatRebutja) {
+        super(nomProva, tipus);
+        this.nomRevista = nomRevista;
+        this.quartil = quartil;
+        this.probabilitatAccepta = probabilitatAccepta;
+        this.probabilitatRevisions = probabilitatRevisions;
+        this.probabilitatRebutja = probabilitatRebutja;
+    }
+
+    public PublicacioArticle(String nomProva, String tipus, boolean us, String nomRevista, String quartil, int probabilitatAccepta, int probabilitatRevisions, int probabilitatRebutja) {
+        super(nomProva, us, tipus);
+        this.nomRevista = nomRevista;
+        this.quartil = quartil;
+        this.probabilitatAccepta = probabilitatAccepta;
+        this.probabilitatRevisions = probabilitatRevisions;
+        this.probabilitatRebutja = probabilitatRebutja;
+    }
+
     @Override
     public ResultadoPrueba ejecutarPrueba(){
         boolean roa=false;

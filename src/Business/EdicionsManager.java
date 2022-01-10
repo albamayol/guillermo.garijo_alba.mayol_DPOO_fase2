@@ -5,23 +5,22 @@ import Persistance.*;
 import java.time.Year;
 import java.util.ArrayList;
 
-public class EdicionsManager {
+public class EdicionsManager{
 
     private ArrayList<Edicio> ediciones;
     private int currentYear;
     private DAOEdicio daoEdicio;
 
-    /*
-    public EdicionsManager(DAOProva daoProva, DAOJugador daoJugador) {
-        this.daoEdicio =new DAOEdicioCSV(daoJugador, daoProva, "edicion.csv");
-        this.ediciones = daoEdicio.leerEdiciones();
+    //constructor para manager con csv
+    public EdicionsManager(DAOEdicioCSV dao) {
+        this.daoEdicio =dao;
+        this.ediciones = daoEdicio.llegeixEdicions();
         this.currentYear= Year.now().getValue();
     }
 
-     */
-
-    public EdicionsManager( DAOEdicio daoEdicio) {
-        this.daoEdicio = daoEdicio;
+    //constructor para manager con json
+    public EdicionsManager(DAOEdicioJSON dao) {
+        this.daoEdicio = dao;
         ediciones=daoEdicio.llegeixEdicions();
         this.currentYear= Year.now().getValue();
     }

@@ -20,4 +20,14 @@ public class ResultadoPublicacion extends ResultadoPrueba{
     public ArrayList<Integer> getResultats(){
         return resultados;
     }
+    @Override
+    public int getPIPublicacio(){
+        return switch (quartil) {
+            case "Q1" -> 4;
+            case "Q2" -> 3;
+            case "Q3" -> 2;
+            case "Q4" -> 1;
+            default -> 1000000;
+        };
+    }
 }

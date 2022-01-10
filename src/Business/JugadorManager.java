@@ -40,8 +40,21 @@ public class JugadorManager {
         Jugador j = jugadores.get(i);
         switch (resultadoPrueba.getTipus()){
             case "Publicacio":
-
-            case "Master":
+                if(resultadoPrueba.getPasa()){
+                    if(j.esDoctor()){
+                        j.modificaPI(resultadoPrueba.getPIPublicacio()*2);
+                    }else {
+                        j.modificaPI(resultadoPrueba.getPIPublicacio());
+                    }
+                }else {
+                    if(j.esMaster()||j.esDoctor()){
+                        j.modificaPI(-((resultadoPrueba.getPIPublicacio()+1)/2));
+                    }else {
+                        j.modificaPI(-(resultadoPrueba.getPIPublicacio()+1));
+                    }
+                }
+                break;
+            case "EstudiMaster":
                 if(resultadoPrueba.getPasa()){
                     if(j.esEnginyer()){
                         j.modificaPI(10-j.getPI());

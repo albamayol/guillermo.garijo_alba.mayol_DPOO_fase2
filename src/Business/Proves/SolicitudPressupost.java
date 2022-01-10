@@ -13,6 +13,14 @@ public class SolicitudPressupost extends Prova{
         this.quantitat = quantitat;
     }
 
+    public SolicitudPressupost(String nomProva, String tipus, boolean us, String nomEntitat, double quantitat) {
+        super(nomProva, us, tipus);
+        this.nomEntitat = nomEntitat;
+        this.quantitat = quantitat;
+    }
+    //constructor para csv
+
+
     @Override
     public ResultadoPrueba ejecutarPrueba() {
         return new ResultadoSolicitutPresupost(Math.log(quantitat)/Math.log(2));

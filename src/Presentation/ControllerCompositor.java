@@ -159,7 +159,7 @@ public class ControllerCompositor {
                 ui.showMessage("ERROR. That trial does not exist. Going back.");
                 return;
             } else {
-                e.addProba(pmanager.getProva(num-1)); //cordarse de poner el uso a true ->done
+                e.addProba(pmanager.getProva(num-1)); //cordarse de poner el uso a true ->done (no va)
                 pmanager.setToUse(num-1);
             }
         }
@@ -281,6 +281,8 @@ public class ControllerCompositor {
                                 eliminaEdicion();
                                 break;
                             case 'e':
+                                //modificaciones al uso de las pruebas, se han de guardar
+                                pmanager.guardarPruebas();
                                 emanager.guardarEdiciones();
                                 exit = true;
                                 break;

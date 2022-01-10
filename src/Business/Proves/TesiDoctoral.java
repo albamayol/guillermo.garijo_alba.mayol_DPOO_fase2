@@ -13,6 +13,12 @@ public class TesiDoctoral extends Prova{
         this.dificultat = dificultat;
     }
 
+    public TesiDoctoral(String nomProva, String tipus, boolean us, String campEstudis, int dificultat) {
+        super(nomProva, us, tipus);
+        this.campEstudis = campEstudis;
+        this.dificultat = dificultat;
+    }
+
     @Override
     public ResultadoPrueba ejecutarPrueba() {
         int sum=0;

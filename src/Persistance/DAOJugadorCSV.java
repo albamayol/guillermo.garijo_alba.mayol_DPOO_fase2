@@ -1,6 +1,9 @@
 package Persistance;
 
+import Business.Doctor;
+import Business.Enginyer;
 import Business.Jugador;
+import Business.Master;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -35,7 +38,7 @@ public class DAOJugadorCSV {
         ArrayList<String> keys = new ArrayList<>();
         for (Jugador j:jugadores) {
             keys.add(String.valueOf(j.getId()));
-            String line = j.getId() + "," + j.getNom() + "," + j.getPI() + "\n";
+            String line = j.getId() + "," + j.getNom() + "," + j.getPI() + "," + j.getTipus() + "\n";
             try {
                 Files.writeString(path, line, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
@@ -45,31 +48,20 @@ public class DAOJugadorCSV {
         return keys;
     }
 
-    public ArrayList<Jugador> leerJugadores(){
-        ArrayList<Jugador> lectura=new ArrayList<>();
-        try {
-            ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
-            for (String line:fileContent) {
-                String[] tmp = line.split(",");
-                    //lectura.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return lectura;
-    }
 
-    public ArrayList<Jugador> getJugadoresPorID(String[] a){
+    public ArrayList<Jugador> getJugadores(){
         ArrayList<Jugador> jugadores = new ArrayList<>();
         try {
-            for (String s:a) {
-                ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
-                for(String l:fileContent){
-                    String[] tmp = l.split(",");
-                    if(tmp[0].equals(s)){
-                        //jugadores.add(new Jugador(tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[0])));
-                        break;
-                    }
+            ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
+            for(String l:fileContent){
+                String[] tmp = l.split(",");
+                switch (tmp[3]){
+                    case "Enginyer":
+                        jugadores.add(new Enginyer(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
+                    case "Master":
+                        jugadores.add(new Master(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
+                    case "Doctor":
+                        jugadores.add(new Doctor(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
                 }
             }
 

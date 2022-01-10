@@ -53,7 +53,7 @@ public class DAOProvaJSON implements DAOProva{
         }
         String linea = gson.toJson(proves);
         try {
-            Files.writeString(path, linea, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+            Files.writeString(path, linea, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

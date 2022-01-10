@@ -17,6 +17,16 @@ public class EstudiMaster extends Prova{
         this.probAprovaCredit = probAprovaCredit;
     }
 
+    //constructor para el csv
+
+
+    public EstudiMaster(String nom, String tipus, boolean us, String nomMaster, int numCredits, int probAprovaCredit) {
+        super(nom, us, tipus);
+        this.nomMaster = nomMaster;
+        this.numCredits = numCredits;
+        this.probAprovaCredit = probAprovaCredit;
+    }
+
     @Override
     public ResultadoPrueba ejecutarPrueba() {
         Random r = new Random();

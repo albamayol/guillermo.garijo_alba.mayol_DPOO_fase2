@@ -13,6 +13,15 @@ public abstract class Prova {
         this.tipus =tipus;
     }
 
+    //constructor para el csv
+
+
+    public Prova(String nomProva, boolean us, String tipus) {
+        this.nomProva = nomProva;
+        this.us = us;
+        this.tipus = tipus;
+    }
+
     public void usada(){
         this.us=true;
     }

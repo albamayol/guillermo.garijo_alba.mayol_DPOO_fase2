@@ -5,7 +5,7 @@ public class ResultadoMaster extends ResultadoPrueba{
     private int suspendidos;
 
     public ResultadoMaster(int aprobados, int suspendidos) {
-        super("Master");
+        super("EstudiMaster");
         this.aprobados=aprobados;
         this.suspendidos=suspendidos;
         pasa=aprobados>suspendidos;

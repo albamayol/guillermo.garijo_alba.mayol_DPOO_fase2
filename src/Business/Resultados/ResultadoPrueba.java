@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ResultadoPrueba {
     protected String tipus;
     protected boolean pasa;
+    protected String quartil;
 
     public ResultadoPrueba(String tipus) {
         this.tipus = tipus;
@@ -41,5 +42,9 @@ public class ResultadoPrueba {
 
     public String getTotales() {
         return null;
+    }
+
+    public int getPIPublicacio(){
+        return 0;
     }
 }

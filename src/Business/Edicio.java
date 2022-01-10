@@ -24,12 +24,12 @@ public class Edicio {
         this.jm=new JugadorManager(new ArrayList<>());
         this.ultimaProva=0;
     }//contructor para leer del csv
-    public Edicio(int any, int numInicialJugadors, int numProves, ArrayList<Jugador> jugadors, ArrayList<Prova> proves, int ultimaProva) {
+    public Edicio(int any, int numInicialJugadors, int numProves, JugadorManager jm, ProvesManager pm, int ultimaProva) {
         this.any = any;
         this.numJugadors = numInicialJugadors;
         this.numProves = numProves;
-        this.jm=new JugadorManager(jugadors);
-        this.pm=new ProvesManager(proves);
+        this.jm=jm;
+        this.pm=pm;
         this.ultimaProva = ultimaProva;
     }
     //constructor para copiar
@@ -47,7 +47,7 @@ public class Edicio {
         return new Edicio(any, numJug, this.numProves, pm.copia(), new JugadorManager(new ArrayList<>()));
     }
     public boolean acabada(){
-        return ultimaProva==numProves;
+        return ultimaProva==numProves || numJugadors==0;
     }
     public boolean hayJugadores(){
         return jm.hayJugadores();

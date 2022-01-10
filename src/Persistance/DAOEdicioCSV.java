@@ -1,7 +1,9 @@
 package Persistance;
 
 import Business.Edicio;
+import Business.JugadorManager;
 import Business.Proves.Prova;
+import Business.ProvesManager;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,15 +11,15 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 
-public class DAOEdicioCSV {
+public class DAOEdicioCSV implements DAOEdicio{
 
     private final DAOJugadorCSV daojugador;
     private final DAOProvaCSV daoProvaCSV;
     private Path path;
 
-    public DAOEdicioCSV(DAOJugadorCSV daojugador, DAOProvaCSV daoProvaCSV, String path) {
-        this.daojugador = daojugador;
-        this.daoProvaCSV = daoProvaCSV;
+    public DAOEdicioCSV( String path) {
+        this.daojugador = new DAOJugadorCSV("jugador.csv");
+        this.daoProvaCSV = new DAOProvaCSV("estudisMaster.csv", "tesis.csv", "publicacio.csv", "pressupost.csv");
         try{
             Path p = Paths.get(path);
             if(!Files.exists(p)){
@@ -30,15 +32,16 @@ public class DAOEdicioCSV {
     }
 
 
-    public ArrayList<Edicio> leerEdiciones() {
+    public ArrayList<Edicio> llegeixEdicions() {
         ArrayList<Edicio> ediciones = new ArrayList<>();
         try {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for (String line : fileContent) {
-                String[] tmp = line.split(",");
-                String[] jugadores = tmp[4].replace("]", "").replace("[", "").split(";");
-                String[] pruebas = tmp[3].replace("]", "").replace("[", "").split(";");
-                ediciones.add(new Edicio(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2]), daojugador.getJugadoresPorID(jugadores), daoProvaCSV.getPruebasPorIDs(pruebas), Integer.parseInt(tmp[5])));
+                String[] tmp = line.split(",");String[] pruebas = tmp[3].replace("]", "").replace("[", "").split(";");
+                ediciones.add(new Edicio(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2]),
+                        new JugadorManager(daojugador.getJugadores()),
+                        new ProvesManager(daoProvaCSV.getPruebasPorIDs(pruebas)), Integer.parseInt(tmp[5]))
+                );
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,7 +49,7 @@ public class DAOEdicioCSV {
         return ediciones;
     }
 
-    public void guardarEdiciones(ArrayList<Edicio> ediciones){
+    public void guardaEdicions(ArrayList<Edicio> ediciones){
         try {
             BufferedWriter writer = Files.newBufferedWriter(path);
             writer.write("");
@@ -56,12 +59,12 @@ public class DAOEdicioCSV {
         }
         for (Edicio e:ediciones) {
             StringBuilder linea = new StringBuilder(e.getAny() + "," + e.getNumJugadors() + "," + e.getNumProves() + ",[");
-            for (Prova p:e.getProves()) {
-                linea.append(p.getNomProva()).append(";");
+            for (String p: daoProvaCSV.actualitzaProves(e.getProves())) {
+                linea.append(p).append(";");
             }
             linea.append("],[");
-            for (String s :daojugador.guardarJugadores(e.getJugadors())) {
-                linea.append(s).append(";");
+            for (String j :daojugador.guardarJugadores(e.getJugadors())) {
+                linea.append(j).append(";");
             }
             linea.append("],").append(e.getUltimaProva()).append("\n");
             try {

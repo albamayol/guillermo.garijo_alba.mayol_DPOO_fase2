@@ -19,7 +19,7 @@ public class ControllerConductor {
     }
 
     private boolean continuaExecucio(){
-        String t = ui.askForString("Continue the execution? [yes/no]: ");
+        String t = ui.askForString("\nContinue the execution? [yes/no]: ");
         if(t.equals("yes")){
             return false;
         }else if(t.equals("no")){
@@ -37,8 +37,8 @@ public class ControllerConductor {
             ui.showMessage("ERROR. There is no Edition to execute this year. Going back.");
             return;
         }
-        ui.showMessage("Entering execution mode...");
-        ui.showMessage("THE TRIALS .......");
+        ui.showMessage("\nEntering execution mode...\n");
+        ui.showMessage("\nTHE TRIALS .......\n\n");
         if (!edActual.hayJugadores()) {
             for (int i = 1; i <= edActual.getNumJugadors(); i++) {
                 edActual.addJugador(ui.askForString("Enter the player's name (" + i + "/" + edActual.getNumJugadors() + "): "));
@@ -59,14 +59,14 @@ public class ControllerConductor {
             }
 
             int provaActual = edActual.getUltimaProva();
-            ui.showMessage("Trial #" + (provaActual + 1) + " - " + edActual.getNomProvaActual());
+            ui.showMessage("\nTrial #" + (provaActual + 1) + " - " + edActual.getNomProvaActual() + "\n");
             ui.executa(edActual.ejecutarPrueba(), edActual.getJugadors());
             edActual.eliminados();
             //meter un bucle para informar si alguien a subido de "lvl"
             Iterator<Jugador> subidos = edActual.subirLvl();
             while (subidos.hasNext()){
                 Jugador tmp = subidos.next();
-                ui.showMessage(tmp.getNom() + " is now a " + tmp.getTipus() + "(with 5 PI).");
+                ui.showMessage("\n" + tmp.getNom() + " is now a " + tmp.getTipus() + "(with 5 PI).");
             }
             exit = continuaExecucio();
 

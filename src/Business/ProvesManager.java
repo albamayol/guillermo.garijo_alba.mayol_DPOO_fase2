@@ -14,7 +14,7 @@ public class ProvesManager {
         this.daoProva = daoProva;
         this.proves= daoProva.llegeixProves();
     }
-
+    //constructor para el manager de pruebas de la edicion (sin dao)
     public ProvesManager(ArrayList<Prova> proves) {
         this.proves = proves;
         daoProva =null;

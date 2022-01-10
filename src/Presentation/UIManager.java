@@ -15,15 +15,15 @@ public class UIManager {
     }
 
     public String  menuPersistencia(){
-        showMessage("The IEEE needs to know where your allegiance lies.");
-        showMessage("\tI) People's Front of Engineering (CSV)");
-        showMessage("\tII) Engineering People's Front (JSON)");
+        showMessage("The IEEE needs to know where your allegiance lies.\n");
+        showMessage("\n\tI) People's Front of Engineering (CSV)");
+        showMessage("\n\tII) Engineering People's Front (JSON)\n");
         boolean error=true;
         String opcion="";
         while (error){
-            opcion = askForString("Pick a faction: ");
+            opcion = askForString("\nPick a faction: ");
             if(!(opcion.equals("I") || opcion.equals("II"))){
-                showMessage("Incorrect option!");
+                showMessage(" Incorrect option!");
             }else {
                 error=false;
             }
@@ -147,7 +147,7 @@ public class UIManager {
     }
 
     public void showMessage(String message) {
-        System.out.println(message);
+        System.out.print(message);
     }
 
     public String askForString(String message) {
@@ -212,7 +212,7 @@ public class UIManager {
             Prova p = proves.get(i);
 
             switch (p.getTipus()) {
-                case "Publicacio" -> {
+                case "Publication" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Paper publication)");
                     System.out.println("Journal: " + p.getNomRevista() + " (" + p.getQuartil() + ")");
                     System.out.println("Chances: " + p.getProbabilitatAccepta() + "% acceptance, " + p.getProbabilitatRevisions() + "% revision, " + p.getProbabilitatRebutja() + "% rejection\n");
@@ -227,7 +227,7 @@ public class UIManager {
                     System.out.println("Master: " + p.getNomMaster());
                     System.out.println("ECTS: " + p.getCredits() + " with a " + p.getProbabilitatMaster() + " chance to pass each one");
                 }
-                case "Presupost" -> {
+                case "Pressupost" -> {
                     System.out.println("\nTrial: " + p.getNomProva() + " (Budget request)");
                     System.out.println("Entity: " + p.getEntity());
                     System.out.println("Budget: " + p.getBudget() + "€");
@@ -311,12 +311,19 @@ public class UIManager {
 
         if(arrayExecucio.size()==1){
             //presupost
-            showMessage("The research group got the budget!");
-            for (Jugador j:jugadors) {
-                showMessage(j.getNom() + " " + j.getTipus());
-                showMessage("PI count: " + j.getPI());
-            }
+            if(arrayExecucio.get(0).getPasa()){
+                showMessage("\n\nThe research group got the budget!\n");
 
+            }else{
+                showMessage("\n\nThe research group failed ...\n");
+            }
+            for (Jugador j:jugadors) {
+                showMessage("\n" + j.getNom() + " " + j.getTipus() + " PI count: " + j.getPI());
+                if(j.getPI()<=0){
+                    System.out.print(" - Disqualified!");
+                }
+            }
+            showMessage("\n");
         }else{
             //los otros
             for (int i = 0; i < jugadors.size(); i++) {
@@ -344,14 +351,14 @@ public class UIManager {
 
                     case "Tesis":
                         if(rp.getPasa()){
-                            showMessage("\t"+ (j.getNom() + " was successfull. Congrats!"));
+                            showMessage("\n\t"+ (j.getNom() + " was successfull. Congrats!"));
 
                         }else {
-                            showMessage("\t"+ (j.getNom() + "   failed. Sorry ..."));
+                            showMessage("\n\t"+ (j.getNom() + " failed. Sorry ..."));
                         }
                         break;
                     case "EstudiMaster":
-                        System.out.print("\t" + (j.getNom() + " passed " + rp.getAprobados() + "/" + rp.getTotales() + " ECTS."));
+                        System.out.print("\n\t" + (j.getNom() + " passed " + rp.getAprobados() + "/" + rp.getTotales() + " ECTS."));
                         if(rp.getPasa()){
                             showMessage("Congrats!");
                         }else{
@@ -359,7 +366,7 @@ public class UIManager {
                         }
                         break;
                 }
-                System.out.println(" PI count: " + j.getPI());
+                System.out.print(" PI count: " + j.getPI());
                 if(jugadors.get(i).getPI()<=0){
                     System.out.print(" - Disqualified!");
                 }
