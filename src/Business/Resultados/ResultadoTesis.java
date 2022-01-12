@@ -8,10 +8,6 @@ public class ResultadoTesis extends ResultadoPrueba{
         this.expresio=ex;
     }
 
-    public ResultadoPrueba comprueba(int PI){
-        pasa=PI>expresio;
-        return this;
-    }
     @Override
     public double getExpresio(){
         return expresio;

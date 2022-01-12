@@ -14,8 +14,6 @@ public abstract class Prova {
     }
 
     //constructor para el csv
-
-
     public Prova(String nomProva, boolean us, String tipus) {
         this.nomProva = nomProva;
         this.us = us;

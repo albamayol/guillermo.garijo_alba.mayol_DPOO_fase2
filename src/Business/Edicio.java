@@ -121,8 +121,8 @@ public class Edicio {
         return resultados;
     }
 
-    public boolean esEdicion(int año){
-        return this.any==año;
+    public boolean esEdicion(int any){
+        return this.any==any;
     }
     public void addProba(Prova p){
         pm.addProva(p);

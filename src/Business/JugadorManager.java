@@ -17,7 +17,7 @@ public class JugadorManager {
         return !jugadores.isEmpty();
     }
     public void addJugador(String name) {
-        jugadores.add(Jugador.crearJugador(name, 5, "Enginyer"));
+        jugadores.add(new Enginyer(name, 5));
     }
     public ArrayList<Jugador> getJugadors() {
         return jugadores;
@@ -122,11 +122,11 @@ public class JugadorManager {
             Jugador j = jugadores.get(i);
             if(j.getPI()>=10){
                 if(j.esMaster()){
-                    Jugador n = new Doctor(j.getNom(), 5, j.getId());
+                    Jugador n = new Doctor(j.getNom(), 5);
                     //jugadores.add(n);
                     r.add(n);
                 }else if(j.esEnginyer()){
-                    Jugador n = new Master(j.getNom(), 5, j.getId());
+                    Jugador n = new Master(j.getNom(), 5);
                     //jugadores.add(n);
                     r.add(n);
                 }

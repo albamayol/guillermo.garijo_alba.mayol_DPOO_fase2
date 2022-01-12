@@ -2,10 +2,9 @@ package Business.Resultados;
 
 import java.util.ArrayList;
 
-public class ResultadoPrueba {
+public abstract class ResultadoPrueba {
     protected String tipus;
     protected boolean pasa;
-    protected String quartil;
 
     public ResultadoPrueba(String tipus) {
         this.tipus = tipus;
@@ -15,9 +14,8 @@ public class ResultadoPrueba {
         return tipus;
     }
 
-    public ResultadoPrueba setPasa(boolean pasa) {
+    public void setPasa(boolean pasa) {
         this.pasa=pasa;
-        return this;
     }
 
     public double getExpresio() {

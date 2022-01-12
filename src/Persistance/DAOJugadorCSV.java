@@ -37,8 +37,8 @@ public class DAOJugadorCSV {
         }
         ArrayList<String> keys = new ArrayList<>();
         for (Jugador j:jugadores) {
-            keys.add(String.valueOf(j.getId()));
-            String line = j.getId() + "," + j.getNom() + "," + j.getPI() + "," + j.getTipus() + "\n";
+            keys.add(String.valueOf(j.getNom()));
+            String line =j.getNom() + "," + j.getPI() + "," + j.getTipus() + "\n";
             try {
                 Files.writeString(path, line, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {
@@ -57,11 +57,11 @@ public class DAOJugadorCSV {
                 String[] tmp = l.split(",");
                 switch (tmp[3]){
                     case "Enginyer":
-                        jugadores.add(new Enginyer(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
+                        jugadores.add(new Enginyer(tmp[0],Integer.parseInt(tmp[1])));
                     case "Master":
-                        jugadores.add(new Master(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
+                        jugadores.add(new Master(tmp[0],Integer.parseInt(tmp[1])));
                     case "Doctor":
-                        jugadores.add(new Doctor(tmp[0],Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2])));
+                        jugadores.add(new Doctor(tmp[0],Integer.parseInt(tmp[1])));
                 }
             }
 

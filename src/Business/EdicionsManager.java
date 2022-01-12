@@ -11,29 +11,56 @@ public class EdicionsManager{
     private int currentYear;
     private DAOEdicio daoEdicio;
 
-    //constructor para manager con csv
+    /**
+     * Constructor para los managers con CSV
+     * @param dao Dao que se usara
+     */
     public EdicionsManager(DAOEdicioCSV dao) {
         this.daoEdicio =dao;
         this.ediciones = daoEdicio.llegeixEdicions();
         this.currentYear= Year.now().getValue();
     }
 
-    //constructor para manager con json
+    /**
+     * Constructor para los managers con JSON
+     * @param dao Dao que se usara
+     */
     public EdicionsManager(DAOEdicioJSON dao) {
         this.daoEdicio = dao;
         ediciones=daoEdicio.llegeixEdicions();
         this.currentYear= Year.now().getValue();
     }
 
+    /**
+     * Comprueba que el numero de jugadores introducidos por el usuario es correcto
+     * @param num Numero introducido por el usuario
+     * @return boolean Retorna true si num=[1-5], false si no
+     */
     public boolean comprovaJugadors(int num){
         return num<=5 && num>=1;
     }
+    /**
+     * Comprueba que el numero de pruebas introducidas por el usuario es correcto
+     * @param num Numero introducido por el usuario
+     * @return boolean Retorna true si num=[3-12], false si no
+     */
     public boolean comprobaNumProves(int num){
         return num<=12 && num>=3;
     }
+
+    /**
+     * Añade la edicion e a la lista de ediciones existentes
+     * @param e Edicion a añadir
+     */
     public void afegirEdicio(Edicio e){
         ediciones.add(e);
     }
+
+    /**
+     * Retorna la edicion en la posicion i de la lista de ediciones
+     * @param i Posicion de la edicion que se quiere obtener
+     * @return Retorna la edicion
+     */
     public Edicio getEdicio(int i){
         return ediciones.get(i);
     }
@@ -56,9 +83,9 @@ public class EdicionsManager{
         daoEdicio.guardaEdicions(ediciones);
     }
 
-    public boolean existeEdicion(int año){
+    public boolean existeEdicion(int any){
         for (Edicio edicione : ediciones) {
-            if (edicione.esEdicion(año)) {
+            if (edicione.esEdicion(any)) {
                 return true;
             }
         }

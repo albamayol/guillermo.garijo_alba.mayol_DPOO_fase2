@@ -1,8 +1,8 @@
 package Business;
 
 public class Master extends Jugador {
-    public Master(String nom, int PI, int id) {
-        super(nom, PI, id, "Master");
+    public Master(String nom, int PI) {
+        super(nom, PI, "Master");
     }
     @Override
     public boolean esMaster(){

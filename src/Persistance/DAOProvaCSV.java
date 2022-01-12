@@ -14,14 +14,12 @@ public class DAOProvaCSV implements DAOProva{
     private Path pathTesis;
     private Path pathPublicacio;
     private Path pathPressupost;
-    private int numProves;
 
     public DAOProvaCSV(String pathMaster, String pathTesis, String pathPublicacio, String pathPressupust) {
         this.pathMaster=auxConstructor(pathMaster);
         this.pathTesis=auxConstructor(pathTesis);
         this.pathPublicacio=auxConstructor(pathPublicacio);
         this.pathPressupost=auxConstructor(pathPressupust);
-        this.numProves=4;
     }
 
     private static Path auxConstructor(String s){

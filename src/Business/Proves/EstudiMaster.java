@@ -18,8 +18,6 @@ public class EstudiMaster extends Prova{
     }
 
     //constructor para el csv
-
-
     public EstudiMaster(String nom, String tipus, boolean us, String nomMaster, int numCredits, int probAprovaCredit) {
         super(nom, us, tipus);
         this.nomMaster = nomMaster;

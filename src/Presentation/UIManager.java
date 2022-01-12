@@ -373,5 +373,5 @@ public class UIManager {
             }
 
         }
-    }
+  }
 }
