@@ -11,7 +11,11 @@ import java.util.Scanner;
 
 public class UIManager {
 
+    //hay q modificar todos los putos scanners
+    private Scanner sc;
+
     public UIManager() {
+        sc=new Scanner(System.in);
     }
 
     public String  menuPersistencia(){
@@ -41,13 +45,13 @@ public class UIManager {
                 """);
         System.out.println("\nWelcome to The Trials. Who are you?\n");
         System.out.println("\tA) The Composer\n\tB) This year's Conductor\n");
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         //inicialitzem el char
         char opt = '\0';
         while (true) {
             System.out.print("Enter a role: ");
             try {
-                opt = stringOfOneToChar(scanner.nextLine());
+                opt = stringOfOneToChar(sc.nextLine());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -318,7 +322,7 @@ public class UIManager {
                 showMessage("\n\nThe research group failed ...\n");
             }
             for (Jugador j:jugadors) {
-                showMessage("\n" + j.getNom() + " " + j.getTipus() + " PI count: " + j.getPI());
+                showMessage("\n" + j.getNom() + " " + j.getTipusJugador() + " PI count: " + j.getPI());
                 if(j.getPI()<=0){
                     System.out.print(" - Disqualified!");
                 }

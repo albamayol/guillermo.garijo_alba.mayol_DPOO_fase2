@@ -12,6 +12,11 @@ public class ControllerConductor {
     private EdicionsManager em;
     private boolean exit;
 
+    /**
+     * Constructor para el controlador de conductor
+     * @param em Manager de ediciones que se va a utilizar
+     * @param ui UI que se va a utilizar
+     */
     public ControllerConductor(EdicionsManager em, UIManager ui){
         this.em=em;
         this.exit=false;
@@ -30,6 +35,9 @@ public class ControllerConductor {
         }
     }
 
+    /**
+     * Metodo para ejecutar el controlador
+     */
     public void run(){
 
         Edicio edActual = em.getEdicioActual();
@@ -66,7 +74,7 @@ public class ControllerConductor {
             Iterator<Jugador> subidos = edActual.subirLvl();
             while (subidos.hasNext()){
                 Jugador tmp = subidos.next();
-                ui.showMessage("\n" + tmp.getNom() + " is now a " + tmp.getTipus() + "(with 5 PI).");
+                ui.showMessage("\n" + tmp.getNom() + " is now a " + tmp.getTipusJugador() + "(with 5 PI).");
             }
             exit = continuaExecucio();
 

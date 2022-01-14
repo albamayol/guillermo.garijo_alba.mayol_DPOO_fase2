@@ -5,24 +5,49 @@ import Business.Resultados.ResultadoPrueba;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Clase para la gestion de jugadores
+ */
 public class JugadorManager {
 
     private ArrayList<Jugador> jugadores;
 
 
+    /**
+     * Constructor para el manager de jugadores
+     * @param jugadors Array de jugadores que se quiere gestionar
+     */
     public JugadorManager(ArrayList<Jugador> jugadors) {
         this.jugadores=jugadors;
     }
+
+    /**
+     * Metodo para comprobar si el manager de jugadores esta vacio
+     * @return True si todavia quedan jugadores, false en caso contrario
+     */
     public boolean hayJugadores() {
         return !jugadores.isEmpty();
     }
+
+    /**
+     * Metodo para añadir un nuevo jugador al manager
+     * @param name Nombre del jugador que se quiere añadir
+     */
     public void addJugador(String name) {
         jugadores.add(new Enginyer(name, 5));
     }
+
+    /**
+     * Getter del array de jugadores que gestiona el manager
+     * @return
+     */
     public ArrayList<Jugador> getJugadors() {
         return jugadores;
     }
 
+    /**
+     * Elimina del array de jugadores aquellos jugadores con PIs iguales o inferiores a 0
+     */
     public void eliminados() {
         for(int i=0;i<jugadores.size();i++){
             if(jugadores.get(i).pisCero()){
@@ -32,10 +57,19 @@ public class JugadorManager {
         }
     }
 
+    /**
+     * Getter del numero de jugadores que gestiona el manager
+     * @return
+     */
     public int getNumJugadors() {
         return jugadores.size();
     }
 
+    /**
+     * Metodo para actualizar los PIs de los jugadores en funcion de los resultados obtenidos en una prueba
+     * @param i Posicion del jugador a modificar
+     * @param resultadoPrueba Resultados del jugador i
+     */
     public void actualizaPI(int i, ResultadoPrueba resultadoPrueba) {
         Jugador j = jugadores.get(i);
         switch (resultadoPrueba.getTipus()){
@@ -112,10 +146,19 @@ public class JugadorManager {
         }
     }
 
+    /**
+     * Getter de los PIs del jugador en la posicion i del array de jugadores
+     * @param i Posicion del jugador en el array de jugadores
+     * @return PIs del jugador i
+     */
     public int getPIJugador(int i) {
         return jugadores.get(i).getPI();
     }
 
+    /**
+     * Metodo para aumentar la categoria de los jugadores en funcion de sus PIs
+     * @return Iterador del array de jugadores actualizado
+     */
     public Iterator<Jugador> subirLvl() {
         ArrayList<Jugador> r=new ArrayList<>();
         for (int i=0;i<jugadores.size();i++) {

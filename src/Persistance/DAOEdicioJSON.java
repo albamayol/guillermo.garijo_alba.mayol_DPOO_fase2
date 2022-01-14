@@ -17,10 +17,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Clase para gestionar la persistencia en JSON
+ */
 public class DAOEdicioJSON implements DAOEdicio{
     private Gson gson;
     private Path path;
 
+    /**
+     * Constructor del dao de ediciones JSON
+     * @param path Ruta donde se guardara la informacion de las ediciones
+     */
     public DAOEdicioJSON(String path) {
         RuntimeTypeAdapterFactory<Prova> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(Prova.class, "tipus")
@@ -50,7 +57,6 @@ public class DAOEdicioJSON implements DAOEdicio{
         }
     }
 
-    @Override
     public void guardaEdicions(ArrayList<Edicio> ediciones) {
         Gson gson = new Gson();
         try {
@@ -68,7 +74,6 @@ public class DAOEdicioJSON implements DAOEdicio{
         }
     }
 
-    @Override
     public ArrayList<Edicio> llegeixEdicions() {
         try {
             BufferedReader reader = Files.newBufferedReader(path);

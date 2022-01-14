@@ -21,7 +21,10 @@ public class DAOProvaJSON implements DAOProva{
     private Path path;
     private Gson gson;
 
-
+    /**
+     * Constructor para el dao de pruebas JSON
+     * @param path Ruta donde se guardaran las pruebas
+     */
     public DAOProvaJSON(String path) {
         RuntimeTypeAdapterFactory<Prova> runtimeTypeAdapterFactory = RuntimeTypeAdapterFactory
                 .of(Prova.class, "tipus")
@@ -41,7 +44,6 @@ public class DAOProvaJSON implements DAOProva{
         }
     }
 
-    @Override
     public void guardaProves(ArrayList<Prova> proves) {
         Gson gson = new Gson();
         try {
@@ -59,7 +61,6 @@ public class DAOProvaJSON implements DAOProva{
         }
     }
 
-    @Override
     public ArrayList<Prova> llegeixProves() {
         try {
             BufferedReader reader = Files.newBufferedReader(path);

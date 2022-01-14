@@ -1,6 +1,15 @@
 package Business;
 
+/**
+ * Subclase Ingeniero
+ */
 public class Enginyer extends Jugador{
+
+    /**
+     * Constructor para jugadores de tipo ingeniero
+     * @param nom Nombre del jugador
+     * @param PI Numero de PIs iniciales
+     */
     public Enginyer(String nom, int PI) {
         super(nom, PI, "Enginyer");
     }

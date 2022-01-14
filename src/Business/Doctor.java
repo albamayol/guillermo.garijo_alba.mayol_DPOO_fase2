@@ -1,7 +1,15 @@
 package Business;
 
+/**
+ * Subclase Doctor
+ */
 public class Doctor extends Jugador {
 
+    /**
+     * Constructor para jugadores de tipo doctor
+     * @param nom Nombre del jugador
+     * @param PI Numero de PIs iniciales
+     */
     public Doctor(String nom, int PI) {
         super(nom, PI, "Doctor");
     }

@@ -3,22 +3,31 @@ package Presentation;
 import Business.*;
 import Persistance.*;
 
+/**
+ * Controlador general del programa
+ */
 public class Controller {
     private UIManager ui;
     private ControllerCompositor cCompositor;
     private ControllerConductor cConductor;
 
+    /**
+     * Constructor del controlador general del programa
+     */
     public Controller() {
         this.ui = new UIManager();
     }
 
+    /**
+     * Metodo que ejecuta el controlador
+     */
     public void run() {
         EdicionsManager em = null;
         ProvesManager pm=null;
         switch (ui.menuPersistencia()) {
             case "I" -> {
                 //csv
-                em = new EdicionsManager(new DAOEdicioCSV("edicion.csv"));
+                em = new EdicionsManager(new DAOEdicioCSV("edicion.csv", "estudisMaster.csv","tesis.csv","publicacio.csv","pressupost.csv", "jugador.csv"));
                 pm = new ProvesManager(new DAOProvaCSV("estudisMaster.csv", "tesis.csv", "publicacio.csv", "pressupost.csv"));
             }
             case "II" -> {

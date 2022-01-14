@@ -6,6 +6,9 @@ import Business.Resultados.ResultadoPrueba;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Clase para gestionar las ediciones
+ */
 public class Edicio {
 
     private int any;
@@ -15,7 +18,12 @@ public class Edicio {
     private JugadorManager jm;
     private int ultimaProva;
 
-    //constructor general para nueva
+    /**
+     * Constructor general para Edicio
+      * @param any Año de la edicion
+     * @param numInicialJugadors Numero inicial de jugadores
+     * @param numProves Numero de pruevas que contiene
+     */
     public Edicio(int any, int numInicialJugadors, int numProves) {
         this.any = any;
         this.numJugadors = numInicialJugadors;
@@ -23,7 +31,17 @@ public class Edicio {
         this.pm=new ProvesManager(new ArrayList<>());
         this.jm=new JugadorManager(new ArrayList<>());
         this.ultimaProva=0;
-    }//contructor para leer del csv
+    }
+
+    /**
+     * Constructor para instanciar despues de leer del CSV
+     * @param any Año de la edicion
+     * @param numInicialJugadors Numero inicial de jugadores
+     * @param numProves Numero de pruebas que contiene
+     * @param jm Manager de jugadores de la edicion
+     * @param pm Manager de pruebas de la edicion
+     * @param ultimaProva Ultima prueba ejecutada en la edicion
+     */
     public Edicio(int any, int numInicialJugadors, int numProves, JugadorManager jm, ProvesManager pm, int ultimaProva) {
         this.any = any;
         this.numJugadors = numInicialJugadors;
@@ -32,7 +50,15 @@ public class Edicio {
         this.pm=pm;
         this.ultimaProva = ultimaProva;
     }
-    //constructor para copiar
+
+    /**
+     * Constructor para copiar Ediciones
+     * @param any Año de la edicion copiada
+     * @param numJugadors Numero de jugadores de la edicion copiada
+     * @param numProves Numero de pruebas de la edicion copiada
+     * @param pm Nuevo manager de pruebas
+     * @param jm Nuevo manager de jugadores
+     */
     public Edicio(int any, int numJugadors, int numProves, ProvesManager pm, JugadorManager jm) {
         this.any = any;
         this.numJugadors = numJugadors;
@@ -42,18 +68,36 @@ public class Edicio {
         this.ultimaProva=0;
     }
 
-
+    /**
+     * Metodo para copiar ediciones
+     * @param any Año de la nueva edicion
+     * @param numJug Numero de jugadores de la nueva edicion
+     * @return
+     */
     public Edicio copiaEdicio(int any, int numJug){
         return new Edicio(any, numJug, this.numProves, pm.copia(), new JugadorManager(new ArrayList<>()));
     }
+
+    /**
+     * Metodo para comprobar si una edicion esta finalizada
+     * @return True si ha acabado, false en caso contrario
+     */
     public boolean acabada(){
         return ultimaProva==numProves || numJugadors==0;
     }
+
+    /**
+     * Metodo para comprobar si quedan jugadores en la edicion
+     * @return True si aun quedan, false en caso contrario
+     */
     public boolean hayJugadores(){
         return jm.hayJugadores();
-
     }
 
+    /**
+     * Metodo para ejecutar una prueba de la edicion
+     * @return
+     */
     public ArrayList<ResultadoPrueba> ejecutarPrueba(){
         int c=0;
         ArrayList<ResultadoPrueba> resultados = new ArrayList<>();
@@ -89,99 +133,121 @@ public class Edicio {
                 break;
 
         }
-        /*
-
-        for (Jugador j:jugadors) {
-            resultados.add(pActual.ejecutarPrueba());
-        }
-        for (ArrayList<Integer> rj:resultados) {
-
-            for (Integer valor : rj) {
-                if (valor == 1) {
-                    switch (pActual.getQuartil()) {
-                        case "Q1" -> jugadors.get(c).modificaPI(4);
-                        case "Q2" -> jugadors.get(c).modificaPI(3);
-                        case "Q3" -> jugadors.get(c).modificaPI(2);
-                        case "Q4" -> jugadors.get(c).modificaPI(1);
-                    }
-                } else if (valor == 2) {
-                    switch (pActual.getQuartil()) {
-                        case "Q1" -> jugadors.get(c).modificaPI(-5);
-                        case "Q2" -> jugadors.get(c).modificaPI(-4);
-                        case "Q3" -> jugadors.get(c).modificaPI(-3);
-                        case "Q4" -> jugadors.get(c).modificaPI(-2);
-                    }
-                }
-            }
-            c++;
-        }
-
-         */
         ultimaProva++;
         return resultados;
     }
 
+    /**
+     * Metodo para comprobar si el año introducido coincide con el de la edicion
+     * @param any Año a comparar
+     * @return True si los años son iguales, false en caso contrario.
+     */
     public boolean esEdicion(int any){
         return this.any==any;
     }
+
+    /**
+     * Metodo para añadir una prueba a la edicion
+     * @param p Prueba a añadir
+     */
     public void addProba(Prova p){
         pm.addProva(p);
     }
+
+    /**
+     * Metodo para añadir un jugador a la edicion
+     * @param name Nombre del jugador que se desea añadir
+     */
     public void addJugador(String name){
         jm.addJugador(name);
     }
 
-    /*
-    //no borrar---------------------
-    public String guardarEdicion(){
-        StringBuilder tmp = new StringBuilder(this.any + "," + this.numJugadors + "," + this.numProves + ",[");
-        for (Prova p: proves) {
-            tmp.append(p.getNomProva()).append(";");
-        }
-        tmp.append("],[");
-        for (Jugador j: jugadors) {
-            tmp.append((j.getId())).append(";");
-        }
-        tmp.append("],").append((this.ultimaProva)).append("\n");
-        return tmp.toString();
-    }
-    //------------------------
-
+    /**
+     * Getter del numero de pruebas de la edicion
+     * @return numProves
      */
-
     public int getNumProves() {
         return numProves;
     }
+
+    /**
+     * Getter del año de la edicion
+     * @return any
+     */
     public int getAny() {
         return any;
     }
+
+    /**
+     * Getter del numero de jugadores de la edicion
+     * @return numJugadors
+     */
     public int getNumJugadors() {
         return numJugadors;
     }
+
+    /**
+     * Getter de las pruebas de la edicion
+     * @return Array con las pruebas de esta edicion
+     */
     public ArrayList<Prova> getProves() {
         return pm.getProves();
     }
+
+    /**
+     * Getter de los jugadores de la edicion
+     * @return Array con los jugadores de esta edicion
+     */
     public ArrayList<Jugador> getJugadors() {
         return jm.getJugadors();
     }
+
+    /**
+     * Getter del indice de la ultima prueba ejecutada en la edicion
+     * @return ultimaProva
+     */
     public int getUltimaProva() {
         return ultimaProva;
     }
+
+    /**
+     * Getter del nombre de la prueba actual
+     * @return Nombre de la prueba actual
+     */
     public String getNomProvaActual() {
         return pm.getNomProvaActual(ultimaProva);
     }
+
+    /**
+     * Getter del nombre de una prueba en funcion de su posicion en el array de pruebas del manager de pruebas
+     * @param i Posicion de la prueba
+     * @return Prueba en la posicion i
+     */
     public String getNomProva(int i) {
         return pm.getNomProva(i);
     }
+
+    /**
+     * Getter del tipo de prueba en una posicion concreta del array de pruebas de pruebas manager
+     * @param i Posicion de la prueba
+     * @return Nombre de la prueba en la posicion i
+     */
     public String getTipusProva(int i) {
         return pm.getTipusProva(i);
     }
 
+    /**
+     * Metodo para eliminar de la edicion a los jugadores con PIs iguales o inferiores a 0
+     */
     public void eliminados() {
         jm.eliminados();
         numJugadors=jm.getNumJugadors();
     }
 
+    /**
+     * Metodo para actualizar el tipo de jugador en funcion de sus PIs
+     * @return Iterador con los jugadores que han sido actualizados.
+     */
     public Iterator<Jugador> subirLvl() {
         return jm.subirLvl();
     }

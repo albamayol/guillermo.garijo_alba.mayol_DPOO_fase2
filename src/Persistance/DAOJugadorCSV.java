@@ -11,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class DAOJugadorCSV {
 
     private Path path;
@@ -38,7 +41,7 @@ public class DAOJugadorCSV {
         ArrayList<String> keys = new ArrayList<>();
         for (Jugador j:jugadores) {
             keys.add(String.valueOf(j.getNom()));
-            String line =j.getNom() + "," + j.getPI() + "," + j.getTipus() + "\n";
+            String line =j.getNom() + "," + j.getPI() + "," + j.getTipusJugador() + "\n";
             try {
                 Files.writeString(path, line, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException ex) {

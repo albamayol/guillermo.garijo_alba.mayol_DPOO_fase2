@@ -5,11 +5,22 @@ import Business.Resultados.ResultadoPrueba;
 
 import java.util.Random;
 
+/**
+ * Subclase de prueba tipo EstudiMaster
+ */
 public class EstudiMaster extends Prova{
     private String nomMaster;
     private int numCredits;
     private  int probAprovaCredit;
 
+    /**
+     * Constructor general de un EstudiMaster
+     * @param nomProva Nombre de la prueba
+     * @param tipus Tipo de la prueba
+     * @param nomMaster Nombre del master
+     * @param numCredits Numero de creditos del master
+     * @param probAprovaCredit Probabilidad de aprobar un credito del master
+     */
     public EstudiMaster(String nomProva, String tipus, String nomMaster, int numCredits, int probAprovaCredit) {
         super(nomProva, tipus);
         this.nomMaster = nomMaster;
@@ -17,7 +28,15 @@ public class EstudiMaster extends Prova{
         this.probAprovaCredit = probAprovaCredit;
     }
 
-    //constructor para el csv
+    /**
+     * Constructor de EstudiMaster que utiliza el daoCSV para crear el objeto
+     * @param nom Nombre de la prueba
+     * @param tipus Tipo de la prueba
+     * @param us Uso de la prueba
+     * @param nomMaster Nombre del master
+     * @param numCredits Numero de creditos del master
+     * @param probAprovaCredit Probabilidad de aprobar un credito del master
+     */
     public EstudiMaster(String nom, String tipus, boolean us, String nomMaster, int numCredits, int probAprovaCredit) {
         super(nom, us, tipus);
         this.nomMaster = nomMaster;

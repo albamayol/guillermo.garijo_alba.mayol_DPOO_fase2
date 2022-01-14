@@ -15,6 +15,13 @@ public class DAOProvaCSV implements DAOProva{
     private Path pathPublicacio;
     private Path pathPressupost;
 
+    /**
+     * Constructor para el dao de pruebas csv
+     * @param pathMaster Direccion donde se guardaran las pruebas de estudios de master
+     * @param pathTesis Direccion donde se guardaran las pruebas de tesis
+     * @param pathPublicacio Direccion donde se guardaran las pruebas de publicaciones
+     * @param pathPressupust Direccion donde se guardaran las pruebas de solicitud de presupuesto
+     */
     public DAOProvaCSV(String pathMaster, String pathTesis, String pathPublicacio, String pathPressupust) {
         this.pathMaster=auxConstructor(pathMaster);
         this.pathTesis=auxConstructor(pathTesis);
@@ -118,6 +125,11 @@ public class DAOProvaCSV implements DAOProva{
         return pruebas;
     }
 
+    /**
+     * Metodo para actualizar las pruebas.
+     * @param proves
+     * @return Array de strings (ids de las pruebas) que han sido actualizadas
+     */
     public ArrayList<String> actualitzaProves(ArrayList<Prova> proves){
         ArrayList<Prova> lectura = new ArrayList<>();
         lectura.addAll(auxLlegeixProves(pathMaster, 0));
@@ -141,6 +153,11 @@ public class DAOProvaCSV implements DAOProva{
         return ids;
     }
 
+    /**
+     * Metodo para recuperar una prueba en funcion de su id
+     * @param a Array de strings con las ids de las pruebas a recuperar
+     * @return Array de pruebas con las pruebas recuperadas
+     */
     public ArrayList<Prova> getPruebasPorIDs(String[] a){
         ArrayList<Prova> pruebas = new ArrayList<>();
         try{

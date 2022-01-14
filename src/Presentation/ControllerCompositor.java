@@ -5,12 +5,21 @@ import Business.EdicionsManager;
 import Business.Master;
 import Business.ProvesManager;
 
+/**
+ * Clase que gestiona todas las funcionalidades del compositor
+ */
 public class ControllerCompositor {
     private boolean exit;
     private final UIManager ui;
     private final ProvesManager pmanager;
     private final EdicionsManager emanager;
 
+    /**
+     * Constructor para el controlador del compositor
+     * @param em Managaer de ediciones que utilizara
+     * @param ui UI que utilizara
+     * @param pm Manager de pruebas que utilizara
+     */
     public ControllerCompositor(EdicionsManager em, UIManager ui, ProvesManager pm){
         this.pmanager=pm;
         this.ui=ui;
@@ -57,6 +66,7 @@ public class ControllerCompositor {
             //return false;
         //}
     }
+
     private void creaMasterStudies(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
@@ -82,6 +92,7 @@ public class ControllerCompositor {
         ui.showMessage("\nThe trial was created successfully!\n");
 
     }
+
     private void creaTesis(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
@@ -97,6 +108,7 @@ public class ControllerCompositor {
         pmanager.creaTesis(trialName, field, diff);
         ui.showMessage("\nThe trial was created successfully!\n");
     }
+
     private void creaBudgetReq(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
@@ -200,6 +212,9 @@ public class ControllerCompositor {
             }
     }
 
+    /**
+     * Metodo para ejecutar el controller de compositor
+     */
     public void run(){
         while (!exit) {
             switch (ui.menuCompositor()) {

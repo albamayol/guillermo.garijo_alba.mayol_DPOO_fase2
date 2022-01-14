@@ -2,11 +2,19 @@ package Business.Resultados;
 
 import java.util.ArrayList;
 
+/**
+ * Subclase de Resultado de tipo ResultadoPublicacion
+ */
 public class ResultadoPublicacion extends ResultadoPrueba{
 
     private ArrayList<Integer> resultados;
     private String quartil;
 
+    /**
+     * Construcotr general de ResultadoPublicacion
+     * @param r Array con los resultados de los intentos (aceptado, aprobado o rechazado)
+     * @param s Quartil de la publicacion
+     */
     public ResultadoPublicacion(ArrayList<Integer> r, String s) {
         super("Publicacio");
         this.resultados=r;

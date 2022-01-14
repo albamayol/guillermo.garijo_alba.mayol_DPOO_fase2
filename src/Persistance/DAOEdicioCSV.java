@@ -11,15 +11,27 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 
+/**
+ * Clase para gestionar la persistencia en CSV
+ */
 public class DAOEdicioCSV implements DAOEdicio{
 
     private final DAOJugadorCSV daojugador;
     private final DAOProvaCSV daoProvaCSV;
     private Path path;
 
-    public DAOEdicioCSV( String path) {
-        this.daojugador = new DAOJugadorCSV("jugador.csv");
-        this.daoProvaCSV = new DAOProvaCSV("estudisMaster.csv", "tesis.csv", "publicacio.csv", "pressupost.csv");
+    /**
+     * Constructor del dao de ediciones (csv)
+     * @param path Direccion donde se guardaran las ediciones
+     * @param pathMaster Direccion donde se guardaran las pruebas de estudios de master
+     * @param pathTesis Direccion donde se guardaran las pruebas de tesis
+     * @param pathPublicacio Direccion donde se guardaran las pruebas de publicaciones
+     * @param pathPressupost Direccion donde se guardaran las pruebas de solicitud de presupuesto
+     * @param pathJugador Direccion donde se guardaran los jugadores
+     */
+    public DAOEdicioCSV( String path, String pathMaster, String pathTesis, String pathPublicacio, String pathPressupost, String pathJugador) {
+        this.daojugador = new DAOJugadorCSV(pathJugador);
+        this.daoProvaCSV = new DAOProvaCSV(pathMaster, pathTesis, pathPublicacio, pathPressupost);
         try{
             Path p = Paths.get(path);
             if(!Files.exists(p)){
@@ -48,6 +60,7 @@ public class DAOEdicioCSV implements DAOEdicio{
         }
         return ediciones;
     }
+
 
     public void guardaEdicions(ArrayList<Edicio> ediciones){
         try {
