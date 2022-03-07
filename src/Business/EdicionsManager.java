@@ -1,5 +1,6 @@
 package Business;
 
+import Business.Proves.Prova;
 import Persistance.*;
 
 import java.time.Year;
@@ -147,15 +148,6 @@ public class EdicionsManager{
     }
 
     /**
-     * Retorna la edicion en la posicion seleccionada
-     * @param num Posicion en el array de ediciones
-     * @return Edicion correspondiente a num
-     */
-    public Edicio getEditionByPlace(int num) {
-        return ediciones.get(num);
-    }
-
-    /**
      * Retorna la edicion del año actual
      * @return Edicio
      */
@@ -163,4 +155,11 @@ public class EdicionsManager{
         return retornEdicioSegonsAny(currentYear);
     }
 
+    /**
+     * Getter de las ediciones del manager
+     * @return Array con todas las ediciones
+     */
+    public ArrayList<Edicio> getEdicions() {
+        return ediciones;
+    }
 }

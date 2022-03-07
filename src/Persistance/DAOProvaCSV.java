@@ -94,19 +94,19 @@ public class DAOProvaCSV implements DAOProva{
                 switch (tipo) {
                     case 0:
                         lineSplit = line.split(",");
-                        tmp.add(new EstudiMaster(lineSplit[0], lineSplit[1], Boolean.parseBoolean(lineSplit[2]), lineSplit[3],Integer.parseInt(lineSplit[4]),Integer.parseInt( lineSplit[5])));
+                        tmp.add(new EstudiMaster(lineSplit[0], lineSplit[2], Boolean.parseBoolean(lineSplit[1]), lineSplit[3],Integer.parseInt(lineSplit[4]),Integer.parseInt( lineSplit[5])));
                         break;
                     case 1:
                         lineSplit = line.split(",");
-                        tmp.add(new SolicitudPressupost(lineSplit[0], lineSplit[1], Boolean.parseBoolean(lineSplit[2]),lineSplit[3], Double.parseDouble(lineSplit[4])));
+                        tmp.add(new SolicitudPressupost(lineSplit[0], lineSplit[2], Boolean.parseBoolean(lineSplit[1]),lineSplit[3], Double.parseDouble(lineSplit[4])));
                         break;
                     case 2:
                         lineSplit = line.split(",");
-                        tmp.add(new PublicacioArticle(lineSplit[0], lineSplit[1], Boolean.parseBoolean(lineSplit[2]),lineSplit[3], lineSplit[4], Integer.parseInt(lineSplit[5]), Integer.parseInt(lineSplit[6]), Integer.parseInt(lineSplit[7])));
+                        tmp.add(new PublicacioArticle(lineSplit[0], lineSplit[2], Boolean.parseBoolean(lineSplit[1]),lineSplit[3], lineSplit[4], Integer.parseInt(lineSplit[5]), Integer.parseInt(lineSplit[6]), Integer.parseInt(lineSplit[7])));
                         break;
                     case 3:
                         lineSplit = line.split(",");
-                        tmp.add(new TesiDoctoral(lineSplit[0], lineSplit[1], Boolean.parseBoolean(lineSplit[2]),lineSplit[3], Integer.parseInt(lineSplit[4])));
+                        tmp.add(new TesiDoctoral(lineSplit[0], lineSplit[2], Boolean.parseBoolean(lineSplit[1]),lineSplit[3], Integer.parseInt(lineSplit[4])));
                         break;
                 }
             }

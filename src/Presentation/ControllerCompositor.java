@@ -2,8 +2,7 @@ package Presentation;
 
 import Business.Edicio;
 import Business.EdicionsManager;
-import Business.Master;
-import Business.ProvesManager;
+import Business.Proves.ProvesManager;
 
 /**
  * Clase que gestiona todas las funcionalidades del compositor
@@ -33,7 +32,10 @@ public class ControllerCompositor {
             //error=false;
             String trialName = ui.askForString("\nEnter the trial's name: ");
             if(pmanager.existeixProva(trialName)){
-                ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+                ui.showMessage("ERROR. Name aready exists. Try again.\n");
+                return;
+            }else if(trialName.isEmpty()){
+                ui.showMessage("ERROR. Name is empty!");
                 return;
             }
             String journalName = ui.askForString("Enter the journal's name: ");
@@ -70,7 +72,10 @@ public class ControllerCompositor {
     private void creaMasterStudies(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
-            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            ui.showMessage("ERROR. Name already exists. Try again.\n");
+            return;
+        }else if(trialName.isEmpty()){
+            ui.showMessage("ERROR. Name is empty!");
             return;
         }
         String masterName=ui.askForString("Enter the master's name: ");
@@ -96,7 +101,10 @@ public class ControllerCompositor {
     private void creaTesis(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
-            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            ui.showMessage("ERROR. Name already exists. Try again.\n");
+            return;
+        }else if(trialName.isEmpty()){
+            ui.showMessage("ERROR. Name is empty!");
             return;
         }
         String field=ui.askForString("Enter the Thesis field of study: ");
@@ -112,7 +120,10 @@ public class ControllerCompositor {
     private void creaBudgetReq(){
         String trialName = ui.askForString("\nEnter the trial's name: ");
         if(pmanager.existeixProva(trialName)){
-            ui.showMessage("ERROR. Nom de proba ja existeix. Try again.\n");
+            ui.showMessage("ERROR. Name already exists. Try again.\n");
+            return;
+        }else if(trialName.isEmpty()){
+            ui.showMessage("ERROR. Name is empty!");
             return;
         }
         String entity=ui.askForString("Enter the entity name: ");
@@ -149,6 +160,9 @@ public class ControllerCompositor {
         int any = ui.askForInt("Enter the edition's year: ");
         if(emanager.existeEdicion(any)){
             ui.showMessage("This edition already exists.");
+            return;
+        }else if(any==-1){
+            ui.showMessage("Not a valid year (must be an int!)");
             return;
         }
         int numJugadors = ui.askForInt("Enter the initial number of players: ");
@@ -188,6 +202,8 @@ public class ControllerCompositor {
         if(emanager.existeEdicion(anyNou)){
             ui.showMessage("This years' edition already exists.");
             return;
+        }else if(anyNou==-1){
+            ui.showMessage("Invalid option (must be an int!)");
         }
         int numJugNou = ui.askForInt("Enter the new edition's initial number of players: ");
         if(!emanager.comprovaJugadors(numJugNou)){
@@ -204,12 +220,33 @@ public class ControllerCompositor {
                 return;
             }
             int numConfirmation = ui.askForInt("\nEnter the edition's year for confirmation: ");
-            if(emanager.getEdicio(num-1).esEdicion(numConfirmation)){
+            Edicio e= emanager.getEdicio(num-1);
+            if(e.esEdicion(numConfirmation) || numConfirmation>0){
                 emanager.eliminaEdicion(numConfirmation);
+                desmarcarUsos(e);
                 ui.showMessage("\nThe edition was successfully deleted.");
             }else{
                 ui.showMessage("Incorrect confirmation. Gooing back.");
             }
+    }
+
+    private void desmarcarUsos(Edicio e){
+        boolean borrar=true;
+        if(emanager.noHayEdiciones()){
+            pmanager.setAllNoUse();
+        }else {
+            for (int i=0;i<e.getNumProves();i++) {
+                for (Edicio edicion : emanager.getEdicions()) {
+                    if (edicion.existeixProvaAEdicio(e.getNomProva(i)) && !edicion.esEdicion(e.getAny())) {
+                        borrar=false;
+                    }
+                }
+                if(borrar){
+                    pmanager.setToNoUse(i);
+                }
+                borrar=true;
+            }
+        }
     }
 
     /**
@@ -221,38 +258,30 @@ public class ControllerCompositor {
                 case 1 -> {
                     while (!exit) {
                         switch (ui.menuProves()) {
-                            case 'a':
-                                switch (ui.chooseTrial()){
-                                    case 1:
-                                        creaPaperPublication();
-                                        break;
-                                    case 2:
-                                        creaMasterStudies();
-                                        break;
-                                    case 3:
-                                        creaTesis();
-                                        break;
-                                    case 4:
-                                        creaBudgetReq();
-                                        break;
+                            case "a":
+                                switch (ui.chooseTrial()) {
+                                    case 1 -> creaPaperPublication();
+                                    case 2 -> creaMasterStudies();
+                                    case 3 -> creaTesis();
+                                    case 4 -> creaBudgetReq();
                                 }
                                 break;
 
-                            case 'b':
+                            case "b":
                                 if (pmanager.noHayPruebas()) {
                                     ui.showMessage("ERROR. There are no Trials created.\n");
                                     break;
                                 }
                                 ui.llistaProva(pmanager.llistaProves(), ui.menuLlistaProves(pmanager.nomsProves(), "\nHere are the current trials, do you want to see more details or go back?\n") - 1);
                                 break;
-                            case 'c':
+                            case "c":
                                 if (pmanager.noHayPruebas()) {
                                     ui.showMessage("ERROR. There are no Trials created.\n");
                                     break;
                                 }
                                 eliminaProva();
                                 break;
-                            case 'd':
+                            case "d":
                                 pmanager.guardarPruebas();
                                 exit = true;
                                 break;
@@ -263,15 +292,14 @@ public class ControllerCompositor {
                 case 2 -> {
                     while (!exit) {
                         switch (ui.menuGestioEdicio()) {
-                            case 'a':
+                            case "a" -> {
                                 if (pmanager.noHayPruebas()) {
                                     ui.showMessage("There are no trials. You can not create any edition. Going back.");
-                                    exit = true;
-                                    return;
+                                    break;
                                 }
                                 creaEdicio();
-                                break;
-                            case 'b':
+                            }
+                            case "b" -> {
                                 if (emanager.noHayEdiciones()) {
                                     ui.showMessage("ERROR. There are not Editions yet created.");
                                     break;
@@ -280,27 +308,28 @@ public class ControllerCompositor {
                                 if (num == emanager.anysEdicions().size() + 1) {   //cas Back
                                     break;
                                 }
-                                ui.mostraDetallsEdicio(emanager.getEditionByPlace(num-1));
-                                break;
-                            case 'c':
+                                ui.mostraDetallsEdicio(emanager.getEdicio(num - 1));
+                            }
+                            case "c" -> {
                                 if (emanager.noHayEdiciones()) {
                                     ui.showMessage("ERROR. There are not Editions yet created.");
                                     break;
                                 }
                                 duplicaEdicio();
-                                break;
-                            case 'd':
+                            }
+                            case "d" -> {
                                 if (emanager.noHayEdiciones()) {
                                     ui.showMessage("ERROR. There are not Editions yet created. You can not delete anything. Going back.");
+                                    break;
                                 }
                                 eliminaEdicion();
-                                break;
-                            case 'e':
+                            }
+                            case "e" -> {
                                 //modificaciones al uso de las pruebas, se han de guardar
                                 pmanager.guardarPruebas();
                                 emanager.guardarEdiciones();
                                 exit = true;
-                                break;
+                            }
                         }
                     }
                     exit = false;

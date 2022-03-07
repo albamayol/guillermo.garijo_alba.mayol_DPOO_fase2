@@ -1,41 +1,51 @@
 package Presentation;
 
 import Business.Edicio;
-import Business.Jugador;
+import Business.Jugador.Jugador;
 import Business.Proves.Prova;
 import Business.Resultados.ResultadoPrueba;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Clase para gestionar los prints por pantalla
+ */
 public class UIManager {
 
-    //hay q modificar todos los putos scanners
     private Scanner sc;
 
+    /**
+     * Constructor general de la clase UI
+     */
     public UIManager() {
         sc=new Scanner(System.in);
     }
 
+    /**
+     * Metodo para mostrar el menu de eleccion de persistencia
+     * @return String con la opcion seleccionada por el usuario
+     */
     public String  menuPersistencia(){
         showMessage("The IEEE needs to know where your allegiance lies.\n");
         showMessage("\n\tI) People's Front of Engineering (CSV)");
         showMessage("\n\tII) Engineering People's Front (JSON)\n");
-        boolean error=true;
         String opcion="";
-        while (error){
+        while (true){
             opcion = askForString("\nPick a faction: ");
             if(!(opcion.equals("I") || opcion.equals("II"))){
                 showMessage(" Incorrect option!");
             }else {
-                error=false;
+                return opcion;
             }
         }
-        return opcion;
     }
 
-    public char menuPrincipal() {
+    /**
+     * Metodo para mostrar el menu de seleccion de rol
+     * @return String con la opcion elegida
+     */
+    public String menuPrincipal() {
         System.out.println("""
                 ____ _            ____       _       _
                /__  \\ |__   ___  /__  \\_ __ (_) __ _| |___
@@ -45,157 +55,138 @@ public class UIManager {
                 """);
         System.out.println("\nWelcome to The Trials. Who are you?\n");
         System.out.println("\tA) The Composer\n\tB) This year's Conductor\n");
-        //Scanner scanner = new Scanner(System.in);
-        //inicialitzem el char
-        char opt = '\0';
+        String opt;
         while (true) {
-            System.out.print("Enter a role: ");
-            try {
-                opt = stringOfOneToChar(sc.nextLine());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (opt != 'A' && opt != 'B') {
+            showMessage("\nEnter a role: ");
+            opt=sc.nextLine();
+            if (!(opt.equals("A") || opt.equals("B"))) {
                 System.out.println("ERROR. " + opt + " is not an option. Try again\n");
-                continue; //continue te lleva al primer bucle que ecuentra, en el bucle donde esté metido
+            }else {
+                return opt;
             }
-            break;
         }
-        return opt;
     }
 
-    public char stringOfOneToChar(String string) {
-        return string.charAt(0);
-    }
-
+    /**
+     * Metodo para mostrar el menu del compositor
+     * @return Opcion elegida por el usuario
+     */
     public int menuCompositor() {
         System.out.println("Entering management mode...\n");
         System.out.println("\t1) Manage Trials\n\t2) Manage Editions\n\n\t3) Exit\n");
         Scanner scanner = new Scanner(System.in);
-        int op;
-        do {
-            System.out.print("Enter an option: ");
-
-            try {
-                op = scanner.nextInt();
-                //clean buffer: \n
-                scanner.nextLine();
-                if(op < 1 || op > 3) {
-                    System.out.println("ERROR. not an option. Try again\n");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                //clean buffer
-                scanner.nextLine();
-                System.out.println("ERROR. Input Missmatch Exception\n");
-                continue;
-            }
-            break;
-        } while(true);
-        return op;
-    }
-
-    public char menuProves() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\n\ta) Create Trial\n\tb) List Trials\n\tc) Delete Trial\n\n\td) Back\n");
-
-        char op = '\0';
+        String op;
         while (true) {
             System.out.print("Enter an option: ");
-            try {
-                op = stringOfOneToChar(scanner.nextLine());
-            } catch (Exception e) {
-                e.printStackTrace();
+            op = scanner.nextLine();
+            if (!(op.equals("1") || op.equals("2") || op.equals("3"))) {
+                System.out.println("ERROR. Not an option. Try again\n");
+            }else{
+                return Integer.parseInt(op);
             }
-            if (op != 'a' && op != 'b' && op != 'c' && op != 'd') {
-                System.out.println("ERROR. " + op + " is not an option. Try again\n");
-                continue; //continue te lleva al primer bucle que ecuentra, en el bucle donde esté metido
-            }
-            break;
         }
-        return op;
     }
 
+    /**
+     * Metodo para mostrar el menu de pruebas
+     * @return String con la opcion elegida por el usuario
+     */
+    public String menuProves() {
+        System.out.println("\n\ta) Create Trial\n\tb) List Trials\n\tc) Delete Trial\n\n\td) Back\n");
+        while (true) {
+            showMessage("\nEnter an option: ");
+            String op=sc.nextLine();
+            if (!(op.equals("a") || op.equals("b") || op.equals("c") || op.equals("d"))) {
+                System.out.println("ERROR. " + op + " is not an option. Try again\n");
+            }else {
+                return op;
+            }
+        }
+    }
+
+    /**
+     * Metodo para mostrar el menu de seleccion de tipo de prueba
+     * @return int representando el tipo de prueba seleccionada (1:paparePublication, 2:masterStudies, 3:tesisDoctoral, 4:budgetRequest)
+     */
     public int chooseTrial() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\n\t--- Trial types ---\n");
         System.out.println("\t1) Paper publication");
         System.out.println("\t2) Master studies");
         System.out.println("\t3) Doctoral thersis defense");
         System.out.println("\t4) Budget request\n");
-        int op;
-        do {
+        String num;
+        while(true) {
             System.out.print("Enter the trial's type: ");
-            try {
-                op = scanner.nextInt();
-                //clean buffer: \n
-                scanner.nextLine();
-                if(op != 1 && op != 2 && op != 3 && op != 4) {   //al només haver-hi una única opció de prova, aquesta serà la condició(temporal)
-                    System.out.println("ERROR. not an option. Try again\n");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                //clean buffer
-                scanner.nextLine();
-                System.out.println("ERROR. Input Missmatch Exception\n");
-                continue;
+            num = sc.nextLine();
+            if(!(num.equals("1") || num.equals("2") || num.equals("3") || num.equals("4"))) {
+                System.out.println("ERROR. Not an option. Try again\n");
+            }else {
+                return Integer.parseInt(num);
             }
-            break;
-        } while(true);
-        return op;
-
+        }
     }
 
+    /**
+     * Metodo para mostrar el mensaje de cierre del programa
+     */
     public void shutDownMsg() {
         System.out.println("Shutting down...");
     }
 
+    /**
+     * Metodo para mostrar un mensaje por pantalla
+     * @param message Mensaje a mostrar
+     */
     public void showMessage(String message) {
         System.out.print(message);
     }
 
+    /**
+     * Metodo para pedir un String al usuario
+     * @param message
+     * @return
+     */
     public String askForString(String message) {
-        Scanner sc = new Scanner(System.in);
-        String s;
-        while (true) {
-            System.out.print(message);
-            try {
-                s = sc.nextLine();
-            } catch (NullPointerException e) {
-                System.out.println("ERROR. Empty argument.\n");
-                continue;
-            }
-            break;
-        }
-        return s;
+        showMessage(message);
+        return sc.nextLine();
     }
 
+    /**
+     * Metodo para pedir un int al usuario
+     * @param message Mensaje con el que se quiere pedir
+     * @return el nummero introducido por el usuario
+     */
     public int askForInt(String message) {
-        Scanner scanner = new Scanner(System.in);
-        int num;
-        while (true) {
-            System.out.print(message);
-            try {
-                num = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
-                System.out.println("ERROR. Input Missmatch Exception\n");
-                continue;
-            }
-            break;
+        String num;
+        int r;
+        System.out.print(message);
+        num = sc.nextLine();
+        try{
+            r=Integer.parseInt(num);
+            return r;
+        }catch (Exception e){
+            return -1;
         }
-        return num;
     }
 
+    /**
+     * Metodo para mostrar el menu de listar las pruebas junto con un mensaje
+     * @param proves Array de pruebas a mostrar en la lista
+     * @param message Mensaje con el que se quiere acompañar la pregunta
+     * @return numero correspondiente a la posicion en la lista intrroducido por el usuario
+     */
     public int menuLlistaProves(ArrayList<String> proves, String message) {
-        System.out.println(message);
+        showMessage(message);
         mostraProves(proves);
-        System.out.println("");
         System.out.println( "\t" + (proves.size() + 1) + ") Back\n");
-        int num;
+        int num=-1;
         while (true) {
-            num = askForInt("Enter an option: ");
+            while (num==-1) {
+                num = askForInt("Enter an option: ");
+                if(num==-1){
+                    showMessage("\nPlease, enter a number ...");
+                }
+            }
             if (num > proves.size() + 1 || num <= 0) {
                 showMessage("ERROR. " + num + " is not an option. Try again.\n");
             } else {
@@ -205,12 +196,21 @@ public class UIManager {
         return num;
     }
 
+    /**
+     * Metodo para mostrar las pruebas en forma de lista
+     * @param proves Pruebas a mostrar
+     */
     public void mostraProves(ArrayList<String> proves) {
         for (int i = 0; i < proves.size(); i++) {
             System.out.print("\t"+ (i + 1) + ") " + proves.get(i) + "\n");
         }
     }
 
+    /**
+     * Metodo para mostrar por pantalla los detalles de una prueba en concreto
+     * @param proves Array de pruebas donde se seleccionara
+     * @param i Prueba seleccionada
+     */
     public void llistaProva(ArrayList<Prova> proves, int i) {
         if (i < proves.size()) {
             Prova p = proves.get(i);
@@ -241,6 +241,12 @@ public class UIManager {
         }
     }
 
+    /**
+     * Metodo para gestionar el input de confirmacion para borrar pruebas
+     * @param names Nombres de las pruebas creadas
+     * @param i Prueba a borrar
+     * @return
+     */
     public int trialNameConfirmation(ArrayList<String> names, int i) {
         if (i <= names.size()) {
             String name = askForString("\nEnter the trial's name for confirmation: ");
@@ -256,26 +262,22 @@ public class UIManager {
         return 0;
     }
 
-    public char menuGestioEdicio() {
-        Scanner scanner = new Scanner(System.in);
+    /**
+     *
+     * @return
+     */
+    public String menuGestioEdicio() {
         System.out.println("\n\ta) Create Edition\n\tb) List Editions\n\tc) Duplicate Edition\n\td) Delete Edition\n\n\te) Back\n");
-
-        char op = '\0';
+        String op;
         while (true) {
             System.out.print("Enter an option: ");
-            try {
-                op = stringOfOneToChar(scanner.nextLine());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e') {
+            op=sc.nextLine();
+            if (!(op.equals("a") || op.equals("b") || op.equals("c") || op.equals("d") || op.equals("e"))) {
                 System.out.println("ERROR. " + op + " is not an option. Try again\n");
-                continue;
+            }else {
+                return op;
             }
-            System.out.println("");
-            break;
         }
-        return op;
     }
 
     public void mostraEdicions(ArrayList<Integer> edicions) {

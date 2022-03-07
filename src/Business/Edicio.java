@@ -1,6 +1,9 @@
 package Business;
 
+import Business.Jugador.Jugador;
+import Business.Jugador.JugadorManager;
 import Business.Proves.Prova;
+import Business.Proves.ProvesManager;
 import Business.Resultados.ResultadoPrueba;
 
 import java.util.ArrayList;
@@ -250,5 +253,14 @@ public class Edicio {
      */
     public Iterator<Jugador> subirLvl() {
         return jm.subirLvl();
+    }
+
+    /**
+     * Metodo para comprobar si una prueba en concreto esta en una edicion en concreto
+     * @param nom Nombre de la prueba que se quiere mirar
+     * @return True si existe, false en caso contrario
+     */
+    public boolean existeixProvaAEdicio(String nom){
+        return pm.existeixProva(nom);
     }
 }

@@ -1,4 +1,4 @@
-package Business;
+package Business.Jugador;
 
 import Business.Resultados.ResultadoPrueba;
 

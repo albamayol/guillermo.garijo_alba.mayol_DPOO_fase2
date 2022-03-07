@@ -1,9 +1,9 @@
 package Persistance;
 
-import Business.Doctor;
-import Business.Enginyer;
-import Business.Jugador;
-import Business.Master;
+import Business.Jugador.Doctor;
+import Business.Jugador.Enginyer;
+import Business.Jugador.Jugador;
+import Business.Jugador.Master;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -58,13 +58,10 @@ public class DAOJugadorCSV {
             ArrayList<String> fileContent = new ArrayList<>(Files.readAllLines(path));
             for(String l:fileContent){
                 String[] tmp = l.split(",");
-                switch (tmp[3]){
-                    case "Enginyer":
-                        jugadores.add(new Enginyer(tmp[0],Integer.parseInt(tmp[1])));
-                    case "Master":
-                        jugadores.add(new Master(tmp[0],Integer.parseInt(tmp[1])));
-                    case "Doctor":
-                        jugadores.add(new Doctor(tmp[0],Integer.parseInt(tmp[1])));
+                switch (tmp[2]) {
+                    case "Enginyer" -> jugadores.add(new Enginyer(tmp[0], Integer.parseInt(tmp[1])));
+                    case "Master" -> jugadores.add(new Master(tmp[0], Integer.parseInt(tmp[1])));
+                    case "Doctor" -> jugadores.add(new Doctor(tmp[0], Integer.parseInt(tmp[1])));
                 }
             }
 

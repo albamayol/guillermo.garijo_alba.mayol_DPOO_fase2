@@ -1,9 +1,8 @@
 package Persistance;
 
 import Business.Edicio;
-import Business.JugadorManager;
-import Business.Proves.Prova;
-import Business.ProvesManager;
+import Business.Jugador.JugadorManager;
+import Business.Proves.ProvesManager;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

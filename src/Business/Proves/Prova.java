@@ -172,4 +172,11 @@ public abstract class Prova {
     public  String getCampEstudis(){
         return null;
     }
+
+    /**
+     * Setter de us a false
+     */
+    public void noUsada(){
+        us= false;
+    }
 }

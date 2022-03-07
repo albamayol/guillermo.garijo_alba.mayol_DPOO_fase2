@@ -16,7 +16,7 @@ public class ResultadoMaster extends ResultadoPrueba{
         super("EstudiMaster");
         this.aprobados=aprobados;
         this.suspendidos=suspendidos;
-        pasa=aprobados>suspendidos;
+        pasa=aprobados>=suspendidos;
     }
 
     @Override

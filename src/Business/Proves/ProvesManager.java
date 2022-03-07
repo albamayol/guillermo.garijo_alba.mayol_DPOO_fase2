@@ -1,6 +1,5 @@
-package Business;
+package Business.Proves;
 
-import Business.Proves.*;
 import Persistance.DAOProva;
 
 import java.util.ArrayList;
@@ -40,6 +39,9 @@ public class ProvesManager {
         proves.get(i).usada();
     }
 
+    public void setToNoUse(int i){
+        proves.get(i).noUsada();
+    }
     /**
      * Metodo para comprobar si el manager esta vacio
      * @return True si esta vacio, false en caso contrario
@@ -65,7 +67,7 @@ public class ProvesManager {
     public boolean existeixProva(String nom){
         Iterator<Prova> it = proves.iterator();
         while (it.hasNext()){
-            if(it.next().equals(nom)){
+            if(it.next().getNomProva().equals(nom)){
                 return true;
             }
         }
@@ -107,7 +109,7 @@ public class ProvesManager {
      * @param rejectionProb Probabilidad de ser rechazada
      */
     public void creaPaperPubli(String trialName, String journalName, String journalQuartile, int acceptanceProb, int revisionProb, int rejectionProb) {
-        proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, rejectionProb, rejectionProb));
+        proves.add(new PublicacioArticle(trialName, journalName, journalQuartile, acceptanceProb, revisionProb, rejectionProb));
     }
 
     /**
@@ -230,5 +232,14 @@ public class ProvesManager {
      */
     public void creaPressupost(String trialName, String entity, int budget) {
         proves.add(new SolicitudPressupost(trialName, entity, budget));
+    }
+
+    /**
+     * Metodo para poner en false el uso de todas las pruebas
+     */
+    public void setAllNoUse() {
+        for (Prova p:proves) {
+            p.noUsada();
+        }
     }
 }

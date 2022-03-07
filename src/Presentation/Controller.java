@@ -1,12 +1,14 @@
 package Presentation;
 
 import Business.*;
+import Business.Proves.ProvesManager;
 import Persistance.*;
 
 /**
  * Controlador general del programa
  */
 public class Controller {
+
     private UIManager ui;
     private ControllerCompositor cCompositor;
     private ControllerConductor cConductor;
@@ -40,8 +42,8 @@ public class Controller {
         this.cConductor=new ControllerConductor(em, ui);
 
         switch (ui.menuPrincipal()) {
-            case 'A' -> cCompositor.run();
-            case 'B' -> cConductor.run();
+            case "A" -> cCompositor.run();
+            case "B" -> cConductor.run();
         }
     }
 }

@@ -1,6 +1,10 @@
 package Persistance;
 
 import Business.*;
+import Business.Jugador.Doctor;
+import Business.Jugador.Enginyer;
+import Business.Jugador.Jugador;
+import Business.Jugador.Master;
 import Business.Proves.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +18,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

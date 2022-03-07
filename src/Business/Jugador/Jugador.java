@@ -1,11 +1,11 @@
-package Business;
+package Business.Jugador;
 
 /**
  * Super clase de jugadores
  */
 public abstract class Jugador {
-    private String nom;
-    private int PI;
+    protected String nom;
+    protected int PI;
     protected String tipusJugador;
 
     /**

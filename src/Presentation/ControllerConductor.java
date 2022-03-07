@@ -2,11 +2,13 @@ package Presentation;
 
 import Business.Edicio;
 import Business.EdicionsManager;
-import Business.Jugador;
+import Business.Jugador.Jugador;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Controller de los Conductores
+ */
 public class ControllerConductor {
     private UIManager ui;
     private EdicionsManager em;
@@ -46,7 +48,7 @@ public class ControllerConductor {
             return;
         }
         ui.showMessage("\nEntering execution mode...\n");
-        ui.showMessage("\nTHE TRIALS .......\n\n");
+        ui.showMessage("\nTHE TRIALS " + edActual.getAny() + "\n\n");
         if (!edActual.hayJugadores()) {
             for (int i = 1; i <= edActual.getNumJugadors(); i++) {
                 edActual.addJugador(ui.askForString("Enter the player's name (" + i + "/" + edActual.getNumJugadors() + "): "));
